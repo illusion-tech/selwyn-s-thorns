@@ -1,7 +1,10 @@
 {
-    "$schema": "https://json.schemastore.org/swcrc",
-    "jsc": {
-      "target": "es2018",
-      "preserveAllComments": true
-    }
-  }
+  "$schema": "https://json.schemastore.org/swcrc",
+  "jsc": {
+    "target": "es2018",
+    "preserveAllComments": true
+  },
+  "exclude": [
+    "src/types.d.ts"
+  ]
+}
