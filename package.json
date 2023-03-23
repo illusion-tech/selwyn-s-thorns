@@ -5,6 +5,7 @@
   "main": "index.js",
   "packageManager": "pnpm@7.30.1",
   "scripts": {
+    "build": "swc src -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
