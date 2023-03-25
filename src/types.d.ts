@@ -100,9 +100,38 @@ interface CreateClippedLayerParams extends BaseObjectParams {
 
 type CreateLayerParams = CreateNoClippedLayerParams | CreateClippedLayerParams;
 
+interface CreateOptionParams extends BaseObjectParams {
+    /**
+     * 正常态资源 ID。
+     */
+    nResId: string,
+    /**
+     * 点击态资源 ID。
+     */
+    sResId: string,
+    /**
+     * 选项文字内容。
+     */
+    content: string;
+    /**
+     * 点击音效。
+     */
+    clickAudio: {
+        /**
+         * 音效资源 ID。
+         */
+        resId: string,
+        /**
+         * 音量百分比。
+         */
+        vol: number
+    }
+}
+
 declare const ac = {
-    /** 创建图片 */ createImage: (params: CreateImageParams) => Promise<void>,
-    /** 创建图层 */ createLayer: (params: CreateLayerParams) => Promise<void>,
+    /** 创建图片 */ createImage: async (params: CreateImageParams) => Promise<void>,
+    /** 创建图层 */ createLayer: async (params: CreateLayerParams) => Promise<void>,
+    /** 创建选项 */ createOption: async (params: CreateOptionParams) => Promise<void>,
 };
 
 declare const 记号: {
