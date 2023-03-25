@@ -3,11 +3,13 @@ lockfileVersion: 5.4
 specifiers:
   '@swc/cli': ^0.1.62
   '@swc/core': ^1.3.42
+  rome: 11.0.0-nightly.763fd98
   typescript: ^5.0.2
 
 devDependencies:
   '@swc/cli': 0.1.62_@swc+core@1.3.42
   '@swc/core': 1.3.42
+  rome: 11.0.0-nightly.763fd98
   typescript: 5.0.2
 
 packages:
@@ -46,6 +48,54 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
     dev: true
+
+  /@rometools/cli-darwin-arm64/11.0.0-nightly.763fd98:
+    resolution: {integrity: sha512-s3M3nqlgRS0wWGHawMH8HQlcEBzLhBh2HL/rDocgEFijVyRVajF6/izs6c/kOudfUwR4YhOURtMgSsIWssy/6A==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-darwin-x64/11.0.0-nightly.763fd98:
+    resolution: {integrity: sha512-7GegIbSVkJm09us2dZ0b28vKDNSBwWKaV7LJ3Cx0JBhUqO+OEELU80kalk8B5UJwYdu7pyAKa0Bx+K+jB1eIrg==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-linux-arm64/11.0.0-nightly.763fd98:
+    resolution: {integrity: sha512-bN++yoRtLsfZNbPOwyZqfJbbBeEYZgrpqoEdV3I/+d23tHUkD/EU7teVxz0Xzyfa7To6SdWDqDzpvmjEdmQ7BQ==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-linux-x64/11.0.0-nightly.763fd98:
+    resolution: {integrity: sha512-GOpP64esg3rOXjjaxA2a7TbFqfEjo7rbfGo99aue5sW1rCRIQUMxOXPmjVz4C5ZtQ2V9uUdvAbMHLwBGRx+IGA==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-win32-arm64/11.0.0-nightly.763fd98:
+    resolution: {integrity: sha512-wDVH9wQjh6idTp1U9lWsvrfTqZUbMx8+HjK/gp42+1COz551TBM6DROGUXOWJjXiggrYXJ4P291YWXYCYIGZCQ==}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rometools/cli-win32-x64/11.0.0-nightly.763fd98:
+    resolution: {integrity: sha512-H9aLq2DYIDHtCRH/5PhlRsNO/FnFzryJbvYJrbLkcgFhxcAnVelBz38TGrjKG3GYrpdF4u7PTiFZ6Vz/sUNX2A==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /@sindresorhus/is/4.6.0:
     resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
@@ -726,6 +776,20 @@ packages:
   /reusify/1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+    dev: true
+
+  /rome/11.0.0-nightly.763fd98:
+    resolution: {integrity: sha512-IdK4Sq2uMxRjb43MDn+4mYVkqIZSxS1lxFQ8PRZUptmVoazw7eUTOLjLxR9eoSejsYD6h7tYgtsXX16JcX1ogQ==}
+    engines: {node: '>=14.*'}
+    hasBin: true
+    requiresBuild: true
+    optionalDependencies:
+      '@rometools/cli-darwin-arm64': 11.0.0-nightly.763fd98
+      '@rometools/cli-darwin-x64': 11.0.0-nightly.763fd98
+      '@rometools/cli-linux-arm64': 11.0.0-nightly.763fd98
+      '@rometools/cli-linux-x64': 11.0.0-nightly.763fd98
+      '@rometools/cli-win32-arm64': 11.0.0-nightly.763fd98
+      '@rometools/cli-win32-x64': 11.0.0-nightly.763fd98
     dev: true
 
   /run-parallel/1.2.0:
