@@ -130,10 +130,53 @@ interface CreateOptionParams extends BaseObjectParams {
     onTouchEnded: () => void;
 }
 
+enum EffectTypes {
+    /** 正常效果 */ normal = "normal",
+    /** 渐入效果 */ fadein = "fadein",
+    /** 渐出效果 */ fadeout = "fadeout",
+    /** 由上移入 */ moveinTop = "moveinTop",
+    /** 由左移入 */ moveinLeft = "moveinLeft",
+    /** 由右移入 */ moveinRight = "moveinRight",
+    /** 由下移入 */ moveinBottom = "moveinBottom",
+}
+
+interface BaseRemoveParams {
+    /**
+     * 对象名称。
+     */
+    name: string;
+    /**
+     * 可跳过。
+     */
+    canskip: boolean;
+}
+
+interface NormalRemoveParams extends BaseRemoveParams {
+    /**
+     * 消失效果。
+     */
+    effect: EffectTypes.normal;
+}
+
+interface FadeoutRemoveParams extends BaseRemoveParams {
+    /**
+     * 消失效果。
+     */
+    effect: EffectTypes.fadeout;
+    /**
+     * 效果时长。
+     */
+    duration: number;
+}
+
+type RemoveParams = NormalRemoveParams | FadeoutRemoveParams;
+
 declare const ac = {
+    /** 特效类型 */ EFFECT_TYPES: EffectTypes,
     /** 创建图片 */ createImage: async (params: CreateImageParams) => Promise<void>,
     /** 创建图层 */ createLayer: async (params: CreateLayerParams) => Promise<void>,
     /** 创建选项 */ createOption: async (params: CreateOptionParams) => Promise<void>,
+    /** 移除对象 */ remove: async (params: RemoveParams) => Promise<void>,
 };
 
 declare const 记号: {
