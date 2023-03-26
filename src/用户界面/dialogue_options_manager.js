@@ -173,7 +173,7 @@ class 对话选项管理器类 {
             const 坐标 = 选项布局.shift();
             if (!坐标) throw alert(`对话选项面板<${面板.编号}>的选项布局不足！`);
 
-            await ac.createOption({
+            ac.createOption({
                 name: `对话选项面板_${面板.编号}_选项_${选项编号}`,
                 index: 1,
                 inlayer: 图层名称,
@@ -183,6 +183,11 @@ class 对话选项管理器类 {
                 pos: { x: 坐标[0], y: 坐标[1] },
                 anchor: { x: 50, y: 50 },
                 clickAudio: { resId: "$51624", vol: 100 },
+                onTouchEnded: async () => {
+                    await 选项.结果执行函数();
+                    选项.结果执行函数 = 选项编号;
+                    console.log({选项编号});
+                }
             });
 
             选项编号 += 1;

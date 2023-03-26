@@ -104,11 +104,11 @@ interface CreateOptionParams extends BaseObjectParams {
     /**
      * 正常态资源 ID。
      */
-    nResId: string,
+    nResId: string;
     /**
      * 点击态资源 ID。
      */
-    sResId: string,
+    sResId: string;
     /**
      * 选项文字内容。
      */
@@ -120,12 +120,14 @@ interface CreateOptionParams extends BaseObjectParams {
         /**
          * 音效资源 ID。
          */
-        resId: string,
+        resId: string;
         /**
          * 音量百分比。
          */
-        vol: number
-    }
+        vol: number;
+    };
+    onTouchBegan: () => void;
+    onTouchEnded: () => void;
 }
 
 declare const ac = {
