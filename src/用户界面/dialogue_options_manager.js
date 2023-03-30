@@ -21,6 +21,11 @@ class 对话选项 {
      */
     结果执行函数 = () => {};
 
+    /**
+     * @type {number | null}
+     */
+    插播剧情唯一标识 = null;
+
     设置对话选项内容(内容) {
         this.内容 = 内容;
         return this;
@@ -38,6 +43,14 @@ class 对话选项 {
 
     设置对话选项执行结果(结果执行函数) {
         this.结果执行函数 = 结果执行函数;
+        return this;
+    }
+
+    /**
+     * @param {{剧情唯一标识: string}} 参数
+     */
+    设置结果完成后插播的剧情(参数) {
+        this.插播剧情唯一标识 = 参数.剧情唯一标识;
         return this;
     }
 }
@@ -81,22 +94,14 @@ class 对话选项面板 {
     }
 }
 
-class 人物管理器 {
-    static 黛瑞雅 = {
-        谦逊: 0,
-        魅力: 0,
-        力量: 0,
-    };
-}
-
 class 对话选项管理器类 {
     /**
      * @type {Map<number, 对话选项面板>}
      */
-    面板集合 = new Map();
+    #面板集合 = new Map();
 
     // rome-ignore format: 特定布局数组不需要格式化
-    预定义对话选项布局 = [
+    #预定义对话选项布局 = [
         [ [376, 120], [924, 120] ],
         [],
         [],
@@ -110,9 +115,102 @@ class 对话选项管理器类 {
      * @param {number} 选项数量
      * @returns {[x: number, y: number][]}
      */
-    获取预定义对话选项布局(选项数量) {
+    #获取预定义对话选项布局(选项数量) {
         // 复制数组，避免修改原数组
-        return this.预定义对话选项布局[选项数量 - 2].map((坐标) => [...坐标]);
+        return this.#预定义对话选项布局[选项数量 - 2].map((坐标) => [...坐标]);
+    }
+
+    /**
+     * @typedef {object} 属性探针检测结果
+     * @property {string} 属性 - 变化的属性
+     * @property {number} 变化 - 变化的数值
+     * @param {string} 图层名称
+     * @param {属性探针检测结果} 属性探针检测结果
+     */
+    async #播放蔷薇徽章动画(图层名称, 属性探针检测结果) {
+        const 动画序列 =
+            属性探针检测结果.属性 === "谦逊"
+                ? [
+                      { resId: "$51533657", time: 18 },
+                      { resId: "$51533428", time: 18 },
+                      { resId: "$51533429", time: 18 },
+                      { resId: "$51533430", time: 18 },
+                      { resId: "$51533431", time: 18 },
+                      { resId: "$51533433", time: 18 },
+                      { resId: "$51533434", time: 18 },
+                      { resId: "$51533435", time: 18 },
+                      { resId: "$51533436", time: 18 },
+                      { resId: "$51533437", time: 18 },
+                      { resId: "$51533438", time: 18 },
+                      { resId: "$51533439", time: 18 },
+                      { resId: "$51533440", time: 18 },
+                      { resId: "$51533441", time: 18 },
+                      { resId: "$51533442", time: 18 },
+                      { resId: "$51533443", time: 18 },
+                      { resId: "$51533444", time: 18 },
+                      { resId: "$51533445", time: 18 },
+                      { resId: "$51533446", time: 18 },
+                      { resId: "$51533447", time: 18 },
+                      { resId: "$51533448", time: 18 },
+                      { resId: "$51533449", time: 18 },
+                      { resId: "$51533450", time: 18 },
+                      { resId: "$51533451", time: 18 },
+                      { resId: "$51533452", time: 18 },
+                      { resId: "$51533453", time: 18 },
+                      { resId: "$51533454", time: 18 },
+                      { resId: "$51533455", time: 18 },
+                      { resId: "$51533657", time: 18 },
+                  ]
+                : [
+                      { resId: "$51533657", time: 18 },
+                      { resId: "$51541582", time: 18 },
+                      { resId: "$51541583", time: 18 },
+                      { resId: "$51541584", time: 18 },
+                      { resId: "$51541585", time: 18 },
+                      { resId: "$51541586", time: 18 },
+                      { resId: "$51541587", time: 18 },
+                      { resId: "$51541588", time: 18 },
+                      { resId: "$51541589", time: 18 },
+                      { resId: "$51541590", time: 18 },
+                      { resId: "$51541591", time: 18 },
+                      { resId: "$51541592", time: 18 },
+                      { resId: "$51541593", time: 18 },
+                      { resId: "$51541594", time: 18 },
+                      { resId: "$51541595", time: 18 },
+                      { resId: "$51541596", time: 18 },
+                      { resId: "$51541597", time: 18 },
+                      { resId: "$51541598", time: 18 },
+                      { resId: "$51541599", time: 18 },
+                      { resId: "$51541600", time: 18 },
+                      { resId: "$51541601", time: 18 },
+                      { resId: "$51541602", time: 18 },
+                      { resId: "$51541603", time: 18 },
+                      { resId: "$51541604", time: 18 },
+                      { resId: "$51541605", time: 18 },
+                      { resId: "$51541606", time: 18 },
+                      { resId: "$51541607", time: 18 },
+                      { resId: "$51541608", time: 18 },
+                      { resId: "$51541609", time: 18 },
+                      { resId: "$51541610", time: 18 },
+                      { resId: "$51541611", time: 18 },
+                      { resId: "$51541612", time: 18 },
+                      { resId: "$51541613", time: 18 },
+                      { resId: "$51541614", time: 18 },
+                      { resId: "$51541615", time: 18 },
+                      { resId: "$51533657", time: 18 },
+                  ];
+
+        await ac.createSequence({
+            name: "rose_animate",
+            index: 0,
+            inlayer: 图层名称,
+            resGroup: 动画序列,
+            pos: { x: 652, y: 116 },
+            anchor: { x: 50, y: 50 },
+            visible: true,
+        });
+
+        await ac.delay({ time: 1000 });
     }
 
     /**
@@ -123,19 +221,19 @@ class 对话选项管理器类 {
         if (!参数.编号) throw alert("对话选项面板必须有编号！");
         if (!参数.描述) throw alert("对话选项面板必须有描述！");
         if (参数.可选项.length < 2 || 参数.可选项.length > 7) throw alert("对话选项面板必须有2到6个选项！");
-        if (this.面板集合.has(参数.编号)) throw alert(`对话选项面板编号<${参数.编号}>重复！`);
+        if (this.#面板集合.has(参数.编号)) throw alert(`对话选项面板编号<${参数.编号}>重复！`);
 
         const 面板 = new 对话选项面板(参数);
 
-        this.面板集合.set(参数.编号, 面板);
+        this.#面板集合.set(参数.编号, 面板);
 
         return 面板;
     }
 
     创建对话选项(参数) {
         const 选项 = new 对话选项();
-        if (参数?.对话内容) 选项.设置对话选项内容(参数.对话内容);
-
+        if (参数?.选项内容) 选项.设置对话选项内容(参数.选项内容);
+        if (参数?.插播剧情) 选项.设置结果完成后插播的剧情(参数.插播剧情);
         return 选项;
     }
 
@@ -146,7 +244,7 @@ class 对话选项管理器类 {
      * @param {显示面板参数} 参数
      */
     async 显示对话选项面板(参数) {
-        const 面板 = this.面板集合.get(参数.编号);
+        const 面板 = this.#面板集合.get(参数.编号);
         if (!面板) throw alert(`编号<${参数.编号}>的对话选项面板不存在！`);
         const 图层名称 = `对话选项面板_${面板.编号}_图层`;
         await ac.createLayer({
@@ -164,15 +262,16 @@ class 对话选项管理器类 {
             pos: { x: 652, y: 130 },
             anchor: { x: 50, y: 50 },
         });
+        const 蔷薇徽章名称 = `对话选项面板_${面板.编号}_蔷薇徽章`;
         await ac.createImage({
-            name: `对话选项面板_${面板.编号}_蔷薇徽章`,
+            name: 蔷薇徽章名称,
             index: 0,
             inlayer: 图层名称,
             resId: "$51362896", // 灰蔷薇徽章
             pos: { x: 652, y: 116 },
             anchor: { x: 50, y: 50 },
         });
-        const 选项布局 = this.获取预定义对话选项布局(面板.可选项.length);
+        const 选项布局 = this.#获取预定义对话选项布局(面板.可选项.length);
 
         /** @type {number} */
         const 选择的选项编号 = await new Promise((resolve) => {
@@ -191,23 +290,32 @@ class 对话选项管理器类 {
                     anchor: { x: 50, y: 50 },
                     clickAudio: { resId: "$51624", vol: 100 },
                     onTouchEnded: async () => {
+                        const 属性探针 = 人物管理器.黛瑞雅.获取属性探针();
                         await 选项.结果执行函数();
                         面板.选择状态 = 选项编号;
+                        ac.arr.对话选项结果[面板.编号 - 1] = 选项编号;
+
+                        const 属性探测结果 = 属性探针.检测();
+                        await this.#播放蔷薇徽章动画(图层名称, 属性探测结果);
+                        // 人物管理器.黛瑞雅.没有强性格偏向;
+
+                        await ac.remove({
+                            name: 图层名称,
+                            effect: ac.EFFECT_TYPES.normal,
+                            canskip: true,
+                        });
+                        if (选项.插播剧情唯一标识)
+                            ac.display({
+                                plotId: 选项.插播剧情唯一标识,
+                                transition: ac.SCENE_TRANSITION_TYPES.normal,
+                            });
                         resolve(选项编号);
                     },
                 });
             });
         });
 
-        ac.arr.对话选项结果[面板.编号 - 1] = 选择的选项编号;
-
-        await ac.remove({
-            name: 图层名称,
-            effect: ac.EFFECT_TYPES.normal,
-            canskip: true,
-        });
-
-        console.log({ 面板编号: 面板.编号, 选择的选项编号, 面板集合: this.面板集合 });
+        console.log({ 面板编号: 面板.编号, 选择的选项编号, 面板集合: this.#面板集合 });
     }
 }
 
@@ -227,16 +335,66 @@ async function 测试() {
             当不满足时提示: "谦虚太低",
         })
         .设置对话选项执行结果(() => {
-            人物管理器.黛瑞雅.谦逊 += 5;
-            人物管理器.黛瑞雅.魅力 += 5;
-            人物管理器.黛瑞雅.力量 += 5;
+            人物管理器.黛瑞雅.谦逊 += 3;
+        })
+        .设置结果完成后插播的剧情({
+            剧情唯一标识: 3314398,
         });
-    const 选项2 = 对话选项管理器.创建对话选项({ 对话内容: "婉拒阿斯托利亚" });
-    const 面板 = 对话选项管理器.创建对话选项面板({
+    const 选项2 = 对话选项管理器.创建对话选项({
+        选项内容: "婉拒阿斯托利亚",
+        插播剧情: 3314398,
+        执行结果: () => (人物管理器.黛瑞雅.傲慢 += 1),
+    });
+
+    对话选项管理器.创建对话选项面板({
         编号: 1,
         描述: "阿斯托利亚想要看看你的项链",
         可选项: [选项1, 选项2],
     });
 
     await 对话选项管理器.显示对话选项面板({ 编号: 1 });
+
+    await ac.createSequence({
+        name: "GreyRose",
+        index: 0,
+        inlayer: "window",
+        resGroup: [
+            { resId: "$51533657", time: 18 },
+            { resId: "$51533428", time: 18 },
+            { resId: "$51533429", time: 18 },
+            { resId: "$51533430", time: 18 },
+            { resId: "$51533431", time: 18 },
+            { resId: "$51533433", time: 18 },
+            { resId: "$51533434", time: 18 },
+            { resId: "$51533435", time: 18 },
+            { resId: "$51533436", time: 18 },
+            { resId: "$51533437", time: 18 },
+            { resId: "$51533438", time: 18 },
+            { resId: "$51533439", time: 18 },
+            { resId: "$51533440", time: 18 },
+            { resId: "$51533441", time: 18 },
+            { resId: "$51533442", time: 18 },
+            { resId: "$51533443", time: 18 },
+            { resId: "$51533444", time: 18 },
+            { resId: "$51533445", time: 18 },
+            { resId: "$51533446", time: 18 },
+            { resId: "$51533447", time: 18 },
+            { resId: "$51533448", time: 18 },
+            { resId: "$51533449", time: 18 },
+            { resId: "$51533450", time: 18 },
+            { resId: "$51533451", time: 18 },
+            { resId: "$51533452", time: 18 },
+            { resId: "$51533453", time: 18 },
+            { resId: "$51533454", time: 18 },
+            { resId: "$51533455", time: 18 },
+            { resId: "$51533657", time: 18 },
+        ],
+        pos: { x: 652, y: 116 },
+        anchor: { x: 50, y: 50 },
+        horizontalFlip: false,
+        verticalFlip: false,
+        opacity: 100,
+        scale: 100,
+        visible: true,
+    });
 }

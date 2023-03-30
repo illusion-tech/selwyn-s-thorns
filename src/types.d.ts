@@ -151,6 +151,54 @@ interface BaseRemoveParams {
     canskip: boolean;
 }
 
+enum SceneTransitionTypes {
+    /** 直接切换 */ normal = "normal",
+    fade = "fade",
+    fadeBl = "fadeBl",
+    fadeUp = "fadeUp",
+    fadeTr = "fadeTr",
+    moveinB = "moveinB",
+    moveinL = "moveinL",
+    moveinR = "moveinR",
+    moveinT = "moveinT",
+    radialCw = "radialCw",
+    fadeDown = "fadeDown",
+    slideinB = "slideinB",
+    slideinL = "slideinL",
+    slideinR = "slideinR",
+    slideinT = "slideinT",
+    jumpzoom = "jumpzoom",
+    rotozoom = "rotozoom",
+    radialCcw = "radialCcw",
+    fadeWhite = "fadeWhite",
+    crossfade = "crossfade",
+    splitcols = "splitcols",
+    splitrows = "splitrows",
+    shrinkgrow = "shrinkgrow",
+    pageForward = "pageForward",
+    pageBackward = "pageBackward",
+    turnofftiles = "turnofftiles",
+    progressInout = "progressInout",
+    progressOutin = "progressOutin",
+    progressVertical = "progressVertical",
+    progressHorizontal = "progressHorizontal",
+}
+
+interface DisplayParams {
+    /**
+     * 剧情唯一标识。
+     */
+    plotId: number;
+    /**
+     * 切换效果。
+     */
+    transition: SceneTransitionTypes;
+    /**
+     * 效果时长。
+     */
+    duration?: number;
+}
+
 interface NormalRemoveParams extends BaseRemoveParams {
     /**
      * 消失效果。
@@ -173,14 +221,25 @@ type RemoveParams = NormalRemoveParams | FadeoutRemoveParams;
 
 interface ArrayVariables {
     对话选项结果: number[];
+    黛瑞雅性格属性: [谦逊: number, 傲慢: number];
+}
+
+interface DelayParams {
+    /**
+     * 延迟时间。
+     */
+    time: number;
 }
 
 interface AC {
     /** 数组变量 */ arr: ArrayVariables;
     /** 特效类型 */ EFFECT_TYPES: typeof EffectTypes;
+    /** 场景切换类型 */ SCENE_TRANSITION_TYPES: typeof SceneTransitionTypes;
     /** 创建图片 */ createImage(params: CreateImageParams): Promise<void>;
     /** 创建图层 */ createLayer(params: CreateLayerParams): Promise<void>;
     /** 创建选项 */ createOption(params: CreateOptionParams): Promise<void>;
+    /** 延迟 */ delay(params: DelayParams): Promise<void>;
+    /** 插播剧情 */ display(params: DisplayParams): Promise<void>;
     /** 移除对象 */ remove(params: RemoveParams): Promise<void>;
 }
 
