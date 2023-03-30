@@ -231,6 +231,29 @@ interface DelayParams {
     time: number;
 }
 
+interface PlayAudioParams {
+    /**
+     * 对象名称。
+     */
+    name: string;
+    /**
+     * 音效资源唯一标识。
+     */
+    resId: string;
+    /**
+     * 音量百分比。
+     */
+    vol: number;
+    /**
+     * 播放效果
+     */
+    effect: "normal" | "fadein";
+    /**
+     * 淡入播放效果时长。
+     */
+    duration?: number;
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 特效类型     */ EFFECT_TYPES: typeof EffectTypes;
@@ -240,6 +263,7 @@ interface AC {
     /** 创建选项     */ createOption(params: CreateOptionParams): Promise<void>;
     /** 延迟         */ delay(params: DelayParams): Promise<void>;
     /** 插播剧情     */ display(params: DisplayParams): Promise<void>;
+    /** 播放音效     */ playAudio(params: PlayAudioParams): Promise<void>;
     /** 移除对象     */ remove(params: RemoveParams): Promise<void>;
 }
 

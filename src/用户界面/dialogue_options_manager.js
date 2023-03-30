@@ -285,6 +285,13 @@ class 对话选项管理器类 {
                         const 属性探测结果 = 属性探针.检测();
                         const 动画序列 = this.#获取蔷薇徽章动画序列(属性探测结果);
                         await ac.remove({ name: 蔷薇徽章名称, effect: ac.EFFECT_TYPES.normal });
+                        ac.playAudio({
+                            name: "playAudio02",
+                            resId: "$51542664",
+                            vol: 100,
+                            effect: "normal",
+                            loop: false,
+                        });
                         await ac.createSequence({
                             name: "rose_animate",
                             index: 0,
