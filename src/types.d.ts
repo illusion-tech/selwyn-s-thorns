@@ -171,13 +171,20 @@ interface FadeoutRemoveParams extends BaseRemoveParams {
 
 type RemoveParams = NormalRemoveParams | FadeoutRemoveParams;
 
-declare const ac = {
-    /** 特效类型 */ EFFECT_TYPES: EffectTypes,
-    /** 创建图片 */ createImage: async (params: CreateImageParams) => Promise<void>,
-    /** 创建图层 */ createLayer: async (params: CreateLayerParams) => Promise<void>,
-    /** 创建选项 */ createOption: async (params: CreateOptionParams) => Promise<void>,
-    /** 移除对象 */ remove: async (params: RemoveParams) => Promise<void>,
-};
+interface ArrayVariables {
+    对话选项结果: number[];
+}
+
+interface AC {
+    /** 数组变量 */ arr: ArrayVariables;
+    /** 特效类型 */ EFFECT_TYPES: typeof EffectTypes;
+    /** 创建图片 */ createImage(params: CreateImageParams): Promise<void>;
+    /** 创建图层 */ createLayer(params: CreateLayerParams): Promise<void>;
+    /** 创建选项 */ createOption(params: CreateOptionParams): Promise<void>;
+    /** 移除对象 */ remove(params: RemoveParams): Promise<void>;
+}
+
+declare const ac: AC;
 
 declare const 记号: {
     对话选项管理器: symbol;

@@ -1,3 +1,4 @@
+/// <reference  path="../types.d.ts" />
 /**
  * 对话选项类
  * @typedef {object} 条件
@@ -6,6 +7,10 @@
  * @class
  */
 class 对话选项 {
+    /**
+     * @type {number | null}
+     */
+    编号 = null;
     内容 = "";
     /**
      * @type {条件[]}
@@ -168,30 +173,41 @@ class 对话选项管理器类 {
             anchor: { x: 50, y: 50 },
         });
         const 选项布局 = this.获取预定义对话选项布局(面板.可选项.length);
-        let 选项编号 = 1;
-        for (const 选项 of 面板.可选项) {
-            const 坐标 = 选项布局.shift();
-            if (!坐标) throw alert(`对话选项面板<${面板.编号}>的选项布局不足！`);
 
-            ac.createOption({
-                name: `对话选项面板_${面板.编号}_选项_${选项编号}`,
-                index: 1,
-                inlayer: 图层名称,
-                nResId: "$51362894",
-                sResId: "$51362892",
-                content: 选项.内容,
-                pos: { x: 坐标[0], y: 坐标[1] },
-                anchor: { x: 50, y: 50 },
-                clickAudio: { resId: "$51624", vol: 100 },
-                onTouchEnded: async () => {
-                    await 选项.结果执行函数();
-                    选项.结果执行函数 = 选项编号;
-                    console.log({选项编号});
-                }
+        /** @type {number} */
+        const 选择的选项编号 = await new Promise((resolve) => {
+            面板.可选项.forEach((选项, 索引编号) => {
+                const 坐标 = 选项布局.shift();
+                if (!坐标) throw alert(`对话选项面板<${面板.编号}>的选项布局不足！`);
+                const 选项编号 = 索引编号 + 1;
+                ac.createOption({
+                    name: `对话选项面板_${面板.编号}_选项_${选项编号}`,
+                    index: 1,
+                    inlayer: 图层名称,
+                    nResId: "$51362894",
+                    sResId: "$51362892",
+                    content: 选项.内容,
+                    pos: { x: 坐标[0], y: 坐标[1] },
+                    anchor: { x: 50, y: 50 },
+                    clickAudio: { resId: "$51624", vol: 100 },
+                    onTouchEnded: async () => {
+                        await 选项.结果执行函数();
+                        面板.选择状态 = 选项编号;
+                        resolve(选项编号);
+                    },
+                });
             });
+        });
 
-            选项编号 += 1;
-        }
+        ac.arr.对话选项结果[面板.编号 - 1] = 选择的选项编号;
+
+        await ac.remove({
+            name: 图层名称,
+            effect: ac.EFFECT_TYPES.normal,
+            canskip: true,
+        });
+
+        console.log({ 面板编号: 面板.编号, 选择的选项编号, 面板集合: this.面板集合 });
     }
 }
 
