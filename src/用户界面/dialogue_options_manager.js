@@ -124,93 +124,79 @@ class 对话选项管理器类 {
      * @typedef {object} 属性探针检测结果
      * @property {string} 属性 - 变化的属性
      * @property {number} 变化 - 变化的数值
-     * @param {string} 图层名称
      * @param {属性探针检测结果} 属性探针检测结果
      */
-    async #播放蔷薇徽章动画(图层名称, 属性探针检测结果) {
-        const 动画序列 =
-            属性探针检测结果.属性 === "谦逊"
-                ? [
-                      { resId: "$51533657", time: 18 },
-                      { resId: "$51533428", time: 18 },
-                      { resId: "$51533429", time: 18 },
-                      { resId: "$51533430", time: 18 },
-                      { resId: "$51533431", time: 18 },
-                      { resId: "$51533433", time: 18 },
-                      { resId: "$51533434", time: 18 },
-                      { resId: "$51533435", time: 18 },
-                      { resId: "$51533436", time: 18 },
-                      { resId: "$51533437", time: 18 },
-                      { resId: "$51533438", time: 18 },
-                      { resId: "$51533439", time: 18 },
-                      { resId: "$51533440", time: 18 },
-                      { resId: "$51533441", time: 18 },
-                      { resId: "$51533442", time: 18 },
-                      { resId: "$51533443", time: 18 },
-                      { resId: "$51533444", time: 18 },
-                      { resId: "$51533445", time: 18 },
-                      { resId: "$51533446", time: 18 },
-                      { resId: "$51533447", time: 18 },
-                      { resId: "$51533448", time: 18 },
-                      { resId: "$51533449", time: 18 },
-                      { resId: "$51533450", time: 18 },
-                      { resId: "$51533451", time: 18 },
-                      { resId: "$51533452", time: 18 },
-                      { resId: "$51533453", time: 18 },
-                      { resId: "$51533454", time: 18 },
-                      { resId: "$51533455", time: 18 },
-                      { resId: "$51533657", time: 18 },
-                  ]
-                : [
-                      { resId: "$51533657", time: 18 },
-                      { resId: "$51541582", time: 18 },
-                      { resId: "$51541583", time: 18 },
-                      { resId: "$51541584", time: 18 },
-                      { resId: "$51541585", time: 18 },
-                      { resId: "$51541586", time: 18 },
-                      { resId: "$51541587", time: 18 },
-                      { resId: "$51541588", time: 18 },
-                      { resId: "$51541589", time: 18 },
-                      { resId: "$51541590", time: 18 },
-                      { resId: "$51541591", time: 18 },
-                      { resId: "$51541592", time: 18 },
-                      { resId: "$51541593", time: 18 },
-                      { resId: "$51541594", time: 18 },
-                      { resId: "$51541595", time: 18 },
-                      { resId: "$51541596", time: 18 },
-                      { resId: "$51541597", time: 18 },
-                      { resId: "$51541598", time: 18 },
-                      { resId: "$51541599", time: 18 },
-                      { resId: "$51541600", time: 18 },
-                      { resId: "$51541601", time: 18 },
-                      { resId: "$51541602", time: 18 },
-                      { resId: "$51541603", time: 18 },
-                      { resId: "$51541604", time: 18 },
-                      { resId: "$51541605", time: 18 },
-                      { resId: "$51541606", time: 18 },
-                      { resId: "$51541607", time: 18 },
-                      { resId: "$51541608", time: 18 },
-                      { resId: "$51541609", time: 18 },
-                      { resId: "$51541610", time: 18 },
-                      { resId: "$51541611", time: 18 },
-                      { resId: "$51541612", time: 18 },
-                      { resId: "$51541613", time: 18 },
-                      { resId: "$51541614", time: 18 },
-                      { resId: "$51541615", time: 18 },
-                      { resId: "$51533657", time: 18 },
-                  ];
-
-        await ac.createSequence({
-            name: "rose_animate",
-            index: 0,
-            inlayer: 图层名称,
-            resGroup: 动画序列,
-            pos: { x: 652, y: 116 },
-            anchor: { x: 50, y: 50 },
-            visible: true,
-        });
-
-        await ac.delay({ time: 1000 });
+    #获取蔷薇徽章动画序列(属性探针检测结果) {
+        return 属性探针检测结果.属性 === "谦逊"
+            ? [
+                  { resId: "$51533657", time: 18 },
+                  { resId: "$51533428", time: 18 },
+                  { resId: "$51533429", time: 18 },
+                  { resId: "$51533430", time: 18 },
+                  { resId: "$51533431", time: 18 },
+                  { resId: "$51533433", time: 18 },
+                  { resId: "$51533434", time: 18 },
+                  { resId: "$51533435", time: 18 },
+                  { resId: "$51533436", time: 18 },
+                  { resId: "$51533437", time: 18 },
+                  { resId: "$51533438", time: 18 },
+                  { resId: "$51533439", time: 18 },
+                  { resId: "$51533440", time: 18 },
+                  { resId: "$51533441", time: 18 },
+                  { resId: "$51533442", time: 18 },
+                  { resId: "$51533443", time: 18 },
+                  { resId: "$51533444", time: 18 },
+                  { resId: "$51533445", time: 18 },
+                  { resId: "$51533446", time: 18 },
+                  { resId: "$51533447", time: 18 },
+                  { resId: "$51533448", time: 18 },
+                  { resId: "$51533449", time: 18 },
+                  { resId: "$51533450", time: 18 },
+                  { resId: "$51533451", time: 18 },
+                  { resId: "$51533452", time: 18 },
+                  { resId: "$51533453", time: 18 },
+                  { resId: "$51533454", time: 18 },
+                  { resId: "$51533455", time: 18 },
+                  { resId: "$51533657", time: 18 },
+              ]
+            : [
+                  { resId: "$51533657", time: 18 },
+                  { resId: "$51541582", time: 18 },
+                  { resId: "$51541583", time: 18 },
+                  { resId: "$51541584", time: 18 },
+                  { resId: "$51541585", time: 18 },
+                  { resId: "$51541586", time: 18 },
+                  { resId: "$51541587", time: 18 },
+                  { resId: "$51541588", time: 18 },
+                  { resId: "$51541589", time: 18 },
+                  { resId: "$51541590", time: 18 },
+                  { resId: "$51541591", time: 18 },
+                  { resId: "$51541592", time: 18 },
+                  { resId: "$51541593", time: 18 },
+                  { resId: "$51541594", time: 18 },
+                  { resId: "$51541595", time: 18 },
+                  { resId: "$51541596", time: 18 },
+                  { resId: "$51541597", time: 18 },
+                  { resId: "$51541598", time: 18 },
+                  { resId: "$51541599", time: 18 },
+                  { resId: "$51541600", time: 18 },
+                  { resId: "$51541601", time: 18 },
+                  { resId: "$51541602", time: 18 },
+                  { resId: "$51541603", time: 18 },
+                  { resId: "$51541604", time: 18 },
+                  { resId: "$51541605", time: 18 },
+                  { resId: "$51541606", time: 18 },
+                  { resId: "$51541607", time: 18 },
+                  { resId: "$51541608", time: 18 },
+                  { resId: "$51541609", time: 18 },
+                  { resId: "$51541610", time: 18 },
+                  { resId: "$51541611", time: 18 },
+                  { resId: "$51541612", time: 18 },
+                  { resId: "$51541613", time: 18 },
+                  { resId: "$51541614", time: 18 },
+                  { resId: "$51541615", time: 18 },
+                  { resId: "$51533657", time: 18 },
+              ];
     }
 
     /**
@@ -234,6 +220,7 @@ class 对话选项管理器类 {
         const 选项 = new 对话选项();
         if (参数?.选项内容) 选项.设置对话选项内容(参数.选项内容);
         if (参数?.插播剧情) 选项.设置结果完成后插播的剧情(参数.插播剧情);
+        if (参数?.执行结果) 选项.设置对话选项执行结果(参数.执行结果);
         return 选项;
     }
 
@@ -296,14 +283,19 @@ class 对话选项管理器类 {
                         ac.arr.对话选项结果[面板.编号 - 1] = 选项编号;
 
                         const 属性探测结果 = 属性探针.检测();
-                        await this.#播放蔷薇徽章动画(图层名称, 属性探测结果);
-                        // 人物管理器.黛瑞雅.没有强性格偏向;
-
-                        await ac.remove({
-                            name: 图层名称,
-                            effect: ac.EFFECT_TYPES.normal,
-                            canskip: true,
+                        const 动画序列 = this.#获取蔷薇徽章动画序列(属性探测结果);
+                        await ac.remove({ name: 蔷薇徽章名称, effect: ac.EFFECT_TYPES.normal });
+                        await ac.createSequence({
+                            name: "rose_animate",
+                            index: 0,
+                            inlayer: 图层名称,
+                            resGroup: 动画序列,
+                            pos: { x: 652, y: 116 },
+                            anchor: { x: 50, y: 50 },
+                            visible: true,
                         });
+                        await ac.delay({ time: 1000 });
+                        await ac.remove({ name: 图层名称, effect: ac.EFFECT_TYPES.normal });
                         if (选项.插播剧情唯一标识)
                             ac.display({
                                 plotId: 选项.插播剧情唯一标识,
@@ -353,48 +345,4 @@ async function 测试() {
     });
 
     await 对话选项管理器.显示对话选项面板({ 编号: 1 });
-
-    await ac.createSequence({
-        name: "GreyRose",
-        index: 0,
-        inlayer: "window",
-        resGroup: [
-            { resId: "$51533657", time: 18 },
-            { resId: "$51533428", time: 18 },
-            { resId: "$51533429", time: 18 },
-            { resId: "$51533430", time: 18 },
-            { resId: "$51533431", time: 18 },
-            { resId: "$51533433", time: 18 },
-            { resId: "$51533434", time: 18 },
-            { resId: "$51533435", time: 18 },
-            { resId: "$51533436", time: 18 },
-            { resId: "$51533437", time: 18 },
-            { resId: "$51533438", time: 18 },
-            { resId: "$51533439", time: 18 },
-            { resId: "$51533440", time: 18 },
-            { resId: "$51533441", time: 18 },
-            { resId: "$51533442", time: 18 },
-            { resId: "$51533443", time: 18 },
-            { resId: "$51533444", time: 18 },
-            { resId: "$51533445", time: 18 },
-            { resId: "$51533446", time: 18 },
-            { resId: "$51533447", time: 18 },
-            { resId: "$51533448", time: 18 },
-            { resId: "$51533449", time: 18 },
-            { resId: "$51533450", time: 18 },
-            { resId: "$51533451", time: 18 },
-            { resId: "$51533452", time: 18 },
-            { resId: "$51533453", time: 18 },
-            { resId: "$51533454", time: 18 },
-            { resId: "$51533455", time: 18 },
-            { resId: "$51533657", time: 18 },
-        ],
-        pos: { x: 652, y: 116 },
-        anchor: { x: 50, y: 50 },
-        horizontalFlip: false,
-        verticalFlip: false,
-        opacity: 100,
-        scale: 100,
-        visible: true,
-    });
 }

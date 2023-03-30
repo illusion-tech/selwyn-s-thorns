@@ -40,11 +40,14 @@ class 人物管理器类 {
                  * @returns {属性探针检测结果}
                  */
                 检测() {
+                    let 属性探测结果 = null;
                     if (that.谦逊 - this.谦逊)
-                        return { 属性: "谦逊", 变化: that.谦逊 - this.谦逊, 旧值: this.谦逊, 新值: that.谦逊 };
+                        属性探测结果 = { 属性: "谦逊", 变化: that.谦逊 - this.谦逊, 旧值: this.谦逊, 新值: that.谦逊 };
                     if (that.傲慢 - this.傲慢)
-                        return { 属性: "傲慢", 变化: that.傲慢 - this.傲慢, 旧值: this.傲慢, 新值: that.傲慢 };
-                    throw alert("属性探针没有检测到属性值的变化");
+                        属性探测结果 = { 属性: "傲慢", 变化: that.傲慢 - this.傲慢, 旧值: this.傲慢, 新值: that.傲慢 };
+                    if (属性探测结果 === null) throw alert("属性探针没有检测到属性值的变化");
+                    console.log({ 属性探测结果 });
+                    return 属性探测结果;
                 },
             };
         },
