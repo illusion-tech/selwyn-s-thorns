@@ -17,7 +17,7 @@ class 对话选项 {
      */
     条件集 = [];
     /**
-     * @type {() => void}
+     * @type {() => void | Promise<void>}
      */
     结果执行函数 = () => {};
 
@@ -208,13 +208,13 @@ class 对话选项管理器类 {
      * @returns
      */
     创建对话选项面板(参数) {
-        if (!参数.编号) throw alert("对话选项面板必须有编号！");
+        if (!Number.isSafeInteger(参数.编号)) throw alert("对话选项面板必须有编号！");
         if (!参数.描述) throw alert("对话选项面板必须有描述！");
         if (参数.可选项.length < 2 || 参数.可选项.length > 7) throw alert("对话选项面板必须有2到6个选项！");
-        // if (this.#面板集合.has(参数.编号)) return this.#面板集合.get(参数.编号);
         console.log(ac.arr.对话选项结果, ac.arr.对话选项结果[this.#面板集合.length]);
 
         const 面板 = new 对话选项面板(参数);
+        面板.选择状态 = ac.arr.对话选项结果[this.#面板集合.length] ?? 0;
 
         this.#面板集合[参数.编号] = 面板;
 
@@ -322,13 +322,6 @@ class 对话选项管理器类 {
         console.log({ 面板编号: 面板.编号, 选择的选项编号, 面板集合: this.#面板集合 });
     }
 }
-
-// /**
-//  * @type {对话选项管理器类}
-//  */
-// const 对话选项管理器 = 容器.has(记号.对话选项管理器)
-//     ? 容器.get(记号.对话选项管理器)
-//     : (容器.set(记号.对话选项管理器, new 对话选项管理器类()), 容器.get(记号.对话选项管理器));
 
 const 对话选项管理器 = new 对话选项管理器类();
 
