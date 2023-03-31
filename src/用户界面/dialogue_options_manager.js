@@ -207,7 +207,7 @@ class 对话选项管理器类 {
         if (!参数.编号) throw alert("对话选项面板必须有编号！");
         if (!参数.描述) throw alert("对话选项面板必须有描述！");
         if (参数.可选项.length < 2 || 参数.可选项.length > 7) throw alert("对话选项面板必须有2到6个选项！");
-        if (this.#面板集合.has(参数.编号)) throw alert(`对话选项面板编号<${参数.编号}>重复！`);
+        if (this.#面板集合.has(参数.编号)) return this.#面板集合.get(参数.编号);
 
         const 面板 = new 对话选项面板(参数);
 
