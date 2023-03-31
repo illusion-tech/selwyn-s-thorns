@@ -134,43 +134,43 @@ enum EffectTypes {
     /** 正常效果 */ normal = "normal",
     /** 渐入效果 */ fadein = "fadein",
     /** 渐出效果 */ fadeout = "fadeout",
-    /** 由上移入 */ moveinTop = "moveinTop",
-    /** 由左移入 */ moveinLeft = "moveinLeft",
-    /** 由右移入 */ moveinRight = "moveinRight",
-    /** 由下移入 */ moveinBottom = "moveinBottom",
+    /** 由上移入 */ moveinTop = "movein-t",
+    /** 由左移入 */ moveinLeft = "movein-l",
+    /** 由右移入 */ moveinRight = "movein-r",
+    /** 由下移入 */ moveinBottom = "movein-b",
 }
 
 enum SceneTransitionTypes {
-    /** 直接切换 */ normal = "normal",
-    fade = "fade",
-    fadeBl = "fadeBl",
-    fadeUp = "fadeUp",
-    fadeTr = "fadeTr",
-    moveinB = "moveinB",
-    moveinL = "moveinL",
-    moveinR = "moveinR",
-    moveinT = "moveinT",
-    radialCw = "radialCw",
-    fadeDown = "fadeDown",
-    slideinB = "slideinB",
-    slideinL = "slideinL",
-    slideinR = "slideinR",
-    slideinT = "slideinT",
-    jumpzoom = "jumpzoom",
-    rotozoom = "rotozoom",
-    radialCcw = "radialCcw",
-    fadeWhite = "fadeWhite",
     crossfade = "crossfade",
+    fade = "fade",
+    fadeBl = "fade-bl",
+    fadeDown = "fade-down",
+    fadeTr = "fade-tr",
+    fadeUp = "fade-up",
+    fadeWhite = "fade-white",
+    jumpzoom = "jumpzoom",
+    moveinB = "movein-b",
+    moveinL = "movein-l",
+    moveinR = "movein-r",
+    moveinT = "movein-t",
+    normal = "normal",
+    pageBackward = "page-backward",
+    pageForward = "page-forward",
+    progressHorizontal = "progress-horizontal",
+    progressInout = "progress-inout",
+    progressOutin = "progress-outin",
+    progressVertical = "progress-vertical",
+    radialCcw = "radial-ccw",
+    radialCw = "radial-cw",
+    rotozoom = "rotozoom",
+    shrinkgrow = "shrinkgrow",
+    slideinB = "slidein-b",
+    slideinL = "slidein-l",
+    slideinR = "slidein-r",
+    slideinT = "slidein-t",
     splitcols = "splitcols",
     splitrows = "splitrows",
-    shrinkgrow = "shrinkgrow",
-    pageForward = "pageForward",
-    pageBackward = "pageBackward",
     turnofftiles = "turnofftiles",
-    progressInout = "progressInout",
-    progressOutin = "progressOutin",
-    progressVertical = "progressVertical",
-    progressHorizontal = "progressHorizontal",
 }
 
 interface DisplayParams {
@@ -275,25 +275,197 @@ interface CreateSequenceParams extends BaseObjectParams {
     }[];
 }
 
+enum TextDirectionTypes {
+    horizontal = "horizontal",
+    vertical = "vertical",
+}
+
+enum HAlignTypes {
+    left = "left",
+    middle = "middle",
+    right = "right",
+}
+
+enum VAlignTypes {
+    bottom = "bottom",
+    center = "center",
+    top = "top",
+}
+
+interface CreateTextParams extends BaseObjectParams {
+    /**
+     * 文本内容。
+     */
+    content: string;
+    /**
+     * 文本方向。
+     */
+    direction?: TextDirectionTypes;
+    /**
+     * 水平对齐类型。
+     */
+    halign?: HAlignTypes;
+    /**
+     * 垂直对齐类型。
+     */
+    valign?: VAlignTypes;
+    /**
+     * 文本框大小。
+     */
+    size: { width: number; height: number };
+}
+
+enum EventTypes {
+    onDragEnded = "onDragEnded",
+    onTouchBegan = "onTouchBegan",
+    onTouchEnded = "onTouchEnded",
+    onTouchEntered = "onTouchEntered",
+    onTouchLeft = "onTouchLeft",
+    onTouchMoved = "onTouchMoved",
+}
+
+interface AddEventListenerParams {
+    /**
+     * 事件类型。
+     */
+    type: EventTypes;
+    /**
+     * 事件侦听器。
+     */
+    listener: () => void | Promise<void>;
+    /**
+     * 事件侦听器作用目标。
+     */
+    target: string;
+}
+
+enum EaseTypes {
+    easeExponentialIn = "easeExponentialIn",
+    easeExponentialInOut = "easeExponentialInOut",
+    easeExponentialOut = "easeExponentialOut",
+    normal = "normal",
+}
+
+interface HideParams {
+    /**
+     * 对象名称。
+     */
+    name: string;
+    /**
+     * 消失效果。
+     */
+    effect: EffectTypes;
+    /**
+     * 效果时长。
+     */
+    duration: number;
+}
+
+interface MoveToParams {
+    /**
+     * 对象名称。
+     */
+    name: string;
+    /**
+     * 目标位置 x 坐标。
+     * @default 0
+     */
+    x?: number;
+    /**
+     * 目标位置 y 坐标。
+     * @default 0
+     */
+    y?: number;
+    /**
+     * 持续时间，单位：毫秒。
+     * @default 0
+     */
+    duration?: number;
+    /**
+     * 是否可跳过。
+     * @default true
+     */
+    canskip?: boolean;
+    /**
+     * 缓冲类型。
+     * @default ac.EASE_TYPES.normal
+     */
+    ease?: EaseTypes;
+}
+
+interface MoveByParams {
+    /**
+     * 对象名称。
+     */
+    name: string;
+    /**
+     * x 坐标偏移量。
+     * @default 0
+     */
+    x?: number;
+    /**
+     * y 坐标偏移量。
+     * @default 0
+     */
+    y?: number;
+    /**
+     * 持续时间，单位：毫秒。
+     * @default 0
+     */
+    duration?: number;
+    /**
+     * 是否可跳过。
+     * @default true
+     */
+    canskip?: boolean;
+    /**
+     * 缓冲类型。
+     * @default ac.EASE_TYPES.normal
+     */
+    ease?: EaseTypes;
+}
+
+interface GetPosParams {
+    /**
+     * 对象名称。
+     */
+    name: string;
+}
+
+interface 坐标对象 {
+    /**
+     * x 坐标。
+     */
+    x: number;
+    /**
+     * y 坐标。
+     */
+    y: number;
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
+    /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
     /** 特效类型     */ EFFECT_TYPES: typeof EffectTypes;
+    /** 事件类型     */ EVENT_TYPES: typeof EventTypes;
     /** 场景切换类型 */ SCENE_TRANSITION_TYPES: typeof SceneTransitionTypes;
+    /** 文本方向类型 */ TEXT_DIRECTION_TYPES: typeof TextDirectionTypes;
+    /** 水平对齐类型 */ HALIGN_TYPES: typeof HAlignTypes;
+    /** 垂直对齐类型 */ VALIGN_TYPES: typeof VAlignTypes;
+    /** 添加事件侦听 */ addEventListener(params: AddEventListenerParams): Promise<void>;
     /** 创建图片     */ createImage(params: CreateImageParams): Promise<void>;
     /** 创建图层     */ createLayer(params: CreateLayerParams): Promise<void>;
     /** 创建选项     */ createOption(params: CreateOptionParams): Promise<void>;
     /** 创建序列动画 */ createSequence(params: CreateSequenceParams): Promise<void>;
+    /** 创建文本     */ createText(params: CreateTextParams): Promise<void>;
     /** 延迟         */ delay(params: DelayParams): Promise<void>;
     /** 插播剧情     */ display(params: DisplayParams): Promise<void>;
+    /** 获取实体坐标 */ getPos(params: GetPosParams): Promise<坐标对象>;
+    /** 隐藏对象     */ hide(params: HideParams): Promise<void>;
+    /** 移到指定位置 */ moveTo(params: MoveToParams): Promise<void>;
+    /** 移动指定距离 */ moveBy(params: MoveByParams): Promise<void>;
     /** 播放音效     */ playAudio(params: PlayAudioParams): Promise<void>;
     /** 移除对象     */ remove(params: RemoveParams): Promise<void>;
 }
 
 declare const ac: AC;
-
-declare const 记号: {
-    对话选项管理器: symbol;
-    人物管理器: symbol;
-};
-
-declare const 容器: Map<symbol, 对话选项管理器类 | 人物管理器类>;
