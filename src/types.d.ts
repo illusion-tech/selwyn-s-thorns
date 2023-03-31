@@ -353,12 +353,19 @@ interface HideParams {
     name: string;
     /**
      * 消失效果。
+     * @default ac.EFFECT_TYPES.normal
      */
-    effect: EffectTypes;
+    effect?: EffectTypes;
     /**
      * 效果时长。
+     * @default 0
      */
-    duration: number;
+    duration?: number;
+    /**
+     * 是否可跳过。
+     * @default true
+     */
+    canskip?: boolean;
 }
 
 interface MoveToParams {
@@ -443,6 +450,28 @@ interface 坐标对象 {
     y: number;
 }
 
+interface ShowParams {
+    /**
+     * 对象名称。
+     */
+    name: string;
+    /**
+     * 出现效果。
+     * @default ac.EFFECT_TYPES.normal
+     */
+    effect?: EffectTypes.fadein | EaseTypes.normal;
+    /**
+     * 效果持续时长，单位：毫秒。
+     * @default 0
+     */
+    duration?: number;
+    /**
+     * 是否可跳过。
+     * @default true
+     */
+    canskip?: boolean;
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
@@ -461,6 +490,7 @@ interface AC {
     /** 延迟         */ delay(params: DelayParams): Promise<void>;
     /** 插播剧情     */ display(params: DisplayParams): Promise<void>;
     /** 获取实体坐标 */ getPos(params: GetPosParams): Promise<坐标对象>;
+    /** 显示对象     */ show(params: ShowParams): Promise<void>;
     /** 隐藏对象     */ hide(params: HideParams): Promise<void>;
     /** 移到指定位置 */ moveTo(params: MoveToParams): Promise<void>;
     /** 移动指定距离 */ moveBy(params: MoveByParams): Promise<void>;
