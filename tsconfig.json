@@ -2,14 +2,15 @@
     "compilerOptions": {
         "module": "ESNext",
         "moduleResolution": "Node",
-        "target": "ES2018",
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "target": "ES2017",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
         "checkJs": true,
     },
     "exclude": [
         "node_modules",
         "dist",
         "**/node_modules/*",
+        "src/**/*.spec.{ts|js}"
     ]
 }

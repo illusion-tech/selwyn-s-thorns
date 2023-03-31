@@ -1,10 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/swcrc",
   "jsc": {
-    "target": "es2018",
+    "target": "es2017",
     "preserveAllComments": true
   },
   "exclude": [
-    "src/types.d.ts"
+    "src/types.d.ts",
+    "src/**/*.spec.{ts|js}"
   ]
 }
