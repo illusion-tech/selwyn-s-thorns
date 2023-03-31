@@ -3,9 +3,5 @@
   "jsc": {
     "target": "es2017",
     "preserveAllComments": true
-  },
-  "exclude": [
-    "src/types.d.ts",
-    "src/**/*.spec.{ts|js}"
-  ]
+  }
 }
