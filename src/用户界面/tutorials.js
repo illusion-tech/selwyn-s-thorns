@@ -1,4 +1,4 @@
-class 简单教程类 {
+export class 简单教程类 {
     /** @type {string[]} */ 面板集合 = [];
     /** @type {number}   */ 当前面板 = 0;
 

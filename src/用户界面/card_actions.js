@@ -1,14 +1,23 @@
-class CardActions {
+import { Card } from "./card.js";
+
+export class CardActions {
+    /**
+     * @type {Card[]}
+     */
+    #cards;
     constructor() {
-        this.cards = [];
+        this.#cards = [];
     }
 
+    /**
+     * @param {Card} card
+     */
     add(card) {
-        this.cards.push(card);
+        this.#cards.push(card);
     }
 
     async show() {
-        const count = this.cards.length;
+        const count = this.#cards.length;
 
         if (count < 1) return;
         if (count > 3) return alert("暂不支持超过 3 张选项卡的布局");
@@ -53,6 +62,10 @@ class CardActions {
         });
 
         await ac.delay({ time: 1000 });
+
+        /**
+         * @type {[缩放比:number, 纵坐标:number, 横坐标组:number[]][][]}
+         */
         // rome-ignore format: 特定布局数组不需要格式化
         const spacing_rules =
         [
@@ -67,12 +80,12 @@ class CardActions {
              [0.85, 533, [                                ]],
              [0.85, 186, [                                ]],
             ],
-          ];
+        ];
 
         const rule = spacing_rules[count - 1];
 
         let idx = 0;
-        for (const card of this.cards) {
+        for (const card of this.#cards) {
             const x = rule[0][2][idx];
             const y = rule[0][1];
 
@@ -89,7 +102,7 @@ class CardActions {
     }
 
     async hide() {
-        for (const card of this.cards) {
+        for (const card of this.#cards) {
             await card.hide();
         }
         ac.hide({

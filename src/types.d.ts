@@ -112,7 +112,7 @@ interface CreateOptionParams extends BaseObjectParams {
     /**
      * 选项文字内容。
      */
-    content: string;
+    content?: string;
     /**
      * 点击音效。
      */
@@ -130,7 +130,7 @@ interface CreateOptionParams extends BaseObjectParams {
     onTouchEnded?: () => void;
 }
 
-enum EffectTypes {
+declare enum EffectTypes {
     /** 正常效果 */ normal = "normal",
     /** 渐入效果 */ fadein = "fadein",
     /** 渐出效果 */ fadeout = "fadeout",
@@ -140,7 +140,7 @@ enum EffectTypes {
     /** 由下移入 */ moveinBottom = "movein-b",
 }
 
-enum SceneTransitionTypes {
+declare enum SceneTransitionTypes {
     crossfade = "crossfade",
     fade = "fade",
     fadeBl = "fade-bl",
@@ -275,18 +275,18 @@ interface CreateSequenceParams extends BaseObjectParams {
     }[];
 }
 
-enum TextDirectionTypes {
+declare enum TextDirectionTypes {
     horizontal = "horizontal",
     vertical = "vertical",
 }
 
-enum HAlignTypes {
+declare enum HAlignTypes {
     left = "left",
     middle = "middle",
     right = "right",
 }
 
-enum VAlignTypes {
+declare enum VAlignTypes {
     bottom = "bottom",
     center = "center",
     top = "top",
@@ -315,7 +315,7 @@ interface CreateTextParams extends BaseObjectParams {
     size: { width: number; height: number };
 }
 
-enum EventTypes {
+declare enum EventTypes {
     onDragEnded = "onDragEnded",
     onTouchBegan = "onTouchBegan",
     onTouchEnded = "onTouchEnded",
@@ -339,7 +339,7 @@ interface AddEventListenerParams {
     target: string;
 }
 
-enum EaseTypes {
+declare enum EaseTypes {
     easeExponentialIn = "easeExponentialIn",
     easeExponentialInOut = "easeExponentialInOut",
     easeExponentialOut = "easeExponentialOut",

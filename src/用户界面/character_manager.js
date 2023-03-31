@@ -1,4 +1,4 @@
-class 人物管理器类 {
+export class 人物管理器类 {
     黛瑞雅 = {
         get 谦逊() {
             return ac.arr["黛瑞雅性格属性"][0];
@@ -37,6 +37,8 @@ class 人物管理器类 {
                  * @typedef {object} 属性探针检测结果
                  * @property {string} 属性 - 变化的属性
                  * @property {number} 变化 - 变化的数值
+                 * @property {number} 旧值 - 变化前的数值
+                 * @property {number} 新值 - 变化后的数值
                  * @returns {属性探针检测结果}
                  */
                 检测() {
@@ -52,15 +54,4 @@ class 人物管理器类 {
             };
         },
     };
-}
-
-/**
- * @type {人物管理器类}
- */
-const 人物管理器 = 容器.has(记号.人物管理器)
-    ? 容器.get(记号.人物管理器)
-    : (容器.set(记号.人物管理器, new 人物管理器类()), 容器.get(记号.人物管理器));
-
-async function 测试() {
-    人物管理器.黛瑞雅.谦逊;
 }
