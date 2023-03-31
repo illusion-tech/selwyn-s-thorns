@@ -3,6 +3,7 @@
     "cSpell.words": [
         "canskip",
         "fadein",
+        "halign",
         "jumpzoom",
         "movein",
         "outin",
@@ -12,6 +13,7 @@
         "slidein",
         "splitcols",
         "splitrows",
-        "turnofftiles"
+        "turnofftiles",
+        "valign"
     ]
 }
