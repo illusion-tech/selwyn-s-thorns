@@ -126,8 +126,8 @@ interface CreateOptionParams extends BaseObjectParams {
          */
         vol: number;
     };
-    onTouchBegan: () => void;
-    onTouchEnded: () => void;
+    onTouchBegan?: () => void;
+    onTouchEnded?: () => void;
 }
 
 enum EffectTypes {
@@ -138,17 +138,6 @@ enum EffectTypes {
     /** 由左移入 */ moveinLeft = "moveinLeft",
     /** 由右移入 */ moveinRight = "moveinRight",
     /** 由下移入 */ moveinBottom = "moveinBottom",
-}
-
-interface BaseRemoveParams {
-    /**
-     * 对象名称。
-     */
-    name: string;
-    /**
-     * 可跳过。
-     */
-    canskip: boolean;
 }
 
 enum SceneTransitionTypes {
@@ -197,6 +186,17 @@ interface DisplayParams {
      * 效果时长。
      */
     duration?: number;
+}
+
+interface BaseRemoveParams {
+    /**
+     * 对象名称。
+     */
+    name: string;
+    /**
+     * 可跳过。
+     */
+    canskip?: boolean;
 }
 
 interface NormalRemoveParams extends BaseRemoveParams {
@@ -252,6 +252,27 @@ interface PlayAudioParams {
      * 淡入播放效果时长。
      */
     duration?: number;
+    /**
+     * 是否循环播放。
+     * @default false
+     */
+    loop?: boolean;
+}
+
+interface CreateSequenceParams extends BaseObjectParams {
+    /**
+     * 动画序列资源组。
+     */
+    resGroup: {
+        /**
+         * 资源 ID。
+         */
+        resId: string;
+        /**
+         * 持续时间，单位：毫秒。
+         */
+        time: number;
+    }[];
 }
 
 interface AC {
@@ -261,6 +282,7 @@ interface AC {
     /** 创建图片     */ createImage(params: CreateImageParams): Promise<void>;
     /** 创建图层     */ createLayer(params: CreateLayerParams): Promise<void>;
     /** 创建选项     */ createOption(params: CreateOptionParams): Promise<void>;
+    /** 创建序列动画 */ createSequence(params: CreateSequenceParams): Promise<void>;
     /** 延迟         */ delay(params: DelayParams): Promise<void>;
     /** 插播剧情     */ display(params: DisplayParams): Promise<void>;
     /** 播放音效     */ playAudio(params: PlayAudioParams): Promise<void>;
