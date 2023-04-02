@@ -23,11 +23,6 @@ class 对话选项 {
     结果执行函数 = () => void 0;
 
     /**
-     * @type {number | null}
-     */
-    插播剧情唯一标识 = null;
-
-    /**
      * @param {string} 内容
      */
     设置对话选项内容(内容) {
@@ -50,14 +45,6 @@ class 对话选项 {
      */
     设置对话选项执行结果(结果执行函数) {
         this.结果执行函数 = 结果执行函数;
-        return this;
-    }
-
-    /**
-     * @param {{剧情唯一标识: number}} 参数
-     */
-    设置结果完成后插播的剧情(参数) {
-        this.插播剧情唯一标识 = 参数.剧情唯一标识;
         return this;
     }
 }
@@ -216,7 +203,7 @@ export class 对话选项管理器类 {
     }
 
     /**
-     * @param {人物管理器类} 人物管理器 
+     * @param {人物管理器类} 人物管理器
      */
     constructor(人物管理器) {
         this.#人物管理器 = 人物管理器;
@@ -243,7 +230,6 @@ export class 对话选项管理器类 {
     /**
      * @typedef {object} 创建对话选项参数
      * @property {string} [选项内容]
-     * @property {number} [插播剧情]
      * @property {() => unknown | Promise<unknown>} [执行结果]
      * @param {创建对话选项参数} [参数]
      * @returns
@@ -251,7 +237,6 @@ export class 对话选项管理器类 {
     创建对话选项(参数) {
         const 选项 = new 对话选项();
         if (参数?.选项内容) 选项.设置对话选项内容(参数.选项内容);
-        if (参数?.插播剧情) 选项.设置结果完成后插播的剧情({ 剧情唯一标识: 参数.插播剧情 });
         if (参数?.执行结果) 选项.设置对话选项执行结果(参数.执行结果);
         return 选项;
     }
@@ -260,9 +245,10 @@ export class 对话选项管理器类 {
      * 显示指定编号的对话选项面板。
      * @typedef {object} 显示面板参数
      * @property {number} 编号 - 对话选项面板的唯一编号
-     * @param {显示面板参数} 参数
+     * @param {显示面板参数} 参数 - 显示面板的参数
+     * @param {Function[]} 对应选项的回调函数 - 选项的回调函数，顺序与选项的顺序一致
      */
-    async 显示对话选项面板(参数) {
+    async 显示对话选项面板(参数, ...对应选项的回调函数) {
         const 面板 = this.#面板集合[参数.编号];
         if (!面板) throw alert(`编号<${参数.编号}>的对话选项面板不存在！`);
         const 图层名称 = `对话选项面板_${面板.编号}_图层`;
@@ -335,11 +321,7 @@ export class 对话选项管理器类 {
                         });
                         await ac.delay({ time: 1000 });
                         await ac.remove({ name: 图层名称, effect: ac.EFFECT_TYPES.normal });
-                        if (选项.插播剧情唯一标识)
-                            ac.display({
-                                plotId: 选项.插播剧情唯一标识,
-                                transition: ac.SCENE_TRANSITION_TYPES.normal,
-                            });
+                        await 对应选项的回调函数[选项编号 - 1]?.();
                         resolve(选项编号);
                     },
                 });
