@@ -6,17 +6,17 @@ export class 人物管理器类 {
         set 谦逊(数值) {
             ac.arr["黛瑞雅性格属性"][0] = 数值;
         },
-        get 荣誉() {
-            return ac.arr["黛瑞雅性格属性"][2];
-        },
-        set 荣誉(数值) {
-            ac.arr["黛瑞雅性格属性"][2] = 数值;
-        },
         get 傲慢() {
             return ac.arr["黛瑞雅性格属性"][1];
         },
         set 傲慢(数值) {
             ac.arr["黛瑞雅性格属性"][1] = 数值;
+        },
+        get 荣誉() {
+            return ac.arr["黛瑞雅性格属性"][2];
+        },
+        set 荣誉(数值) {
+            ac.arr["黛瑞雅性格属性"][2] = 数值;
         },
         get 是傲慢性格() {
             return this.傲慢 >= this.谦逊;
