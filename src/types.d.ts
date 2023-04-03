@@ -439,6 +439,8 @@ interface GetPosParams {
     name: string;
 }
 
+type 坐标 = [x: number, y: number];
+
 interface 坐标对象 {
     /**
      * x 坐标。
