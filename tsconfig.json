@@ -4,6 +4,7 @@
         "moduleResolution": "Node",
         "target": "ES2017",
         "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
         "strict": true,
         "checkJs": true
     },
