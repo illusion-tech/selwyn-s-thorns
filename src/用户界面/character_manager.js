@@ -6,6 +6,12 @@ export class 人物管理器类 {
         set 谦逊(数值) {
             ac.arr["黛瑞雅性格属性"][0] = 数值;
         },
+        get 荣誉() {
+            return ac.arr["黛瑞雅性格属性"][2];
+        },
+        set 荣誉(数值) {
+            ac.arr["黛瑞雅性格属性"][2] = 数值;
+        },
         get 傲慢() {
             return ac.arr["黛瑞雅性格属性"][1];
         },
@@ -32,6 +38,7 @@ export class 人物管理器类 {
             return {
                 谦逊: this.谦逊,
                 傲慢: this.傲慢,
+                荣誉: this.荣誉,
                 /**
                  * 检测探针属性值的变化。
                  * @typedef {object} 属性探针检测结果
@@ -39,15 +46,33 @@ export class 人物管理器类 {
                  * @property {number} 变化 - 变化的数值
                  * @property {number} 旧值 - 变化前的数值
                  * @property {number} 新值 - 变化后的数值
-                 * @returns {属性探针检测结果}
+                 * @returns {属性探针检测结果[]}
                  */
                 检测() {
-                    let 属性探测结果 = null;
-                    if (that.谦逊 - this.谦逊)
-                        属性探测结果 = { 属性: "谦逊", 变化: that.谦逊 - this.谦逊, 旧值: this.谦逊, 新值: that.谦逊 };
-                    if (that.傲慢 - this.傲慢)
-                        属性探测结果 = { 属性: "傲慢", 变化: that.傲慢 - this.傲慢, 旧值: this.傲慢, 新值: that.傲慢 };
-                    if (属性探测结果 === null) throw alert("属性探针没有检测到属性值的变化");
+                    const 属性探测结果 = [];
+                    if (Math.abs(that.谦逊 - this.谦逊))
+                        属性探测结果.push({
+                            属性: "谦逊",
+                            变化: that.谦逊 - this.谦逊,
+                            旧值: this.谦逊,
+                            新值: that.谦逊,
+                        });
+                    if (Math.abs(that.傲慢 - this.傲慢))
+                        属性探测结果.push({
+                            属性: "傲慢",
+                            变化: that.傲慢 - this.傲慢,
+                            旧值: this.傲慢,
+                            新值: that.傲慢,
+                        });
+                    if (Math.abs(that.荣誉 - this.荣誉))
+                        属性探测结果.push({
+                            属性: "荣誉",
+                            变化: that.荣誉 - this.荣誉,
+                            旧值: this.荣誉,
+                            新值: that.荣誉,
+                        });
+                    if (属性探测结果.length === 0) throw alert("属性探针没有检测到属性值的变化");
+
                     console.log({ 属性探测结果 });
                     return 属性探测结果;
                 },

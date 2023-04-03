@@ -221,7 +221,7 @@ type RemoveParams = NormalRemoveParams | FadeoutRemoveParams;
 
 interface ArrayVariables {
     对话选项结果: number[];
-    黛瑞雅性格属性: [谦逊: number, 傲慢: number];
+    黛瑞雅性格属性: [谦逊: number, 傲慢: number, 荣誉: number];
 }
 
 interface DelayParams {
