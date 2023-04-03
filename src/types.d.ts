@@ -1,3 +1,5 @@
+type 坐标 = [x: number, y: number];
+type 坐标对象 = { x: number; y: number };
 interface BaseObjectParams {
     /**
      * 对象名称。
@@ -16,18 +18,7 @@ interface BaseObjectParams {
     /**
      * 对象位置。
      */
-    pos?: {
-        /**
-         * 水平方向位置。
-         * @default 0
-         */
-        x?: number;
-        /**
-         * 垂直方向位置。
-         * @default 0
-         */
-        y?: number;
-    };
+    pos?: 坐标对象;
     /**
      * 对象锚点。
      */
@@ -49,7 +40,7 @@ interface BaseObjectParams {
      */
     visible?: boolean;
 }
-interface CreateImageParams extends BaseObjectParams {
+interface CreateImageBaseParams extends BaseObjectParams {
     /**
      * 图片对象资源 ID。
      */
@@ -59,12 +50,6 @@ interface CreateImageParams extends BaseObjectParams {
      * @default 100
      */
     opacity?: number;
-    /**
-     * 缩放百分比。
-     * @default 100
-     */
-    scale?: number;
-
     /**
      * 是否垂直上下翻转。
      * @default false
@@ -76,6 +61,31 @@ interface CreateImageParams extends BaseObjectParams {
      */
     horizontalFlip?: boolean;
 }
+
+interface CreateImageWithStaticScaleParams extends CreateImageBaseParams {
+    /**
+     * 缩放百分比。
+     * @default 100
+     */
+    scale?: number;
+}
+
+interface CreateImageWithDynamicScaleParams extends CreateImageBaseParams {
+    /**
+     * 是否自动缩放图像以适应容器。
+     *
+     * @remarks
+     * - `"cover"` 意味着图像应该缩放以覆盖整个容器，
+     *             即使这意味着失去一些图像的原始纵横比，
+     *             将会对图片进行适当的剪裁。
+     * - `"contain"` 意味着图像应该缩放以适合容器，同时保持其原始纵横比。
+     *               如果容器的宽高比与图像的宽高比不匹配，
+     *               这可能会导致图像周围出现空白区域。
+     */
+    dynaScale?: "cover" | "contain";
+}
+
+type CreateImageParams = CreateImageWithStaticScaleParams | CreateImageWithDynamicScaleParams;
 
 interface CreateNoClippedLayerParams extends BaseObjectParams {
     /**
@@ -437,19 +447,6 @@ interface GetPosParams {
      * 对象名称。
      */
     name: string;
-}
-
-type 坐标 = [x: number, y: number];
-
-interface 坐标对象 {
-    /**
-     * x 坐标。
-     */
-    x: number;
-    /**
-     * y 坐标。
-     */
-    y: number;
 }
 
 interface ShowParams {

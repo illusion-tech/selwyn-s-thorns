@@ -1,16 +1,23 @@
 import { 时间管理器类 } from "./time_manager.js";
+import { 坐标转坐标对象 } from './工具.js';
+enum 地图资源类型 {
+    日间主图 = "日间主图",
+    夜间主图 = "夜间主图",
+    日间底图 = "日间底图",
+    夜间底图 = "夜间底图",
+}
+
+enum 入口资源类型 {
+    日间 = "日间",
+    夜间 = "夜间",
+}
 
 interface 创建新地图参数 {
     名称: string;
-    资源组: {
-        日间主图: string;
-        夜间主图: string;
-        日间底图: string;
-        夜间底图: string;
-    };
+    资源组: { [类型 in 地图资源类型]: number };
     入口列表?: {
         名称: string;
-        资源: string;
+        资源组: { [类型 in 入口资源类型]: number };
         位置: 坐标;
         去往: {
             类型: "地图" | "场景";
@@ -25,21 +32,15 @@ interface 配置入口参数 {
     禁用?: boolean;
     标题?: string;
     描述?: string;
-}
-
-enum 地图资源类型 {
-    日间主图 = "日间主图",
-    夜间主图 = "夜间主图",
-    日间底图 = "日间底图",
-    夜间底图 = "夜间底图",
+    执行?: () => void;
 }
 
 class 地图类 {
     #名称: string;
-    #资源组: { [类型 in 地图资源类型]: string };
+    #资源组: { [类型 in 地图资源类型]: number };
     #入口列表: {
         名称: string;
-        资源: string;
+        资源组: { [类型 in 入口资源类型]: number };
         位置: 坐标;
         去往: {
             类型: "地图" | "场景";
@@ -48,10 +49,15 @@ class 地图类 {
         禁用?: boolean;
         标题?: string;
         描述?: string;
+        执行?: () => void;
     }[];
 
     get 名称() {
         return this.#名称;
+    }
+
+    get 入口列表() {
+        return this.#入口列表.slice();
     }
 
     constructor(参数: 创建新地图参数) {
@@ -97,12 +103,57 @@ export class 地图管理器类 {
         入口.禁用 = 参数.禁用 ?? false;
         入口.标题 = 参数.标题 ?? 入口.标题;
         入口.描述 = 参数.描述 ?? 入口.描述;
+        入口.执行 = 参数.执行 ?? 入口.执行;
     }
 
-    public 显示地图(名称: string) {
+    public async 显示地图(名称: string) {
         const 地图 = this.#地图册.get(名称);
         if (!地图) throw alert(`找不到名称为 ${名称} 的地图！`);
 
-        // 地图.获取资源(地图资源类型.日间主图);
+        const 主图资源 = this.#时间管理器.现在是白天
+            ? 地图.获取资源(地图资源类型.日间主图)
+            : 地图.获取资源(地图资源类型.夜间主图);
+        const 底图资源 = this.#时间管理器.现在是白天
+            ? 地图.获取资源(地图资源类型.日间底图)
+            : 地图.获取资源(地图资源类型.夜间底图);
+
+        await ac.createImage({
+            name: `地图_${名称}_底图`,
+            resId: `${底图资源}`,
+            index: 10,
+            dynaScale: "cover",
+        });
+
+        await ac.createLayer({
+            name: `地图_${名称}_地图层`,
+            index: 100,
+            clipMode: true,
+            pos: { x: 640, y: 360 },
+            anchor: { x: 50, y: 50 },
+            size: { width: 1280, height: 720 },
+        });
+
+        await ac.createImage({
+            name: `地图_${名称}_主图`,
+            resId: `${主图资源}`,
+            inlayer: `地图_${名称}_地图层`,
+            pos: { x: 640, y: 360 },
+            anchor: { x: 50, y: 50 },
+        });
+
+        for (const 入口 of 地图.入口列表) {
+            // if (入口.禁用) continue;
+
+            const 入口资源 = this.#时间管理器.现在是白天
+                ? 入口.资源组.日间
+                : 入口.资源组.夜间;
+
+            await ac.createImage({
+                name: `地图_${名称}_入口_${入口.名称}`,
+                resId: `${入口资源}`,
+                inlayer: `地图_${名称}_地图层`,
+                pos: 坐标转坐标对象(入口.位置),
+            });
+        }
     }
 }
