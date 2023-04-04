@@ -21,6 +21,10 @@ interface BaseObjectParams {
     pos?: 坐标对象;
     /**
      * 对象锚点。
+     * @remarks
+     * 锚点指从文本框左下角出发，相对于文本框的位置百分比。
+     * 锚点可以在文本框外。（0,0）表示在文本框左下角。
+     * （50,50）表示在文本框正中心。
      */
     anchor?: {
         /**
@@ -305,24 +309,35 @@ declare enum VAlignTypes {
 interface CreateTextParams extends BaseObjectParams {
     /**
      * 文本内容。
+     * @default ""
      */
-    content: string;
+    content?: string;
     /**
      * 文本方向。
+     * @default ac.TEXT_DIRECTION_TYPES.horizontal
      */
     direction?: TextDirectionTypes;
     /**
      * 水平对齐类型。
+     * @default ac.HALIGN_TYPES.left
      */
     halign?: HAlignTypes;
     /**
      * 垂直对齐类型。
+     * @default ac.VALIGN_TYPES.top
      */
     valign?: VAlignTypes;
     /**
      * 文本框大小。
+     * @default { width: 0, height: 0 }
      */
-    size: { width: number; height: number };
+    size?: { width: number; height: number };
+    /**
+     * 文字样式。
+     * @default ""
+     * @remarks 填入创建好的 style 唯一标识
+     */
+    style?: string;
 }
 
 declare enum EventTypes {
@@ -507,6 +522,24 @@ interface FilterParams {
     canskip?: boolean;
 }
 
+interface CreateStyleParams {
+    /**
+     * 文字样式唯一标识。
+     */
+    name: string;
+    font?: string;
+    bold?: boolean;
+    italic?: boolean;
+    fontSize?: number;
+    color?: string;
+    speed?: number;
+    strokeColor?: string;
+    strokeWidth?: number;
+    shadowColor?: string;
+    shadowPos?: { x: number; y: number };
+    canskip?: boolean;
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
@@ -522,6 +555,7 @@ interface AC {
     /** 创建图层     */ createLayer(params: CreateLayerParams): Promise<void>;
     /** 创建选项     */ createOption(params: CreateOptionParams): Promise<void>;
     /** 创建序列动画 */ createSequence(params: CreateSequenceParams): Promise<void>;
+    /** 创建文本样式 */ createStyle(params: CreateStyleParams): Promise<void>;
     /** 创建文本     */ createText(params: CreateTextParams): Promise<void>;
     /** 延迟         */ delay(params: DelayParams): Promise<void>;
     /** 插播剧情     */ display(params: DisplayParams): Promise<void>;
