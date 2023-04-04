@@ -1,5 +1,7 @@
 import { 时间管理器类 } from "./time_manager.js";
-import { 坐标转坐标对象, 中文坐标对象转坐标对象 } from "./工具.js";
+import { 事件目标, 自定义事件 } from "./事件目标.js";
+import { 中文坐标对象转坐标对象, 坐标转坐标对象 } from "./工具.js";
+
 enum 地图资源类型 {
     日间主图 = "日间主图",
     夜间主图 = "夜间主图",
@@ -63,7 +65,7 @@ class 地图类 {
             标题: string;
             描述: string;
         };
-        执行?: () => void;
+        执行?: () => void | Promise<void>;
     }[];
 
     get 名称() {
@@ -91,11 +93,13 @@ class 地图类 {
     }
 }
 
-export class 地图管理器类 {
+export class 地图管理器类 extends 事件目标 {
     #时间管理器: 时间管理器类;
     #地图册: Map<string, 地图类> = new Map();
+    #当前地图?: 地图类;
 
     constructor(时间管理器: 时间管理器类) {
+        super();
         this.#时间管理器 = 时间管理器;
     }
 
@@ -123,6 +127,8 @@ export class 地图管理器类 {
     public async 显示地图(名称: string) {
         const 地图 = this.#地图册.get(名称);
         if (!地图) throw alert(`找不到名称为 ${名称} 的地图！`);
+
+        this.#当前地图 = 地图;
 
         const 主图资源 = this.#时间管理器.现在是白天
             ? 地图.获取资源(地图资源类型.日间主图)
@@ -276,6 +282,7 @@ export class 地图管理器类 {
             }
 
             const 侦听器 = async () => {
+                this.触发事件(new 自定义事件("入口交互开始", { 细节: { 地图, 入口 } }));
                 if (入口.去往.类型 === "地图") {
                     await ac.remove({
                         name: `地图_${名称}_底图`,
@@ -286,32 +293,35 @@ export class 地图管理器类 {
                         effect: ac.EFFECT_TYPES.normal,
                     });
                     await this.显示地图(入口.去往.名称);
-                } else if (入口.去往.类型 === "场景" && 入口.描述界面) {
-                    await ac.hide({ name: `地图_${名称}_入口层` });
-                    await ac.createText({
-                        name: `地图_${名称}_场景入口_标题`,
-                        inlayer: `地图_${名称}_入口遮罩层`,
-                        pos: { x: 535, y: 585 },
-                        halign: ac.HALIGN_TYPES.middle,
-                        valign: ac.VALIGN_TYPES.center,
-                        content: 入口.描述界面.标题,
-                        size: { width: 222, height: 40 },
-                        style: "地图_文本样式",
-                    });
+                } else if (入口.去往.类型 === "场景") {
+                    if (入口.描述界面) {
+                        await ac.hide({ name: `地图_${名称}_入口层` });
+                        await ac.createText({
+                            name: `地图_${名称}_场景入口_标题`,
+                            inlayer: `地图_${名称}_入口遮罩层`,
+                            pos: { x: 535, y: 585 },
+                            halign: ac.HALIGN_TYPES.middle,
+                            valign: ac.VALIGN_TYPES.center,
+                            content: 入口.描述界面.标题,
+                            size: { width: 222, height: 40 },
+                            style: "地图_文本样式",
+                        });
 
-                    await ac.createText({
-                        name: `地图_${名称}_场景入口_描述`,
-                        inlayer: `地图_${名称}_入口遮罩层`,
-                        pos: { x: 395, y: 250 },
-                        halign: ac.HALIGN_TYPES.middle,
-                        content: 入口.描述界面.描述,
-                        size: { width: 485, height: 233 },
-                        style: "地图_文本样式",
-                    });
+                        await ac.createText({
+                            name: `地图_${名称}_场景入口_描述`,
+                            inlayer: `地图_${名称}_入口遮罩层`,
+                            pos: { x: 395, y: 250 },
+                            halign: ac.HALIGN_TYPES.middle,
+                            content: 入口.描述界面.描述,
+                            size: { width: 485, height: 233 },
+                            style: "地图_文本样式",
+                        });
 
-                    await ac.show({ name: `地图_${名称}_入口遮罩层` });
+                        await ac.show({ name: `地图_${名称}_入口遮罩层` });
+                    }
+                    await 入口.执行?.();
                 }
-                if (入口.去往.类型 === "场景") 入口.执行?.();
+                this.触发事件(new 自定义事件("入口交互结束", { 细节: { 地图, 入口 } }));
             };
 
             ac.addEventListener({
@@ -320,5 +330,21 @@ export class 地图管理器类 {
                 listener: 侦听器,
             });
         }
+    }
+
+    public async 关闭地图() {
+        const 地图 = this.#当前地图;
+        if (!地图) return;
+
+        await ac.remove({
+            name: `地图_${地图.名称}_底图`,
+            effect: ac.EFFECT_TYPES.normal,
+        });
+        await ac.remove({
+            name: `地图_${地图.名称}_地图层`,
+            effect: ac.EFFECT_TYPES.normal,
+        });
+
+        this.#当前地图 = undefined;
     }
 }
