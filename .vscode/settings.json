@@ -4,6 +4,7 @@
         "canskip",
         "dyna",
         "fadein",
+        "gaussianblur",
         "halign",
         "jumpzoom",
         "movein",

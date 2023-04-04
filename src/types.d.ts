@@ -471,11 +471,48 @@ interface ShowParams {
     canskip?: boolean;
 }
 
+declare enum FilterTypes {
+    brightness = "brightness",
+    gaussianblur = "gaussianblur",
+    gray = "gray",
+}
+
+interface FilterParams {
+    /**
+     * 对象名称。
+     */
+    name: string;
+    /**
+     * 参数。
+     * @remarks
+     * 1. 对于高斯模糊效果，参数是半径值（必须是整数），单位是像素；
+     * 2. 对于灰度化，参数值为 0 时失效，为其他时正常；
+     * 3. 对于明度效果，参数表示闭区间[-100,100]中的整数，默认为 0；
+     */
+    args: number;
+    /**
+     * 滤镜类型。
+     * @default ac.FILTER_TYPES.gaussianblur
+     */
+    type?: FilterTypes;
+    /**
+     * 效果持续时长，单位：毫秒。
+     * @default 0
+     */
+    duration?: number;
+    /**
+     * 是否可跳过。
+     * @default true
+     */
+    canskip?: boolean;
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
     /** 特效类型     */ EFFECT_TYPES: typeof EffectTypes;
     /** 事件类型     */ EVENT_TYPES: typeof EventTypes;
+    /** 滤镜类型     */ FILTER_TYPES: typeof FilterTypes;
     /** 场景切换类型 */ SCENE_TRANSITION_TYPES: typeof SceneTransitionTypes;
     /** 文本方向类型 */ TEXT_DIRECTION_TYPES: typeof TextDirectionTypes;
     /** 水平对齐类型 */ HALIGN_TYPES: typeof HAlignTypes;
@@ -488,6 +525,7 @@ interface AC {
     /** 创建文本     */ createText(params: CreateTextParams): Promise<void>;
     /** 延迟         */ delay(params: DelayParams): Promise<void>;
     /** 插播剧情     */ display(params: DisplayParams): Promise<void>;
+    /** 滤镜效果     */ filter(params: FilterParams): Promise<void>;
     /** 获取实体坐标 */ getPos(params: GetPosParams): Promise<坐标对象>;
     /** 显示对象     */ show(params: ShowParams): Promise<void>;
     /** 隐藏对象     */ hide(params: HideParams): Promise<void>;
