@@ -1,5 +1,8 @@
 type 坐标 = [x: number, y: number];
 type 坐标对象 = { x: number; y: number };
+type 中文坐标对象 = { 横: number; 纵: number };
+type 中文大小对象 = { 宽: number; 高: number };
+
 interface BaseObjectParams {
     /**
      * 对象名称。

@@ -1,5 +1,5 @@
 import { 时间管理器类 } from "./time_manager.js";
-import { 坐标转坐标对象 } from "./工具.js";
+import { 坐标转坐标对象, 中文坐标对象转坐标对象 } from "./工具.js";
 enum 地图资源类型 {
     日间主图 = "日间主图",
     夜间主图 = "夜间主图",
@@ -30,11 +30,14 @@ interface 配置入口参数 {
     名称: string;
     位于: string;
     禁用?: boolean;
-    提示?: string;
+    提示?: {
+        文本内容: string;
+        文本框大小: 中文大小对象;
+        文本框相对于入口的偏移位置: 中文坐标对象;
+    };
     描述界面?: {
-        禁用?: boolean;
-        标题?: string;
-        描述?: string;
+        标题: string;
+        描述: string;
     };
     执行?: () => void;
 }
@@ -51,11 +54,14 @@ class 地图类 {
             名称: string;
         };
         禁用?: boolean;
-        提示?: string;
+        提示?: {
+            文本内容: string;
+            文本框大小: 中文大小对象;
+            文本框相对于入口的偏移位置: 中文坐标对象;
+        };
         描述界面?: {
-            禁用?: boolean;
-            标题?: string;
-            描述?: string;
+            标题: string;
+            描述: string;
         };
         执行?: () => void;
     }[];
@@ -142,7 +148,7 @@ export class 地图管理器类 {
             font: "方正楷体",
             bold: true,
             italic: false,
-            fontSize: 22,
+            fontSize: 20,
             color: "#c0b187",
             speed: 9,
             strokeColor: "#2b2021",
@@ -237,13 +243,20 @@ export class 地图管理器类 {
             });
 
             if (入口.提示) {
-                ac.createText({
+                const 提示文本框坐标 = {
+                    横: 入口.位置[0] + 入口.提示.文本框相对于入口的偏移位置.横,
+                    纵: 入口.位置[1] + 入口.提示.文本框相对于入口的偏移位置.纵,
+                };
+                await ac.createText({
                     name: `地图_${名称}_入口_${入口.名称}_提示`,
                     inlayer: `地图_${名称}_入口层`,
                     halign: ac.HALIGN_TYPES.left,
                     valign: ac.VALIGN_TYPES.bottom,
-                    content: 入口.提示,
-                })
+                    content: 入口.提示.文本内容,
+                    pos: 中文坐标对象转坐标对象(提示文本框坐标),
+                    size: { width: 入口.提示.文本框大小.宽, height: 入口.提示.文本框大小.高 },
+                    style: "地图_提示文本样式",
+                });
             }
 
             if (入口.禁用) {
@@ -251,12 +264,14 @@ export class 地图管理器类 {
                     name: 入口图片名称,
                     type: ac.FILTER_TYPES.gray,
                     args: 100,
+                    duration: 100,
                 });
 
                 await ac.filter({
                     name: `地图_${名称}_场景入口_进入按钮`,
                     type: ac.FILTER_TYPES.gray,
                     args: 100,
+                    duration: 100,
                 });
             }
 
@@ -271,38 +286,32 @@ export class 地图管理器类 {
                         effect: ac.EFFECT_TYPES.normal,
                     });
                     await this.显示地图(入口.去往.名称);
-                } else if (入口.去往.类型 === "场景") {
+                } else if (入口.去往.类型 === "场景" && 入口.描述界面) {
                     await ac.hide({ name: `地图_${名称}_入口层` });
+                    await ac.createText({
+                        name: `地图_${名称}_场景入口_标题`,
+                        inlayer: `地图_${名称}_入口遮罩层`,
+                        pos: { x: 535, y: 585 },
+                        halign: ac.HALIGN_TYPES.middle,
+                        valign: ac.VALIGN_TYPES.center,
+                        content: 入口.描述界面.标题,
+                        size: { width: 222, height: 40 },
+                        style: "地图_文本样式",
+                    });
 
-                    if (入口.描述界面 && !入口.描述界面.禁用) {
-                        await ac.createText({
-                            name: `地图_${名称}_场景入口_标题`,
-                            inlayer: `地图_${名称}_入口遮罩层`,
-                            pos: { x: 535, y: 585 },
-                            halign: ac.HALIGN_TYPES.middle,
-                            valign: ac.VALIGN_TYPES.center,
-                            content: 入口.描述界面.标题 ?? "",
-                            size: { width: 222, height: 40 },
-                            style: "地图_文本样式",
-                        });
+                    await ac.createText({
+                        name: `地图_${名称}_场景入口_描述`,
+                        inlayer: `地图_${名称}_入口遮罩层`,
+                        pos: { x: 395, y: 250 },
+                        halign: ac.HALIGN_TYPES.middle,
+                        content: 入口.描述界面.描述,
+                        size: { width: 485, height: 233 },
+                        style: "地图_文本样式",
+                    });
 
-                        await ac.createText({
-                            name: `地图_${名称}_场景入口_描述`,
-                            inlayer: `地图_${名称}_入口遮罩层`,
-                            pos: { x: 395, y: 250 },
-                            halign: ac.HALIGN_TYPES.middle,
-                            content: 入口.描述界面.描述 ?? "",
-                            size: { width: 485, height: 233 },
-                            style: "地图_文本样式",
-                        });
-
-                        await ac.show({ name: `地图_${名称}_入口遮罩层` });
-                    }
+                    await ac.show({ name: `地图_${名称}_入口遮罩层` });
                 }
-
-                if (入口.执行) {
-                    入口.执行();
-                }
+                if (入口.去往.类型 === "场景") 入口.执行?.();
             };
 
             ac.addEventListener({
