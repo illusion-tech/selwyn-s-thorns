@@ -1,3 +1,10 @@
+type 属性探针检测结果 = {
+    属性: "谦逊" | "傲慢" | "荣誉";
+    变化: number;
+    旧值: number;
+    新值: number;
+};
+
 export class 人物管理器类 {
     黛瑞雅 = {
         get 谦逊() {
@@ -41,14 +48,8 @@ export class 人物管理器类 {
                 荣誉: this.荣誉,
                 /**
                  * 检测探针属性值的变化。
-                 * @typedef {object} 属性探针检测结果
-                 * @property {string} 属性 - 变化的属性
-                 * @property {number} 变化 - 变化的数值
-                 * @property {number} 旧值 - 变化前的数值
-                 * @property {number} 新值 - 变化后的数值
-                 * @returns {属性探针检测结果[]}
                  */
-                检测() {
+                检测(): 属性探针检测结果[] {
                     const 属性探测结果 = [];
                     if (Math.abs(that.谦逊 - this.谦逊))
                         属性探测结果.push({
@@ -56,21 +57,21 @@ export class 人物管理器类 {
                             变化: that.谦逊 - this.谦逊,
                             旧值: this.谦逊,
                             新值: that.谦逊,
-                        });
+                        } as const);
                     if (Math.abs(that.傲慢 - this.傲慢))
                         属性探测结果.push({
                             属性: "傲慢",
                             变化: that.傲慢 - this.傲慢,
                             旧值: this.傲慢,
                             新值: that.傲慢,
-                        });
+                        } as const);
                     if (Math.abs(that.荣誉 - this.荣誉))
                         属性探测结果.push({
                             属性: "荣誉",
                             变化: that.荣誉 - this.荣誉,
                             旧值: this.荣誉,
                             新值: that.荣誉,
-                        });
+                        } as const);
                     if (属性探测结果.length === 0) throw alert("属性探针没有检测到属性值的变化");
 
                     console.log({ 属性探测结果 });

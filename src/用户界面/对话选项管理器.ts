@@ -1,87 +1,70 @@
 import { 人物管理器类 } from "./人物管理器.js";
 
-/**
- * 对话选项类
- * @typedef {object} 条件
- * @property {()=>boolean} 需满足 - 条件是否满足的判断函数
- * @property {string} 当不满足时提示 - 条件不满足时的提示
- * @class
- */
-class 对话选项 {
-    /**
-     * @type {number | null}
-     */
-    编号 = null;
-    内容 = "";
-    /**
-     * @type {条件[]}
-     */
-    条件集 = [];
-    /**
-     * @type {() => Promise<unknown> | unknown}
-     */
-    结果执行函数 = () => void 0;
+type 显示面板参数 = {
+    编号: number;
+};
 
-    /**
-     * @param {string} 内容
-     */
-    设置对话选项内容(内容) {
+type 创建对话选项参数 = {
+    选项内容?: string;
+    执行结果?: () => unknown | Promise<unknown>;
+};
+
+type 创建对话选项面板参数 = {
+    编号: number;
+    描述: string;
+    可选项: 对话选项[];
+};
+
+type 属性探针检测结果 = {
+    属性: string;
+    变化: number;
+};
+
+type 条件 = {
+    需满足: () => boolean;
+    当不满足时提示: string;
+};
+
+class 对话选项 {
+
+    编号: number | null = null;
+    内容 = "";
+    条件集: 条件[] = [];
+
+    结果执行函数: () => Promise<unknown> | unknown = (): Promise<unknown> | unknown => void 0;
+
+    设置对话选项内容(内容: string) {
         this.内容 = 内容;
         return this;
     }
 
-    /**
-     * 添加对话选项显示的条件，多次添加的条件需要全部满足。
-     * @param {条件} 条件
-     * @returns
-     */
-    添加对话选项条件(条件) {
+    添加对话选项条件(条件: 条件) {
         this.条件集.push(条件);
         return this;
     }
 
-    /**
-     * @param {() => unknown | Promise<unknown>} 结果执行函数
-     */
-    设置对话选项执行结果(结果执行函数) {
+    设置对话选项执行结果(结果执行函数: () => unknown | Promise<unknown>) {
         this.结果执行函数 = 结果执行函数;
         return this;
     }
 }
 
 class 对话选项面板 {
-    /**
-     * 对话选项面板的唯一编号。
-     * @type {number}
-     */
-    编号;
+
+    编号: number;
+    描述: string;
+    可选项: 对话选项[] = [];
 
     /**
-     * 对话选项面板的描述。
-     * @type {string}
+     * 对话选项面板的选择状态。
+     * @remarks 数值表示当前选择的选项的编号， `0` 表示未选择。
      */
-    描述;
+    选择状态: number = 0;
 
     /**
-     * 对话选项面板的可选项。
-     * @type {对话选项[]}
-     */
-    可选项 = [];
-
-    /**
-     * 对话选项面板的选择状态。数值表示当前选择的选项的编号， `0` 表示未选择。
-     * @type {number}
-     */
-    选择状态 = 0;
-
-    /**
-     * @typedef {object} 创建对话选项面板参数
-     * @property {number} 编号 - 对话选项面板的唯一编号
-     * @property {string} 描述 - 对话选项面板的描述
-     * @property {对话选项[]} 可选项 - 对话选项面板的可选项
      * @param {创建对话选项面板参数} 参数
      */
-    constructor(参数) {
+    constructor(参数: 创建对话选项面板参数) {
         this.编号 = 参数.编号;
         this.描述 = 参数.描述;
         this.可选项 = 参数.可选项;
@@ -92,14 +75,10 @@ export class 对话选项管理器类 {
     /**
      * @type {对话选项面板[]}
      */
-    #面板集合 = [];
+    #面板集合: 对话选项面板[] = [];
 
-    /**
-     * @typedef {[x: number, y: number]} 坐标
-     * @type {坐标[][]}
-     */
     // rome-ignore format: 特定布局数组不需要格式化
-    #预定义对话选项布局 = [
+    #预定义对话选项布局: 坐标[][] = [
         [ 
             [376, 120], [924, 120]
         ],
@@ -117,28 +96,14 @@ export class 对话选项管理器类 {
         [],
     ];
 
-    /**
-     * @type {人物管理器类}
-     */
-    #人物管理器;
+    #人物管理器: 人物管理器类;
 
-    /**
-     * 根据选项数量获取预定义对话选项布局。
-     * @param {number} 选项数量
-     * @returns {坐标[]}
-     */
-    #获取预定义对话选项布局(选项数量) {
+    #获取预定义对话选项布局(选项数量: number): 坐标[] {
         // 复制数组，避免修改原数组
         return this.#预定义对话选项布局[选项数量 - 2].map((坐标) => [...坐标]);
     }
 
-    /**
-     * @typedef {object} 属性探针检测结果
-     * @property {string} 属性 - 变化的属性
-     * @property {number} 变化 - 变化的数值
-     * @param {属性探针检测结果[]} 属性探针检测结果
-     */
-    #获取蔷薇徽章动画序列(属性探针检测结果) {
+    #获取蔷薇徽章动画序列(属性探针检测结果: 属性探针检测结果[]) {
         if (属性探针检测结果.length === 0) return [];
         if (属性探针检测结果.find((检测结果) => 检测结果.属性 === "谦逊")?.变化 ?? 0 > 0)
             return [
@@ -216,18 +181,11 @@ export class 对话选项管理器类 {
         throw alert("尚未实现其它属性变化时的蔷薇徽章动画！");
     }
 
-    /**
-     * @param {人物管理器类} 人物管理器
-     */
-    constructor(人物管理器) {
+    constructor(人物管理器: 人物管理器类) {
         this.#人物管理器 = 人物管理器;
     }
 
-    /**
-     * @param {创建对话选项面板参数} 参数
-     * @returns
-     */
-    创建对话选项面板(参数) {
+    创建对话选项面板(参数: 创建对话选项面板参数) {
         if (!Number.isSafeInteger(参数.编号)) throw alert("对话选项面板必须有编号！");
         if (!参数.描述) throw alert("对话选项面板必须有描述！");
         if (参数.可选项.length < 2 || 参数.可选项.length > 7) throw alert("对话选项面板必须有2到6个选项！");
@@ -241,14 +199,7 @@ export class 对话选项管理器类 {
         return 面板;
     }
 
-    /**
-     * @typedef {object} 创建对话选项参数
-     * @property {string} [选项内容]
-     * @property {() => unknown | Promise<unknown>} [执行结果]
-     * @param {创建对话选项参数} [参数]
-     * @returns
-     */
-    创建对话选项(参数) {
+    创建对话选项(参数?: 创建对话选项参数) {
         const 选项 = new 对话选项();
         if (参数?.选项内容) 选项.设置对话选项内容(参数.选项内容);
         if (参数?.执行结果) 选项.设置对话选项执行结果(参数.执行结果);
@@ -257,12 +208,10 @@ export class 对话选项管理器类 {
 
     /**
      * 显示指定编号的对话选项面板。
-     * @typedef {object} 显示面板参数
-     * @property {number} 编号 - 对话选项面板的唯一编号
-     * @param {显示面板参数} 参数 - 显示面板的参数
-     * @param {Function[]} 对应选项的回调函数 - 选项的回调函数，顺序与选项的顺序一致
+     * @param 参数 - 显示面板的参数
+     * @param 对应选项的回调函数 - 选项的回调函数，顺序与选项的顺序一致
      */
-    async 显示对话选项面板(参数, ...对应选项的回调函数) {
+    async 显示对话选项面板(参数: 显示面板参数, ...对应选项的回调函数: Function[]) {
         const 面板 = this.#面板集合[参数.编号];
         if (!面板) throw alert(`编号<${参数.编号}>的对话选项面板不存在！`);
         const 图层名称 = `对话选项面板_${面板.编号}_图层`;
@@ -293,7 +242,7 @@ export class 对话选项管理器类 {
         const 选项布局 = this.#获取预定义对话选项布局(面板.可选项.length);
 
         /** @type {number} */
-        const 选择的选项编号 = await new Promise((resolve) => {
+        const 选择的选项编号: number = await new Promise((resolve) => {
             面板.可选项.forEach((选项, 索引编号) => {
                 const 坐标 = 选项布局.shift();
                 if (!坐标) throw alert(`对话选项面板<${面板.编号}>的选项布局不足！`);
@@ -346,9 +295,9 @@ export class 对话选项管理器类 {
     }
 
     /**
-     * @param {{编号: number}} 参数 - 对话选项面板的编号
+     * @param 参数 - 对话选项面板的编号
      */
-    查询对话选项面板结果(参数) {
+    查询对话选项面板结果(参数: { 编号: number }) {
         const 编号 = 参数.编号;
         const 面板 = this.#面板集合[编号];
         if (!面板) throw alert(`执行查询对话选项面板结果时，编号<${编号}>的对话选项面板不存在！`);
