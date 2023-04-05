@@ -259,12 +259,14 @@ interface PlayAudioParams {
     resId: string;
     /**
      * 音量百分比。
+     * @default 100
      */
-    vol: number;
+    vol?: number;
     /**
      * 播放效果
+     * @default "normal"
      */
-    effect: "normal" | "fadein";
+    effect?: "normal" | "fadein";
     /**
      * 淡入播放效果时长。
      */
@@ -476,7 +478,7 @@ interface ShowParams {
      * 出现效果。
      * @default ac.EFFECT_TYPES.normal
      */
-    effect?: EffectTypes.fadein | EaseTypes.normal;
+    effect?: "fadein" | "normal";
     /**
      * 效果持续时长，单位：毫秒。
      * @default 0

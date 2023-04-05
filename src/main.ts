@@ -12,6 +12,7 @@ const 对话选项管理器 = new 对话选项管理器类(人物管理器);
 const 时间管理器 = new 时间管理器类();
 const 地图管理器 = new 地图管理器类(时间管理器);
 const 项链菜单 = new 项链菜单类();
+const 显示项链菜单 = 项链菜单.显示.bind(项链菜单);
 
 console.log({
     人物管理器,
@@ -19,6 +20,7 @@ console.log({
     时间管理器,
     地图管理器,
     项链菜单,
+    显示项链菜单,
     Card,
     CardActions,
 });
