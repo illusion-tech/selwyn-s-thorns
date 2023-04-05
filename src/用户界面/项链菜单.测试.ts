@@ -1,4 +1,3 @@
-import { 解锁, 未解锁 } from "./常量.js";
 import { 项链菜单类 } from "./项链菜单.js";
 
 const 项链菜单 = new 项链菜单类();
