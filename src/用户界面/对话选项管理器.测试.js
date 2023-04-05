@@ -1,5 +1,5 @@
-import { 人物管理器类 } from "./character_manager.js";
-import { 对话选项管理器类 } from "./dialogue_options_manager.js";
+import { 人物管理器类 } from "./人物管理器.js";
+import { 对话选项管理器类 } from "./对话选项管理器.js";
 
 const 人物管理器 = new 人物管理器类();
 const 对话选项管理器 = new 对话选项管理器类(人物管理器);

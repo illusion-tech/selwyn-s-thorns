@@ -1,4 +1,4 @@
-import { 时间管理器类 } from "./time_manager.js";
+import { 时间管理器类 } from "./时间管理器.js";
 
 const 时间管理器 = new 时间管理器类();
 

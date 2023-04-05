@@ -1,4 +1,4 @@
-import { 时间管理器类 } from "./time_manager.js";
+import { 时间管理器类 } from "./时间管理器.js";
 import { 事件目标, 自定义事件 } from "./事件目标.js";
 import { 中文坐标对象转坐标对象, 坐标转坐标对象 } from "./工具.js";
 

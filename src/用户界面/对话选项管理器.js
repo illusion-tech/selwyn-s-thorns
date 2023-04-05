@@ -1,4 +1,4 @@
-import { 人物管理器类 } from "./character_manager";
+import { 人物管理器类 } from "./人物管理器.js";
 
 /**
  * 对话选项类
