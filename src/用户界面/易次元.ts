@@ -115,6 +115,23 @@ interface 显示对象淡入效果参数 {
 
 type 显示对象参数 = 显示对象普通效果参数 | 显示对象淡入效果参数;
 
+interface 创建选项参数 extends 对象基础参数 {
+    正常态资源标识: 字符串;
+    点击态资源标识: 字符串;
+    选项文字?: 字符串;
+    点击音效?: {
+        资源标识: 字符串;
+        音量?: 数值;
+    };
+    当点触开始时?: () => void;
+    当点触结束时?: () => void;
+}
+
+interface 插入用户界面参数 {
+    名称: 字符串;
+    用户界面标识: 字符串;
+}
+
 export const 易次元 = {
     音频效果,
     显示效果,
@@ -178,6 +195,44 @@ export const 易次元 = {
         }
 
         return ac.createImage(转换参数(参数));
+    },
+    async 创建选项(参数: 创建选项参数) {
+        // 将 创建选项参数 转换为 CreateOptionParams
+        function 转换参数(参数: 创建选项参数): CreateOptionParams {
+            const 基础对象参数: BaseObjectParams = {
+                name: 参数.名称,
+            };
+            if (参数.层级索引) 基础对象参数.index = 参数.层级索引;
+            if (参数.所属图层) 基础对象参数.inlayer = 参数.所属图层;
+            if (参数.位置) 基础对象参数.pos = { x: 参数.位置.横, y: 参数.位置.纵 };
+            if (参数.锚点) 基础对象参数.anchor = { x: 参数.锚点.横, y: 参数.锚点.纵 };
+            if (参数.是否可见) 基础对象参数.visible = 参数.是否可见 === 是;
+
+            const 选项参数: CreateOptionParams = {
+                ...基础对象参数,
+                nResId: 参数.正常态资源标识,
+                sResId: 参数.点击态资源标识,
+            };
+
+            if (参数.点击音效) {
+                选项参数.clickAudio = { resId: 参数.点击音效.资源标识 };
+                if (参数.点击音效.音量) 选项参数.clickAudio.vol = 参数.点击音效.音量;
+            }
+
+            if (参数.选项文字) 选项参数.content = 参数.选项文字;
+            if (参数.当点触开始时) 选项参数.onTouchBegan = 参数.当点触开始时;
+            if (参数.当点触结束时) 选项参数.onTouchEnded = 参数.当点触结束时;
+
+            return 选项参数;
+        }
+
+        return ac.createOption(转换参数(参数));
+    },
+    async 插入用户界面(参数: 插入用户界面参数) {
+        return ac.callUI({
+            name: 参数.名称,
+            uiId: 参数.用户界面标识,
+        });
     },
     async 添加事件侦听器(对象: 字符串, 事件类型: 事件类型, 回调: () => void): Promise<void> {
         return ac.addEventListener({

@@ -133,7 +133,7 @@ interface CreateOptionParams extends BaseObjectParams {
     /**
      * 点击音效。
      */
-    clickAudio: {
+    clickAudio?: {
         /**
          * 音效资源 ID。
          */
@@ -141,7 +141,7 @@ interface CreateOptionParams extends BaseObjectParams {
         /**
          * 音量百分比。
          */
-        vol: number;
+        vol?: number;
     };
     onTouchBegan?: () => void;
     onTouchEnded?: () => void;
@@ -545,6 +545,11 @@ interface CreateStyleParams {
     canskip?: boolean;
 }
 
+interface CallUIParams {
+    name: string;
+    uiId: string;
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
@@ -556,6 +561,7 @@ interface AC {
     /** 水平对齐类型 */ HALIGN_TYPES: typeof HAlignTypes;
     /** 垂直对齐类型 */ VALIGN_TYPES: typeof VAlignTypes;
     /** 添加事件侦听 */ addEventListener(params: AddEventListenerParams): Promise<void>;
+    /** 插入 UI      */ callUI(params: CallUIParams): Promise<void>;
     /** 创建图片     */ createImage(params: CreateImageParams): Promise<void>;
     /** 创建图层     */ createLayer(params: CreateLayerParams): Promise<void>;
     /** 创建选项     */ createOption(params: CreateOptionParams): Promise<void>;
