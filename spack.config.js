@@ -5,6 +5,6 @@ module.exports = {
     },
     output: {
         path: `${__dirname}/dist`,
-        name: "bundle.js",
+        name: "bundle.spack.js",
     },
 };

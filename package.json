@@ -2,11 +2,13 @@
     "name": "selwyn-s-thorns",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "type": "module",
     "packageManager": "pnpm@8.1.1",
     "scripts": {
         "build": "swc -d dist src ",
-        "bundle": "spack",
+        "bundle": "pnpm run bundle:rollup",
+        "bundle:spack": "spack",
+        "bundle:rollup": "rollup -c",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -15,6 +17,8 @@
     "devDependencies": {
         "@swc/cli": "^0.1.62",
         "@swc/core": "^1.3.46",
+        "rollup": "^3.20.2",
+        "rollup-plugin-swc3": "^0.8.1",
         "rome": "12.0.0",
         "typescript": "^5.0.4"
     }
