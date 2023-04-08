@@ -1,6 +1,7 @@
 import { 中文坐标对象转坐标对象, 坐标转坐标对象 } from "../工具.js";
 import { 事件目标, 自定义事件 } from "./事件目标.js";
 import { 时间管理器类 } from "./时间管理器.js";
+import { 易次元 } from "./易次元.js";
 
 enum 地图资源类型 {
     日间主图 = "日间主图",
@@ -103,7 +104,131 @@ export class 地图管理器类 extends 事件目标 {
         this.#时间管理器 = 时间管理器;
     }
 
-    public 创建新地图(参数: 创建新地图参数) {
+    async 隐藏入口() {
+        const 地图 = this.#当前地图;
+        if (!地图) throw alert("当前没有显示的地图！");
+
+        await 易次元.移除对象(`地图_${地图.名称}_入口层`, {
+            效果: 易次元.消失效果.淡出,
+            时间: 300,
+        });
+    }
+
+    async 显示入口() {
+        const 地图 = this.#当前地图;
+        if (!地图) throw alert("当前没有显示的地图！");
+
+        await 易次元.创建图层(`地图_${地图.名称}_入口层`, {
+            所属图层: `地图_${地图.名称}_地图层`,
+            层级索引: 110,
+            裁剪模式: 是,
+            裁剪区域: { 宽: 1280, 高: 720 },
+            位置: { 横: 640, 纵: 360 },
+            锚点: { 横: 50, 纵: 50 },
+            是否可见: 否,
+        });
+
+        for (const 入口 of 地图.入口列表) {
+            const 入口图片名称 = `地图_${地图.名称}_入口_${入口.名称}`;
+            const 入口资源 = this.#时间管理器.现在是白天 ? 入口.资源组.日间 : 入口.资源组.夜间;
+
+            await ac.createImage({
+                name: 入口图片名称,
+                resId: `${入口资源}`,
+                inlayer: `地图_${地图.名称}_入口层`,
+                pos: 坐标转坐标对象(入口.位置),
+            });
+
+            if (入口.提示) {
+                const 提示文本框坐标 = {
+                    横: 入口.位置[0] + 入口.提示.文本框相对于入口的偏移位置.横,
+                    纵: 入口.位置[1] + 入口.提示.文本框相对于入口的偏移位置.纵,
+                };
+                await ac.createText({
+                    name: `地图_${地图.名称}_入口_${入口.名称}_提示`,
+                    inlayer: `地图_${地图.名称}_入口层`,
+                    halign: ac.HALIGN_TYPES.left,
+                    valign: ac.VALIGN_TYPES.bottom,
+                    content: 入口.提示.文本内容,
+                    pos: 中文坐标对象转坐标对象(提示文本框坐标),
+                    size: { width: 入口.提示.文本框大小.宽, height: 入口.提示.文本框大小.高 },
+                    style: "地图_提示文本样式",
+                });
+            }
+
+            if (入口.禁用) {
+                await ac.filter({
+                    name: 入口图片名称,
+                    type: ac.FILTER_TYPES.gray,
+                    args: 100,
+                    duration: 100,
+                });
+
+                await ac.filter({
+                    name: `地图_${地图.名称}_场景入口_进入按钮`,
+                    type: ac.FILTER_TYPES.gray,
+                    args: 100,
+                    duration: 100,
+                });
+            }
+
+            const 侦听器 = async () => {
+                this.触发事件(new 自定义事件("入口交互开始", { 细节: { 地图, 入口 } }));
+                if (入口.去往.类型 === "地图") {
+                    await ac.remove({
+                        name: `地图_${地图.名称}_底图`,
+                        effect: ac.EFFECT_TYPES.normal,
+                    });
+                    await ac.remove({
+                        name: `地图_${地图.名称}_地图层`,
+                        effect: ac.EFFECT_TYPES.normal,
+                    });
+                    await this.显示地图(入口.去往.名称);
+                } else if (入口.去往.类型 === "场景") {
+                    if (入口.描述界面) {
+                        await ac.hide({ name: `地图_${地图.名称}_入口层` });
+                        await ac.createText({
+                            name: `地图_${地图.名称}_场景入口_标题`,
+                            inlayer: `地图_${地图.名称}_入口遮罩层`,
+                            pos: { x: 535, y: 585 },
+                            halign: ac.HALIGN_TYPES.middle,
+                            valign: ac.VALIGN_TYPES.center,
+                            content: 入口.描述界面.标题,
+                            size: { width: 222, height: 40 },
+                            style: "地图_文本样式",
+                        });
+
+                        await ac.createText({
+                            name: `地图_${地图.名称}_场景入口_描述`,
+                            inlayer: `地图_${地图.名称}_入口遮罩层`,
+                            pos: { x: 395, y: 250 },
+                            halign: ac.HALIGN_TYPES.middle,
+                            content: 入口.描述界面.描述,
+                            size: { width: 485, height: 233 },
+                            style: "地图_文本样式",
+                        });
+
+                        await ac.show({ name: `地图_${地图.名称}_入口遮罩层` });
+                    }
+                    await 入口.执行?.();
+                }
+                this.触发事件(new 自定义事件("入口交互结束", { 细节: { 地图, 入口 } }));
+            };
+
+            ac.addEventListener({
+                type: ac.EVENT_TYPES.onTouchEnded,
+                target: 入口图片名称,
+                listener: 侦听器,
+            });
+        }
+
+        await 易次元.显示对象(`地图_${地图.名称}_入口层`, {
+            效果: 易次元.出现效果.淡入,
+            时间: 300,
+        });
+    }
+
+    创建新地图(参数: 创建新地图参数) {
         if (!参数.名称) throw alert("必须为地图指定名称！");
         if (!参数.资源组) throw alert("必须为地图指定资源组！");
 
@@ -114,7 +239,7 @@ export class 地图管理器类 extends 事件目标 {
         return 地图;
     }
 
-    public 配置入口(参数: 配置入口参数) {
+    配置入口(参数: 配置入口参数) {
         const 地图 = this.#地图册.get(参数.位于);
         if (!地图) throw alert(`找不到名称为 ${参数.位于} 的地图！`);
         const 入口 = 地图.获取入口(参数.名称);
@@ -124,7 +249,7 @@ export class 地图管理器类 extends 事件目标 {
         入口.执行 = 参数.执行 ?? 入口.执行;
     }
 
-    public async 显示地图(名称: string) {
+    async 显示地图(名称: 字符串, 过渡对象名称?: 字符串) {
         const 地图 = this.#地图册.get(名称);
         if (!地图) throw alert(`找不到名称为 ${名称} 的地图！`);
 
@@ -161,20 +286,32 @@ export class 地图管理器类 extends 事件目标 {
             strokeWidth: 1,
         });
 
-        await ac.createImage({
-            name: `地图_${名称}_底图`,
-            resId: `${底图资源}`,
-            index: 10,
-            dynaScale: "cover",
+        await 易次元.创建图片(`地图_${名称}_底图`, {
+            资源标识: `$${底图资源}`,
+            层级索引: 10,
+            动态缩放模式: 最大填充,
+            是否可见: 否,
         });
 
-        await ac.createLayer({
-            name: `地图_${名称}_地图层`,
-            index: 100,
-            clipMode: true,
-            pos: { x: 640, y: 360 },
-            anchor: { x: 50, y: 50 },
-            size: { width: 1280, height: 720 },
+        if (过渡对象名称) {
+            await 易次元.对象过渡(过渡对象名称, `地图_${名称}_底图`, {
+                通道图资源标识: "$51413", // resId: "$51413"
+                时间: 3000,
+            });
+        } else {
+            await 易次元.显示对象(`地图_${名称}_底图`, {
+                效果: 易次元.出现效果.淡入,
+                时间: 3000,
+            });
+        }
+
+        await 易次元.创建图层(`地图_${名称}_地图层`, {
+            层级索引: 100,
+            是否可见: 否,
+            裁剪模式: 是,
+            裁剪区域: { 宽: 1280, 高: 720 },
+            位置: { 横: 640, 纵: 360 },
+            锚点: { 横: 50, 纵: 50 },
         });
 
         await ac.createImage({
@@ -183,16 +320,6 @@ export class 地图管理器类 extends 事件目标 {
             inlayer: `地图_${名称}_地图层`,
             pos: { x: 640, y: 360 },
             anchor: { x: 50, y: 50 },
-        });
-
-        await ac.createLayer({
-            name: `地图_${名称}_入口层`,
-            inlayer: `地图_${名称}_地图层`,
-            index: 110,
-            clipMode: true,
-            pos: { x: 640, y: 360 },
-            anchor: { x: 50, y: 50 },
-            size: { width: 1280, height: 720 },
         });
 
         await ac.createLayer({
@@ -237,102 +364,10 @@ export class 地图管理器类 extends 事件目标 {
             },
         });
 
-        for (const 入口 of 地图.入口列表) {
-            const 入口图片名称 = `地图_${名称}_入口_${入口.名称}`;
-            const 入口资源 = this.#时间管理器.现在是白天 ? 入口.资源组.日间 : 入口.资源组.夜间;
-
-            await ac.createImage({
-                name: 入口图片名称,
-                resId: `${入口资源}`,
-                inlayer: `地图_${名称}_入口层`,
-                pos: 坐标转坐标对象(入口.位置),
-            });
-
-            if (入口.提示) {
-                const 提示文本框坐标 = {
-                    横: 入口.位置[0] + 入口.提示.文本框相对于入口的偏移位置.横,
-                    纵: 入口.位置[1] + 入口.提示.文本框相对于入口的偏移位置.纵,
-                };
-                await ac.createText({
-                    name: `地图_${名称}_入口_${入口.名称}_提示`,
-                    inlayer: `地图_${名称}_入口层`,
-                    halign: ac.HALIGN_TYPES.left,
-                    valign: ac.VALIGN_TYPES.bottom,
-                    content: 入口.提示.文本内容,
-                    pos: 中文坐标对象转坐标对象(提示文本框坐标),
-                    size: { width: 入口.提示.文本框大小.宽, height: 入口.提示.文本框大小.高 },
-                    style: "地图_提示文本样式",
-                });
-            }
-
-            if (入口.禁用) {
-                await ac.filter({
-                    name: 入口图片名称,
-                    type: ac.FILTER_TYPES.gray,
-                    args: 100,
-                    duration: 100,
-                });
-
-                await ac.filter({
-                    name: `地图_${名称}_场景入口_进入按钮`,
-                    type: ac.FILTER_TYPES.gray,
-                    args: 100,
-                    duration: 100,
-                });
-            }
-
-            const 侦听器 = async () => {
-                this.触发事件(new 自定义事件("入口交互开始", { 细节: { 地图, 入口 } }));
-                if (入口.去往.类型 === "地图") {
-                    await ac.remove({
-                        name: `地图_${名称}_底图`,
-                        effect: ac.EFFECT_TYPES.normal,
-                    });
-                    await ac.remove({
-                        name: `地图_${名称}_地图层`,
-                        effect: ac.EFFECT_TYPES.normal,
-                    });
-                    await this.显示地图(入口.去往.名称);
-                } else if (入口.去往.类型 === "场景") {
-                    if (入口.描述界面) {
-                        await ac.hide({ name: `地图_${名称}_入口层` });
-                        await ac.createText({
-                            name: `地图_${名称}_场景入口_标题`,
-                            inlayer: `地图_${名称}_入口遮罩层`,
-                            pos: { x: 535, y: 585 },
-                            halign: ac.HALIGN_TYPES.middle,
-                            valign: ac.VALIGN_TYPES.center,
-                            content: 入口.描述界面.标题,
-                            size: { width: 222, height: 40 },
-                            style: "地图_文本样式",
-                        });
-
-                        await ac.createText({
-                            name: `地图_${名称}_场景入口_描述`,
-                            inlayer: `地图_${名称}_入口遮罩层`,
-                            pos: { x: 395, y: 250 },
-                            halign: ac.HALIGN_TYPES.middle,
-                            content: 入口.描述界面.描述,
-                            size: { width: 485, height: 233 },
-                            style: "地图_文本样式",
-                        });
-
-                        await ac.show({ name: `地图_${名称}_入口遮罩层` });
-                    }
-                    await 入口.执行?.();
-                }
-                this.触发事件(new 自定义事件("入口交互结束", { 细节: { 地图, 入口 } }));
-            };
-
-            ac.addEventListener({
-                type: ac.EVENT_TYPES.onTouchEnded,
-                target: 入口图片名称,
-                listener: 侦听器,
-            });
-        }
+        await this.显示入口();
     }
 
-    public async 关闭地图() {
+    async 关闭地图() {
         const 地图 = this.#当前地图;
         if (!地图) return;
 

@@ -562,6 +562,27 @@ interface FadeToParams {
     canskip?: boolean;
 }
 
+interface TransParams {
+    /**
+     * 通道图资源标识。
+     */
+    rule: string;
+    /**
+     * 过渡时间，单位：毫秒。
+     * @default 0
+     */
+    duration?: number;
+    /**
+     * 切换对象的名称。
+     */
+    group: [first: string, second: string];
+    /**
+     * 是否可跳过。
+     * @default false
+     */
+    canskip?: boolean
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
@@ -587,6 +608,7 @@ interface AC {
     /** 获取实体坐标 */ getPos(params: GetPosParams): Promise<坐标对象>;
     /** 显示对象     */ show(params: ShowParams): Promise<void>;
     /** 隐藏对象     */ hide(params: HideParams): Promise<void>;
+    /** 对象过渡     */ trans(params: TransParams): Promise<void>;
     /** 移到指定位置 */ moveTo(params: MoveToParams): Promise<void>;
     /** 移动指定距离 */ moveBy(params: MoveByParams): Promise<void>;
     /** 播放音效     */ playAudio(params: PlayAudioParams): Promise<void>;

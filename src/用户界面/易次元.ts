@@ -1,5 +1,4 @@
 interface 对象基础参数 {
-    名称: 字符串;
     /**
      * @默认值 0
      */
@@ -68,7 +67,6 @@ enum 事件类型 {
 }
 
 interface 播放音频基础参数 {
-    名称: 字符串;
     资源标识: 字符串;
     /**
      * @默认值 100
@@ -107,12 +105,10 @@ interface 播放淡入效果音频参数 extends 播放音频基础参数 {
 type 播放音频参数 = 播放普通效果音频参数 | 播放淡入效果音频参数;
 
 interface 显示对象普通效果参数 {
-    名称: 字符串;
     效果?: 出现效果.普通;
 }
 
 interface 显示对象淡入效果参数 {
-    名称: 字符串;
     效果: 出现效果.淡入;
     时间: 数值;
     可跳过?: 是否;
@@ -133,17 +129,14 @@ interface 创建选项参数 extends 对象基础参数 {
 }
 
 interface 插入用户界面参数 {
-    名称: 字符串;
     用户界面标识: 字符串;
 }
 
 interface 隐藏对象普通效果参数 {
-    名称: 字符串;
     效果?: 消失效果.普通;
 }
 
 interface 隐藏对象淡出效果参数 {
-    名称: 字符串;
     效果: 消失效果.淡出;
     时间: 数值;
     可跳过?: 是否;
@@ -152,12 +145,10 @@ interface 隐藏对象淡出效果参数 {
 type 隐藏对象参数 = 隐藏对象普通效果参数 | 隐藏对象淡出效果参数;
 
 interface 移除对象普通效果参数 {
-    名称: 字符串;
     效果?: 消失效果.普通;
 }
 
 interface 移除对象淡出效果参数 {
-    名称: 字符串;
     效果: 消失效果.淡出;
     时间: 数值;
     可跳过?: 是否;
@@ -173,7 +164,6 @@ enum 缓动渐变类型 {
 }
 
 interface 透明度变化参数 {
-    名称: 字符串;
     /**
      * @默认值 100
      */
@@ -192,16 +182,28 @@ interface 透明度变化参数 {
     可跳过?: 是否;
 }
 
+interface 对象过渡参数 {
+    通道图资源标识: 字符串;
+    /**
+     * @默认值 0
+     */
+    时间?: 数值;
+    /**
+     * @默认值 否
+     */
+    可跳过?: 是否;
+}
+
 export const 易次元 = {
     音频效果,
     出现效果,
     消失效果,
     事件类型,
-    async 创建图层(参数: 创建图层参数) {
+    async 创建图层(名称: 字符串, 参数: 创建图层参数) {
         // 将 创建图层参数 转换为 CreateLayerParams
         function 转换参数(参数: 创建图层参数): CreateLayerParams {
             const 基础对象参数: BaseObjectParams = {
-                name: 参数.名称,
+                name: 名称,
             };
             if (参数.层级索引) 基础对象参数.index = 参数.层级索引;
             if (参数.所属图层) 基础对象参数.inlayer = 参数.所属图层;
@@ -224,11 +226,11 @@ export const 易次元 = {
         }
         return ac.createLayer(转换参数(参数));
     },
-    async 创建图片(参数: 创建图片参数) {
+    async 创建图片(名称: 字符串, 参数: 创建图片参数) {
         // 将 创建图片参数 转换为 CreateImageParams
         function 转换参数(参数: 创建图片参数): CreateImageParams {
             const 图片参数: CreateImageBaseParams = {
-                name: 参数.名称,
+                name: 名称,
                 resId: 参数.资源标识,
             };
             if (参数.层级索引) 图片参数.index = 参数.层级索引;
@@ -257,11 +259,11 @@ export const 易次元 = {
 
         return ac.createImage(转换参数(参数));
     },
-    async 创建选项(参数: 创建选项参数) {
+    async 创建选项(名称: 字符串, 参数: 创建选项参数) {
         // 将 创建选项参数 转换为 CreateOptionParams
         function 转换参数(参数: 创建选项参数): CreateOptionParams {
             const 基础对象参数: BaseObjectParams = {
-                name: 参数.名称,
+                name: 名称,
             };
             if (参数.层级索引) 基础对象参数.index = 参数.层级索引;
             if (参数.所属图层) 基础对象参数.inlayer = 参数.所属图层;
@@ -291,9 +293,9 @@ export const 易次元 = {
 
         return ac.createOption(转换参数(参数));
     },
-    async 插入用户界面(参数: 插入用户界面参数) {
+    async 插入用户界面(名称: 字符串, 参数: 插入用户界面参数) {
         return ac.callUI({
-            name: 参数.名称,
+            name: 名称,
             uiId: 参数.用户界面标识,
         });
     },
@@ -304,11 +306,11 @@ export const 易次元 = {
             listener: 回调,
         });
     },
-    async 播放音频(参数: 播放音频参数) {
+    async 播放音频(名称: 字符串, 参数: 播放音频参数) {
         // 将 播放音频参数 转换为 PlayAudioParams
         function 转换参数(参数: 播放音频参数): PlayAudioParams {
             const 音频参数: PlayAudioParams = {
-                name: 参数.名称,
+                name: 名称,
                 resId: 参数.资源标识,
             };
             if (参数.音量) 音频参数.vol = 参数.音量;
@@ -326,11 +328,11 @@ export const 易次元 = {
 
         return ac.playAudio(转换参数(参数));
     },
-    async 显示对象(参数: 显示对象参数) {
+    async 显示对象(名称: 字符串, 参数: 显示对象参数) {
         // 将 显示对象参数 转换为 ShowParams
         function 转换参数(参数: 显示对象参数): ShowParams {
             const 对象参数: ShowParams = {
-                name: 参数.名称,
+                name: 名称,
             };
             if (参数.效果 === 出现效果.普通) return 对象参数;
             if (参数.效果 === 出现效果.淡入) {
@@ -347,11 +349,11 @@ export const 易次元 = {
 
         return ac.show(转换参数(参数));
     },
-    async 隐藏对象(参数: 隐藏对象参数) {
+    async 隐藏对象(名称: 字符串, 参数: 隐藏对象参数) {
         // 将 隐藏对象参数 转换为 HideParams
         function 转换参数(参数: 隐藏对象参数): HideParams {
             const 对象参数: HideParams = {
-                name: 参数.名称,
+                name: 名称,
             };
             if (参数.效果 === 消失效果.普通) return 对象参数;
             if (参数.效果 === 消失效果.淡出) {
@@ -368,11 +370,11 @@ export const 易次元 = {
 
         return ac.hide(转换参数(参数));
     },
-    async 移除对象(参数: 移除对象参数) {
+    async 移除对象(名称: 字符串, 参数: 移除对象参数) {
         // 将 移除对象参数 转换为 RemoveParams
         function 转换参数(参数: 移除对象参数): RemoveParams {
             const 对象参数: RemoveParams = {
-                name: 参数.名称,
+                name: 名称,
             };
             if (参数.效果 === 消失效果.普通) return 对象参数;
             if (参数.效果 === 消失效果.淡出) {
@@ -388,11 +390,22 @@ export const 易次元 = {
         }
         return ac.remove(转换参数(参数));
     },
-    async 透明度变化(参数: 透明度变化参数) {
+    async 对象过渡(对象名称一: 字符串, 对象名称二: 字符串, 参数: 对象过渡参数) {
+        const 对象过渡参数: TransParams = {
+            rule: 参数.通道图资源标识,
+            group: [对象名称一, 对象名称二],
+        };
+
+        if (参数.时间 !== undefined) 对象过渡参数.duration = 参数.时间;
+        if (参数.可跳过 !== undefined) 对象过渡参数.canskip = 参数.可跳过 === 是;
+
+        return ac.trans(对象过渡参数);
+    },
+    async 透明度变化(名称: 字符串, 参数: 透明度变化参数) {
         // 将 透明度变化参数 转换为 FadeParams
         function 转换参数(参数: 透明度变化参数): FadeToParams {
             const 对象参数: FadeToParams = {
-                name: 参数.名称,
+                name: 名称,
             };
 
             if (参数.不透明度 !== undefined) 对象参数.opacity = 参数.不透明度;
