@@ -321,17 +321,17 @@ interface CreateTextParams extends BaseObjectParams {
      * 文本方向。
      * @default ac.TEXT_DIRECTION_TYPES.horizontal
      */
-    direction?: TextDirectionTypes;
+    direction?: "horizontal" | "vertical";
     /**
      * 水平对齐类型。
      * @default ac.HALIGN_TYPES.left
      */
-    halign?: HAlignTypes;
+    halign?: "left" | "middle" | "right";
     /**
      * 垂直对齐类型。
      * @default ac.VALIGN_TYPES.top
      */
-    valign?: VAlignTypes;
+    valign?: "bottom" | "center" | "top";
     /**
      * 文本框大小。
      * @default { width: 0, height: 0 }
