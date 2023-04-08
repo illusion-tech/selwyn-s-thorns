@@ -85,12 +85,12 @@ enum 音频效果 {
     淡入 = "fadein",
 }
 
-enum 显示效果 {
+enum 出现效果 {
     普通 = "normal",
     淡入 = "fadein",
 }
 
-enum 隐藏效果 {
+enum 消失效果 {
     普通 = "normal",
     淡出 = "fadeout",
 }
@@ -108,12 +108,12 @@ type 播放音频参数 = 播放普通效果音频参数 | 播放淡入效果音
 
 interface 显示对象普通效果参数 {
     名称: 字符串;
-    效果?: 显示效果.普通;
+    效果?: 出现效果.普通;
 }
 
 interface 显示对象淡入效果参数 {
     名称: 字符串;
-    效果: 显示效果.淡入;
+    效果: 出现效果.淡入;
     时间: 数值;
     可跳过?: 是否;
 }
@@ -139,21 +139,36 @@ interface 插入用户界面参数 {
 
 interface 隐藏对象普通效果参数 {
     名称: 字符串;
-    效果?: 隐藏效果.普通;
+    效果?: 消失效果.普通;
 }
 
 interface 隐藏对象淡出效果参数 {
     名称: 字符串;
-    效果: 隐藏效果.淡出;
+    效果: 消失效果.淡出;
     时间: 数值;
     可跳过?: 是否;
 }
 
-interface
+type 隐藏对象参数 = 隐藏对象普通效果参数 | 隐藏对象淡出效果参数;
+
+interface 移除对象普通效果参数 {
+    名称: 字符串;
+    效果?: 消失效果.普通;
+}
+
+interface 移除对象淡出效果参数 {
+    名称: 字符串;
+    效果: 消失效果.淡出;
+    时间: 数值;
+    可跳过?: 是否;
+}
+
+type 移除对象参数 = 移除对象普通效果参数 | 移除对象淡出效果参数;
 
 export const 易次元 = {
     音频效果,
-    显示效果,
+    出现效果,
+    消失效果,
     事件类型,
     async 创建图层(参数: 创建图层参数) {
         // 将 创建图层参数 转换为 CreateLayerParams
@@ -288,11 +303,11 @@ export const 易次元 = {
             const 对象参数: ShowParams = {
                 name: 参数.名称,
             };
-            if (参数.效果 === 显示效果.普通) return 对象参数;
-            if (参数.效果 === 显示效果.淡入) {
+            if (参数.效果 === 出现效果.普通) return 对象参数;
+            if (参数.效果 === 出现效果.淡入) {
                 return {
                     ...对象参数,
-                    effect: 显示效果.淡入,
+                    effect: 出现效果.淡入,
                     duration: 参数.时间,
                     canskip: 参数.可跳过 === 是,
                 };
@@ -303,6 +318,45 @@ export const 易次元 = {
 
         return ac.show(转换参数(参数));
     },
-    async 隐藏对象(参数: 隐藏对象参数) {},
-    async 移除对象(参数: 移除对象参数) {},
+    async 隐藏对象(参数: 隐藏对象参数) {
+        // 将 隐藏对象参数 转换为 HideParams
+        function 转换参数(参数: 隐藏对象参数): HideParams {
+            const 对象参数: HideParams = {
+                name: 参数.名称,
+            };
+            if (参数.效果 === 消失效果.普通) return 对象参数;
+            if (参数.效果 === 消失效果.淡出) {
+                return {
+                    ...对象参数,
+                    effect: 消失效果.淡出,
+                    duration: 参数.时间,
+                    canskip: 参数.可跳过 === 是,
+                };
+            }
+
+            return 对象参数;
+        }
+
+        return ac.hide(转换参数(参数));
+    },
+    async 移除对象(参数: 移除对象参数) {
+        // 将 移除对象参数 转换为 RemoveParams
+        function 转换参数(参数: 移除对象参数): RemoveParams {
+            const 对象参数: RemoveParams = {
+                name: 参数.名称,
+            };
+            if (参数.效果 === 消失效果.普通) return 对象参数;
+            if (参数.效果 === 消失效果.淡出) {
+                return {
+                    ...对象参数,
+                    effect: 消失效果.淡出,
+                    duration: 参数.时间,
+                    canskip: 参数.可跳过 === 是,
+                };
+            }
+
+            return 对象参数;
+        }
+        return ac.remove(转换参数(参数));
+    },
 };

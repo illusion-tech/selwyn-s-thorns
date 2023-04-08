@@ -220,14 +220,14 @@ interface NormalRemoveParams extends BaseRemoveParams {
     /**
      * 消失效果。
      */
-    effect: EffectTypes.normal;
+    effect?: "normal";
 }
 
 interface FadeoutRemoveParams extends BaseRemoveParams {
     /**
      * 消失效果。
      */
-    effect: EffectTypes.fadeout;
+    effect: "fadeout";
     /**
      * 效果时长。
      */
@@ -385,7 +385,7 @@ interface HideParams {
      * 消失效果。
      * @default ac.EFFECT_TYPES.normal
      */
-    effect?: EffectTypes;
+    effect?: "normal" | "fadeout";
     /**
      * 效果时长。
      * @default 0
