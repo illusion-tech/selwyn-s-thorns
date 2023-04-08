@@ -550,6 +550,18 @@ interface CallUIParams {
     uiId: string;
 }
 
+interface FadeToParams {
+    name: string;
+    /**
+     * 目标透明度。
+     * @default 100
+     */
+    opacity?: number;
+    ease?: EaseTypes;
+    duration?: number;
+    canskip?: boolean;
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
@@ -571,6 +583,7 @@ interface AC {
     /** 延迟         */ delay(params: DelayParams): Promise<void>;
     /** 插播剧情     */ display(params: DisplayParams): Promise<void>;
     /** 滤镜效果     */ filter(params: FilterParams): Promise<void>;
+    /** 透明化       */ fadeTo(params: FadeToParams): Promise<void>;
     /** 获取实体坐标 */ getPos(params: GetPosParams): Promise<坐标对象>;
     /** 显示对象     */ show(params: ShowParams): Promise<void>;
     /** 隐藏对象     */ hide(params: HideParams): Promise<void>;

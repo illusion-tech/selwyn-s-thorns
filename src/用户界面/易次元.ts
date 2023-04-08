@@ -165,6 +165,33 @@ interface 移除对象淡出效果参数 {
 
 type 移除对象参数 = 移除对象普通效果参数 | 移除对象淡出效果参数;
 
+enum 缓动渐变类型 {
+    线性匀速 = "normal",
+    加速 = "easeExponentialIn",
+    减速 = "easeExponentialOut",
+    加速减速 = "easeExponentialInOut",
+}
+
+interface 透明度变化参数 {
+    名称: 字符串;
+    /**
+     * @默认值 100
+     */
+    不透明度?: 数值;
+    /**
+     * @默认值 易次元.缓动渐变类型.线性匀速
+     */
+    缓动渐变类型?: 缓动渐变类型;
+    /**
+     * @默认值 0
+     */
+    时间?: 数值;
+    /**
+     * @默认值 否
+     */
+    可跳过?: 是否;
+}
+
 export const 易次元 = {
     音频效果,
     出现效果,
@@ -358,5 +385,21 @@ export const 易次元 = {
             return 对象参数;
         }
         return ac.remove(转换参数(参数));
+    },
+    async 透明度变化(参数: 透明度变化参数) {
+        // 将 透明度变化参数 转换为 FadeParams
+        function 转换参数(参数: 透明度变化参数): FadeToParams {
+            const 对象参数: FadeToParams = {
+                name: 参数.名称,
+            };
+
+            if (参数.不透明度 !== undefined) 对象参数.opacity = 参数.不透明度;
+            if (参数.时间 !== undefined) 对象参数.duration = 参数.时间;
+            if (参数.缓动渐变类型 !== undefined) 对象参数.ease = 参数.缓动渐变类型 as unknown as EaseTypes;
+            if (参数.可跳过 !== undefined) 对象参数.canskip = 参数.可跳过 === 是;
+            return 对象参数;
+        }
+
+        return ac.fadeTo(转换参数(参数));
     },
 };
