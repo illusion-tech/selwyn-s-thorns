@@ -369,7 +369,7 @@ export class 地图管理器类 extends 事件目标 {
         const 地图 = this.#当前地图;
         if (!地图) return;
 
-        await 易次元.移除对象(`地图_${地图.名称}_地图`);
+        await 易次元.移除对象(`地图_${地图.名称}_底图`);
         await 易次元.移除对象(`地图_${地图.名称}_地图层`);
 
         this.#当前地图 = undefined;
