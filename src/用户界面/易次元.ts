@@ -278,6 +278,8 @@ export const 易次元 = {
             if (参数.点击音效) {
                 选项参数.clickAudio = { resId: 参数.点击音效.资源标识 };
                 if (参数.点击音效.音量) 选项参数.clickAudio.vol = 参数.点击音效.音量;
+            } else {
+                选项参数.clickAudio = { resId: "$51624", vol: 100 };
             }
 
             if (参数.选项文字) 选项参数.content = 参数.选项文字;
