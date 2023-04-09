@@ -39,4 +39,17 @@ export class 时间管理器类 {
     获取当前时间() {
         return this.#日期时间;
     }
+
+    获取当前月份(): 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 {
+        const 月份 = this.#日期时间[1];
+        if (月份 < 1) return 1;
+        if (月份 > 12) return 12;
+        return 月份 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    }
+
+    获取当前日期字符串(): 字符串 {
+        return Array.from(this.#日期时间.subarray(0, 3))
+            .map((数值) => 数值.toString().padStart(2, "0"))
+            .join("-");
+    }
 }

@@ -6,9 +6,6 @@ const 是 = Symbol("是");
 const 否 = Symbol("否");
 const 真 = true;
 const 假 = false;
-
-declare type 填充模式 = typeof 最大填充 | typeof 最小填充;
-declare type 解锁状态 = typeof 解锁 | typeof 未解锁;
 declare type 是 = typeof 是;
 declare type 否 = typeof 否;
 declare type 是否 = typeof 是 | typeof 否;
@@ -17,6 +14,9 @@ declare type 假 = typeof 假;
 declare type 真假 = boolean;
 declare type 数值 = number;
 declare type 字符串 = string;
+declare type 资源标识 = `$${数值}`;
+declare type 填充模式 = typeof 最大填充 | typeof 最小填充;
+declare type 解锁状态 = typeof 解锁 | typeof 未解锁;
 
 type MyGlobalThis = typeof globalThis & {
     最大填充: typeof 最大填充;
