@@ -226,7 +226,12 @@ interface 滤镜效果参数 {
     可跳过?: 是否;
 }
 
+enum 预设对话框 {
+    旁白框 = 1468221,
+}
+
 export const 易次元 = {
+    预设对话框,
     音频效果,
     出现效果,
     消失效果,
@@ -492,5 +497,11 @@ export const 易次元 = {
         }
 
         return ac.fadeTo(转换参数(参数));
+    },
+    async 打开对话框(预设: 预设对话框, 内容: 字符串) {
+        return ac.sysDialogOn({ id: 预设, content: 内容 });
+    },
+    async 关闭对话框() {
+        return ac.sysDialogOff();
     },
 };

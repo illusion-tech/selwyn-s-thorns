@@ -1,4 +1,5 @@
 import "./全局常量.js";
+import { 祛缩进 } from "./工具.js";
 import { Card } from "./用户界面/card.js";
 import { CardActions } from "./用户界面/card_actions.js";
 import { 人物管理器类 } from "./用户界面/人物管理器.js";
@@ -29,6 +30,7 @@ console.log({
     项链菜单,
     显示项链菜单,
     配置日记贴纸,
+    祛缩进,
     Card,
     CardActions,
 });

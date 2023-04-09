@@ -237,6 +237,7 @@ interface FadeoutRemoveParams extends BaseRemoveParams {
 type RemoveParams = NormalRemoveParams | FadeoutRemoveParams;
 
 interface ArrayVariables {
+    日记记录: number[];
     对话选项结果: number[];
     黛瑞雅性格属性: [谦逊: number, 傲慢: number, 荣誉: number];
 }
@@ -580,7 +581,16 @@ interface TransParams {
      * 是否可跳过。
      * @default false
      */
-    canskip?: boolean
+    canskip?: boolean;
+}
+
+interface SysDialogOnParams {
+    roleName?: string;
+    content?: string;
+    id?: number;
+    hasRoleName?: boolean;
+    hasBg?: boolean;
+    hasRoleAvatar?: boolean;
 }
 
 interface AC {
@@ -613,6 +623,8 @@ interface AC {
     /** 移动指定距离 */ moveBy(params: MoveByParams): Promise<void>;
     /** 播放音效     */ playAudio(params: PlayAudioParams): Promise<void>;
     /** 移除对象     */ remove(params: RemoveParams): Promise<void>;
+    /** 打开对话框   */ sysDialogOn(params: SysDialogOnParams): Promise<void>;
+    /** 关闭对话框   */ sysDialogOff(): Promise<void>;
 }
 
 declare const ac: AC;

@@ -8,7 +8,9 @@ const 否 = Symbol("否");
 const 真 = true;
 const 假 = false;
 const 空白 = "";
+const 未定义 = undefined;
 
+declare type 未定义 = typeof 未定义;
 declare type 空白 = typeof 空白;
 declare type 是 = typeof 是;
 declare type 否 = typeof 否;
@@ -34,6 +36,7 @@ type MyGlobalThis = typeof globalThis & {
     否: 否;
     真: 真;
     假: 假;
+    未定义: 未定义;
 };
 
 (globalThis as MyGlobalThis).被污损 = 被污损;
@@ -45,3 +48,4 @@ type MyGlobalThis = typeof globalThis & {
 (globalThis as MyGlobalThis).否 = 否;
 (globalThis as MyGlobalThis).真 = 真;
 (globalThis as MyGlobalThis).假 = 假;
+(globalThis as MyGlobalThis).未定义 = 未定义;
