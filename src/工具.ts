@@ -64,3 +64,21 @@ export function 祛缩进(模板字符串: TemplateStringsArray | string, ...模
 
     return 字符串;
 }
+
+const 环境 = new OffscreenCanvas(1, 1).getContext("2d") ?? globalThis.document.createElement("canvas").getContext("2d");
+export function 测量字符串(字符串: 字符串) {
+    if (!环境) throw alert("无法创建字符串测量环境");
+    const 结果 = 环境.measureText(字符串);
+    return {
+        宽度: 结果.width,
+        字体高度: 结果.fontBoundingBoxAscent + 结果.fontBoundingBoxDescent,
+        字体边界盒上沿到基线距离: 结果.fontBoundingBoxAscent,
+        字体边界盒下沿到基线距离: 结果.fontBoundingBoxDescent,
+        实际边界盒上沿到基线距离: 结果.actualBoundingBoxAscent,
+        实际边界盒下沿到基线距离: 结果.actualBoundingBoxDescent,
+        实际边界盒左沿到对齐点距离: 结果.actualBoundingBoxLeft,
+        实际边界盒右沿到对齐点距离: 结果.actualBoundingBoxRight,
+        实际宽度: 结果.actualBoundingBoxLeft + 结果.actualBoundingBoxRight,
+        实际高度: 结果.actualBoundingBoxAscent + 结果.actualBoundingBoxDescent,
+    };
+}
