@@ -26,7 +26,7 @@ declare type 解锁状态 = typeof 解锁 | typeof 未解锁;
 declare type 被污损 = typeof 被污损;
 
 type MyGlobalThis = typeof globalThis & {
-    空白: typeof 空白;
+    空白: 空白;
     被污损: 被污损;
     最大填充: typeof 最大填充;
     最小填充: typeof 最小填充;
@@ -49,3 +49,5 @@ type MyGlobalThis = typeof globalThis & {
 (globalThis as MyGlobalThis).真 = 真;
 (globalThis as MyGlobalThis).假 = 假;
 (globalThis as MyGlobalThis).未定义 = 未定义;
+(globalThis as MyGlobalThis).空白 = 空白;
+
