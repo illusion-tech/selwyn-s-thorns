@@ -26,7 +26,6 @@ type 条件 = {
 };
 
 class 对话选项 {
-
     编号: number | null = null;
     内容 = "";
     条件集: 条件[] = [];
@@ -50,7 +49,6 @@ class 对话选项 {
 }
 
 class 对话选项面板 {
-
     编号: number;
     描述: string;
     可选项: 对话选项[] = [];
@@ -189,7 +187,6 @@ export class 对话选项管理器类 {
         if (!Number.isSafeInteger(参数.编号)) throw alert("对话选项面板必须有编号！");
         if (!参数.描述) throw alert("对话选项面板必须有描述！");
         if (参数.可选项.length < 2 || 参数.可选项.length > 7) throw alert("对话选项面板必须有2到6个选项！");
-        console.log(ac.arr.对话选项结果, ac.arr.对话选项结果[this.#面板集合.length]);
 
         const 面板 = new 对话选项面板(参数);
         面板.选择状态 = ac.arr.对话选项结果[this.#面板集合.length] ?? 0;
@@ -302,5 +299,18 @@ export class 对话选项管理器类 {
         const 面板 = this.#面板集合[编号];
         if (!面板) throw alert(`执行查询对话选项面板结果时，编号<${编号}>的对话选项面板不存在！`);
         return 面板.选择状态;
+    }
+
+    批量设置对话选项面板结果(结果集合: { 编号: number; 选择: number }[]) {
+        for (const 结果 of 结果集合) {
+            const 面板 = this.#面板集合[结果.编号];
+            if (!面板) throw alert(`执行批量设置对话选项面板结果时，编号<${结果.编号}>的对话选项面板不存在！`);
+            if (面板.可选项.length < 结果.选择)
+                throw alert(
+                    `执行批量设置对话选项面板结果时，编号<${结果.编号}>的对话选项面板的可选项数量为<${面板.可选项.length}>，小于选择的选项编号<${结果.选择}>！`,
+                );
+            面板.选择状态 = 结果.选择;
+            ac.arr.对话选项结果[结果.编号] = 结果.选择;
+        }
     }
 }
