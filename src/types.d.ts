@@ -623,6 +623,7 @@ interface AC {
     /** 垂直对齐类型 */ VALIGN_TYPES: typeof VAlignTypes;
     /** 添加事件侦听 */ addEventListener(params: AddEventListenerParams): Promise<void>;
     /** 插入 UI      */ callUI(params: CallUIParams): Promise<void>;
+    /** 关闭当前 UI  */ removeCurrentUI(): Promise<void>;
     /** 创建图片     */ createImage(params: CreateImageParams): Promise<void>;
     /** 创建图层     */ createLayer(params: CreateLayerParams): Promise<void>;
     /** 创建选项     */ createOption(params: CreateOptionParams): Promise<void>;

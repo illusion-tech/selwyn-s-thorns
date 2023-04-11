@@ -398,7 +398,10 @@ export const 易次元 = {
             uiId: 参数.用户界面标识,
         });
     },
-    async 添加事件侦听器(对象: 字符串, 事件类型: 事件类型, 回调: () => void): Promise<void> {
+    async 关闭当前用户界面() {
+        return ac.removeCurrentUI();
+    },
+    async 添加事件侦听器(对象: 字符串, 事件类型: 事件类型, 回调: () => void) {
         return ac.addEventListener({
             target: 对象,
             type: 事件类型 as unknown as EventTypes,
@@ -427,7 +430,7 @@ export const 易次元 = {
 
         return ac.playAudio(转换参数(参数));
     },
-    async 停止音频(名称: 字符串, 参数: 停止音频参数) {
+    async 停止音频(名称: 字符串, 参数: 停止音频参数 = {}) {
         return ac.stopAudio({
             name: 名称,
             effect: 参数.效果,
