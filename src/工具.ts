@@ -66,8 +66,9 @@ export function 祛缩进(模板字符串: TemplateStringsArray | string, ...模
 }
 
 const 环境 = new OffscreenCanvas(1, 1).getContext("2d") ?? globalThis.document.createElement("canvas").getContext("2d");
-export function 测量字符串(字符串: 字符串) {
+export function 测量字符串(字符串: 字符串, 字体 = "") {
     if (!环境) throw alert("无法创建字符串测量环境");
+    环境.font = 字体;
     const 结果 = 环境.measureText(字符串);
     return {
         宽度: 结果.width,

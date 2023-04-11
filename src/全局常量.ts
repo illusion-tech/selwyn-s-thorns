@@ -24,6 +24,9 @@ declare type 资源标识 = `$${数值}`;
 declare type 填充模式 = typeof 最大填充 | typeof 最小填充;
 declare type 解锁状态 = typeof 解锁 | typeof 未解锁;
 declare type 被污损 = typeof 被污损;
+declare type 无 = void;
+declare type 未知 = unknown;
+declare type 永不 = never;
 
 type MyGlobalThis = typeof globalThis & {
     空白: 空白;

@@ -1,5 +1,5 @@
+import { 易次元 } from "../运行时/易次元.js";
 import { 日记管理器类 } from "./日记管理器.js";
-import { 易次元 } from "./易次元.js";
 
 type 项链菜单配置 = {
     记忆回溯: 解锁状态;
