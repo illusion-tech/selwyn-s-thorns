@@ -110,6 +110,7 @@ interface 创建选项参数 extends 对象基础参数 {
     正常态资源标识: 资源标识;
     点击态资源标识: 资源标识;
     选项文字?: 字符串;
+    文字样式?: 字符串;
     点击音效?: {
         资源标识: 资源标识;
         音量?: 数值;
@@ -244,6 +245,13 @@ interface 创建文本样式参数 {
     可跳过?: 是否;
 }
 
+interface 停止音频参数 {
+    /** @默认值 易次元.消失效果.普通 */
+    效果?: 消失效果;
+    /** @默认值 0 */
+    时长?: 数值;
+}
+
 // rome-ignore format:
 export const 易次元 = {
     预设对话框, 音频效果, 出现效果, 消失效果, 事件类型, 滤镜类型, 文本方向, 水平对齐方式, 垂直对齐方式,
@@ -333,6 +341,7 @@ export const 易次元 = {
             }
 
             if (参数.选项文字) 选项参数.content = 参数.选项文字;
+            if (参数.文字样式) 选项参数.style = 参数.文字样式;
             if (参数.当点触开始时) 选项参数.onTouchBegan = 参数.当点触开始时;
             if (参数.当点触结束时) 选项参数.onTouchEnded = 参数.当点触结束时;
 
@@ -417,6 +426,19 @@ export const 易次元 = {
         }
 
         return ac.playAudio(转换参数(参数));
+    },
+    async 停止音频(名称: 字符串, 参数: 停止音频参数) {
+        return ac.stopAudio({
+            name: 名称,
+            effect: 参数.效果,
+            duration: 参数.时长,
+        });
+    },
+    async 暂停音频(名称: 字符串) {
+        return ac.pauseAudio({ name: 名称 });
+    },
+    async 恢复音频(名称: 字符串) {
+        return ac.resumeAudio({ name: 名称 });
     },
     async 显示对象(名称: 字符串, 参数: 显示对象参数) {
         // 将 显示对象参数 转换为 ShowParams

@@ -131,6 +131,10 @@ interface CreateOptionParams extends BaseObjectParams {
      */
     content?: string;
     /**
+     * 选项文字样式。
+     */
+    style?: string;
+    /**
      * 点击音效。
      */
     clickAudio?: {
@@ -593,6 +597,20 @@ interface SysDialogOnParams {
     hasRoleAvatar?: boolean;
 }
 
+interface StopAudioParams {
+    name: string;
+    effect?: "fadeout" | "normal";
+    duration?: number;
+}
+
+interface PauseAudioParams {
+    name: string;
+}
+
+interface ResumeAudioParams {
+    name: string;
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
@@ -622,6 +640,9 @@ interface AC {
     /** 移到指定位置 */ moveTo(params: MoveToParams): Promise<void>;
     /** 移动指定距离 */ moveBy(params: MoveByParams): Promise<void>;
     /** 播放音效     */ playAudio(params: PlayAudioParams): Promise<void>;
+    /** 停止音效     */ stopAudio(params: StopAudioParams): Promise<void>;
+    /** 暂停音效     */ pauseAudio(params: PauseAudioParams): Promise<void>;
+    /** 恢复音效     */ resumeAudio(params: ResumeAudioParams): Promise<void>;
     /** 移除对象     */ remove(params: RemoveParams): Promise<void>;
     /** 打开对话框   */ sysDialogOn(params: SysDialogOnParams): Promise<void>;
     /** 关闭对话框   */ sysDialogOff(): Promise<void>;
