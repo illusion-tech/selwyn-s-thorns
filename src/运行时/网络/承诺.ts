@@ -2,7 +2,11 @@ type 等待<类型> = Awaited<类型>;
 type 类承诺<类型> = PromiseLike<类型>;
 type 可迭代<类型> = Iterable<类型>;
 
+// all<T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: Awaited<T[P]> }>;
+
 export class 承诺<类型> extends Promise<类型> {
+    // static 全部<类型 extends []>(一组值: 类型): 承诺<{ [键 in keyof 类型]: 等待<类型[键]> }>;
+    // static 全部<类型>(一组值: 可迭代<类型 | 类承诺<类型>>): 承诺<等待<类型>[]>;
     /**
      * 创建一个承诺，该承诺在所有提供的承诺都履行或拒绝后履行或拒绝。
      * @param 一组值 - 一个可迭代的对象，如数组，其中包含要等待的值或承诺。
