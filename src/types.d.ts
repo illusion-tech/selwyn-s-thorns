@@ -244,6 +244,7 @@ interface ArrayVariables {
     日记记录: number[];
     对话选项结果: number[];
     黛瑞雅性格属性: [谦逊: number, 傲慢: number, 荣誉: number];
+    日期时间: [年: number, 月: number, 日: number, 时: number, 分: number];
 }
 
 interface DelayParams {
