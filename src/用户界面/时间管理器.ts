@@ -53,3 +53,16 @@ export class 时间管理器类 {
             .join("-");
     }
 }
+
+export type 日期字符串 = `${number}年${number}月${number}日`;
+
+export function 设置当前日期(日期字符串: 日期字符串, 时间管理器: 时间管理器类) {
+    const 正则模式 = /(\d{4})年(\d{1,2})月(\d{1,2})日/g;
+    const 匹配结果 = 正则模式.exec(日期字符串);
+    if (匹配结果) {
+        const 年 = parseInt(匹配结果[1]);
+        const 月 = parseInt(匹配结果[2]);
+        const 日 = parseInt(匹配结果[3]);
+        时间管理器.设置日期(年, 月, 日);
+    }
+}
