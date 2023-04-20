@@ -72,7 +72,6 @@ export class 人物管理器类 {
                             旧值: this.荣誉,
                             新值: that.荣誉,
                         } as const);
-                    if (属性探测结果.length === 0) throw alert("属性探针没有检测到属性值的变化");
 
                     console.log({ 属性探测结果 });
                     return 属性探测结果;

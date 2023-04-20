@@ -1,3 +1,4 @@
+import { 易次元 } from "../运行时/易次元.js";
 import { 人物管理器类 } from "./人物管理器.js";
 
 type 显示面板参数 = {
@@ -102,7 +103,59 @@ export class 对话选项管理器类 {
     }
 
     #获取蔷薇徽章动画序列(属性探针检测结果: 属性探针检测结果[]) {
-        if (属性探针检测结果.length === 0) return [];
+        if (属性探针检测结果.length === 0)
+            return [
+                { resId: "$54010987", time: 14 },
+                { resId: "$54010469", time: 14 },
+                { resId: "$54010470", time: 14 },
+                { resId: "$54010471", time: 14 },
+                { resId: "$54010472", time: 14 },
+                { resId: "$54010473", time: 14 },
+                { resId: "$54010474", time: 14 },
+                { resId: "$54010475", time: 14 },
+                { resId: "$54010476", time: 14 },
+                { resId: "$54010477", time: 14 },
+                { resId: "$54010478", time: 14 },
+                { resId: "$54010479", time: 14 },
+                { resId: "$54010480", time: 14 },
+                { resId: "$54010481", time: 14 },
+                { resId: "$54010482", time: 14 },
+                { resId: "$54010483", time: 14 },
+                { resId: "$54010484", time: 14 },
+                { resId: "$54010485", time: 14 },
+                { resId: "$54010486", time: 14 },
+                { resId: "$54010487", time: 14 },
+                { resId: "$54010488", time: 14 },
+                { resId: "$54010489", time: 14 },
+                { resId: "$54010490", time: 14 },
+                { resId: "$54010491", time: 14 },
+                { resId: "$54010492", time: 14 },
+                { resId: "$54010493", time: 14 },
+                { resId: "$54010494", time: 14 },
+                { resId: "$54010495", time: 14 },
+                { resId: "$54010496", time: 14 },
+                { resId: "$54010497", time: 14 },
+                { resId: "$54010498", time: 14 },
+                { resId: "$54010499", time: 14 },
+                { resId: "$54010500", time: 14 },
+                { resId: "$54010501", time: 14 },
+                { resId: "$54010502", time: 14 },
+                { resId: "$54010503", time: 14 },
+                { resId: "$54010504", time: 14 },
+                { resId: "$54010505", time: 14 },
+                { resId: "$54010506", time: 14 },
+                { resId: "$54010507", time: 14 },
+                { resId: "$54010508", time: 14 },
+                { resId: "$54010509", time: 14 },
+                { resId: "$54010510", time: 14 },
+                { resId: "$54010511", time: 14 },
+                { resId: "$54010512", time: 14 },
+                { resId: "$54010513", time: 14 },
+                { resId: "$54010514", time: 14 },
+                { resId: "$54010515", time: 14 },
+                { resId: "$54010516", time: 14 },
+                { resId: "$54010987", time: 14 },
+            ];
         if (属性探针检测结果.find((检测结果) => 检测结果.属性 === "谦逊")?.变化 ?? 0 > 0)
             return [
                 { resId: "$51533657", time: 18 },
@@ -238,7 +291,6 @@ export class 对话选项管理器类 {
         });
         const 选项布局 = this.#获取预定义对话选项布局(面板.可选项.length);
 
-        /** @type {number} */
         const 选择的选项编号: number = await new Promise((resolve) => {
             面板.可选项.forEach((选项, 索引编号) => {
                 const 坐标 = 选项布局.shift();
@@ -260,16 +312,10 @@ export class 对话选项管理器类 {
                         面板.选择状态 = 选项编号;
                         ac.arr.对话选项结果[面板.编号] = 选项编号;
 
-                        const 属性探测结果 = 属性探针.检测();
-                        const 动画序列 = this.#获取蔷薇徽章动画序列(属性探测结果);
-                        await ac.remove({ name: 蔷薇徽章名称, effect: ac.EFFECT_TYPES.normal });
-                        ac.playAudio({
-                            name: "playAudio02",
-                            resId: "$51542664",
-                            vol: 100,
-                            effect: "normal",
-                            loop: false,
-                        });
+                        const 动画序列 = this.#获取蔷薇徽章动画序列(属性探针.检测());
+                        易次元.移除对象(蔷薇徽章名称, { 效果: 易次元.消失效果.普通 });
+                        易次元.播放音频("蔷薇徽章动画音效", { 资源标识: "$51542664" }); // 蔷薇徽章动画音效
+
                         await ac.createSequence({
                             name: "rose_animate",
                             index: 0,
@@ -279,8 +325,8 @@ export class 对话选项管理器类 {
                             anchor: { x: 50, y: 50 },
                             visible: true,
                         });
-                        await ac.delay({ time: 1000 });
-                        await ac.remove({ name: 图层名称, effect: ac.EFFECT_TYPES.normal });
+                        await 易次元.延迟(1000);
+                        await 易次元.移除对象(图层名称, { 效果: 易次元.消失效果.淡出, 时长: 500 });
                         await 对应选项的回调函数[选项编号 - 1]?.();
                         resolve(选项编号);
                     },
