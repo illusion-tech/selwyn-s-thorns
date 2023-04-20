@@ -554,4 +554,7 @@ export const 易次元 = {
     async 关闭对话框() {
         return ac.sysDialogOff();
     },
+    async 延迟(毫秒: 数值) {
+        return ac.delay({time: 毫秒});
+    }
 };
