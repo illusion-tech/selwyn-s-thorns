@@ -252,22 +252,26 @@ interface 停止音频参数 {
     时长?: 数值;
 }
 
-export const 变量 = {
-    日期时间: ac.arr.日期时间 as [年: 数值, 月: 数值, 日: 数值, 时: 数值, 分: 数值],
-    黛瑞雅性格属性: ac.arr.黛瑞雅性格属性 as [谦逊: 数值, 傲慢: 数值, 荣誉: 数值],
-    对话选项结果: ac.arr.对话选项结果 as 数值[],
-    日记记录: ac.arr.日记记录 as 数值[],
-};
+export const 变量 = new (class 易次元变量 {
+    日期时间 = ac.arr.日期时间 as [年: 数值, 月: 数值, 日: 数值, 时: 数值, 分: 数值];
+    黛瑞雅性格属性 = ac.arr.黛瑞雅性格属性 as [谦逊: 数值, 傲慢: 数值, 荣誉: 数值];
+    对话选项结果 = ac.arr.对话选项结果 as 数值[];
+    日记记录 = ac.arr.日记记录 as 数值[];
+})();
 
-// rome-ignore format:
-export const 常量 = {
-    预设对话框, 音频效果, 出现效果, 消失效果, 事件类型, 滤镜类型, 文本方向,
-    水平对齐方式, 垂直对齐方式,
-};
+export const 常量 = new (class 易次元常量 {
+    预设对话框 = 预设对话框;
+    音频效果 = 音频效果;
+    出现效果 = 出现效果;
+    消失效果 = 消失效果;
+    事件类型 = 事件类型;
+    滤镜类型 = 滤镜类型;
+    文本方向 = 文本方向;
+    水平对齐方式 = 水平对齐方式;
+    垂直对齐方式 = 垂直对齐方式;
+})();
 
-// rome-ignore format:
-export const 易次元 = {
-    预设对话框, 音频效果, 出现效果, 消失效果, 事件类型, 滤镜类型, 文本方向, 水平对齐方式, 垂直对齐方式,
+export const 接口 = new (class 易次元接口 {
     async 创建图层(名称: 字符串, 参数: 创建图层参数) {
         // 将 创建图层参数 转换为 CreateLayerParams
         function 转换参数(参数: 创建图层参数): CreateLayerParams {
@@ -294,7 +298,7 @@ export const 易次元 = {
             }
         }
         return ac.createLayer(转换参数(参数));
-    },
+    }
     async 创建图片(名称: 字符串, 参数: 创建图片参数) {
         // 将 创建图片参数 转换为 CreateImageParams
         function 转换参数(参数: 创建图片参数): CreateImageParams {
@@ -327,7 +331,7 @@ export const 易次元 = {
         }
 
         return ac.createImage(转换参数(参数));
-    },
+    }
     async 创建选项(名称: 字符串, 参数: 创建选项参数) {
         // 将 创建选项参数 转换为 CreateOptionParams
         function 转换参数(参数: 创建选项参数): CreateOptionParams {
@@ -362,7 +366,7 @@ export const 易次元 = {
         }
 
         return ac.createOption(转换参数(参数));
-    },
+    }
     async 创建文本(名称: 字符串, 参数: 创建文本参数) {
         // 将 创建文本参数 转换为 CreateTextParams
         function 转换参数(参数: 创建文本参数): CreateTextParams {
@@ -386,10 +390,10 @@ export const 易次元 = {
             return 文本参数;
         }
         return ac.createText(转换参数(参数));
-    },
+    }
     async 创建文本样式(名称: 字符串, 参数: 创建文本样式参数) {
         const 创建文本样式参数: CreateStyleParams = {
-            name: 名称, 
+            name: 名称,
         };
         if (参数.字体) 创建文本样式参数.font = 参数.字体;
         if (参数.字号) 创建文本样式参数.fontSize = 参数.字号;
@@ -404,23 +408,23 @@ export const 易次元 = {
         if (参数.可跳过) 创建文本样式参数.canskip = 参数.可跳过 === 是;
 
         return ac.createStyle(创建文本样式参数);
-    },
+    }
     async 插入用户界面(名称: 字符串, 参数: 插入用户界面参数) {
         return ac.callUI({
             name: 名称,
             uiId: 参数.用户界面标识,
         });
-    },
+    }
     async 关闭当前用户界面() {
         return ac.removeCurrentUI();
-    },
+    }
     async 添加事件侦听器(对象: 字符串, 事件类型: 事件类型, 回调: () => void) {
         return ac.addEventListener({
             target: 对象,
             type: 事件类型 as unknown as EventTypes,
             listener: 回调,
         });
-    },
+    }
     async 播放音频(名称: 字符串, 参数: 播放音频参数) {
         // 将 播放音频参数 转换为 PlayAudioParams
         function 转换参数(参数: 播放音频参数): PlayAudioParams {
@@ -442,20 +446,20 @@ export const 易次元 = {
         }
 
         return ac.playAudio(转换参数(参数));
-    },
+    }
     async 停止音频(名称: 字符串, 参数: 停止音频参数 = {}) {
         return ac.stopAudio({
             name: 名称,
             effect: 参数.效果,
             duration: 参数.时长,
         });
-    },
+    }
     async 暂停音频(名称: 字符串) {
         return ac.pauseAudio({ name: 名称 });
-    },
+    }
     async 恢复音频(名称: 字符串) {
         return ac.resumeAudio({ name: 名称 });
-    },
+    }
     async 显示对象(名称: 字符串, 参数: 显示对象参数) {
         // 将 显示对象参数 转换为 ShowParams
         function 转换参数(参数: 显示对象参数): ShowParams {
@@ -476,7 +480,7 @@ export const 易次元 = {
         }
 
         return ac.show(转换参数(参数));
-    },
+    }
     async 隐藏对象(名称: 字符串, 参数: 隐藏对象参数) {
         // 将 隐藏对象参数 转换为 HideParams
         function 转换参数(参数: 隐藏对象参数): HideParams {
@@ -497,7 +501,7 @@ export const 易次元 = {
         }
 
         return ac.hide(转换参数(参数));
-    },
+    }
     async 移除对象(名称: 字符串, 参数: 移除对象参数 = {}) {
         // 将 移除对象参数 转换为 RemoveParams
         function 转换参数(参数: 移除对象参数): RemoveParams {
@@ -517,7 +521,7 @@ export const 易次元 = {
             return 对象参数;
         }
         return ac.remove(转换参数(参数));
-    },
+    }
     async 对象过渡(对象名称一: 字符串, 对象名称二: 字符串, 参数: 对象过渡参数) {
         const 对象过渡参数: TransParams = {
             rule: 参数.通道图资源标识,
@@ -528,7 +532,7 @@ export const 易次元 = {
         if (参数.可跳过 !== undefined) 对象过渡参数.canskip = 参数.可跳过 === 是;
 
         return ac.trans(对象过渡参数);
-    },
+    }
     async 滤镜效果(名称: 字符串, 参数: 滤镜效果参数) {
         // 将 滤镜效果参数 转换为 FilterParams
         function 转换参数(参数: 滤镜效果参数): FilterParams {
@@ -544,7 +548,7 @@ export const 易次元 = {
         }
 
         return ac.filter(转换参数(参数));
-    },
+    }
     async 透明度变化(名称: 字符串, 参数: 透明度变化参数) {
         // 将 透明度变化参数 转换为 FadeParams
         function 转换参数(参数: 透明度变化参数): FadeToParams {
@@ -560,14 +564,14 @@ export const 易次元 = {
         }
 
         return ac.fadeTo(转换参数(参数));
-    },
+    }
     async 打开对话框(预设: 预设对话框, 内容: 字符串) {
         return ac.sysDialogOn({ id: 预设, content: 内容 });
-    },
+    }
     async 关闭对话框() {
         return ac.sysDialogOff();
-    },
-    async 延迟(毫秒: 数值) {
-        return ac.delay({time: 毫秒});
     }
-};
+    async 延迟(毫秒: 数值) {
+        return ac.delay({ time: 毫秒 });
+    }
+})();
