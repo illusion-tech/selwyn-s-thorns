@@ -460,7 +460,7 @@ export const 接口 = new (class 易次元接口 {
     async 恢复音频(名称: 字符串) {
         return ac.resumeAudio({ name: 名称 });
     }
-    async 显示对象(名称: 字符串, 参数: 显示对象参数) {
+    async 显示对象(名称: 字符串, 参数: 显示对象参数 = {}) {
         // 将 显示对象参数 转换为 ShowParams
         function 转换参数(参数: 显示对象参数): ShowParams {
             const 对象参数: ShowParams = {
@@ -481,7 +481,7 @@ export const 接口 = new (class 易次元接口 {
 
         return ac.show(转换参数(参数));
     }
-    async 隐藏对象(名称: 字符串, 参数: 隐藏对象参数) {
+    async 隐藏对象(名称: 字符串, 参数: 隐藏对象参数 = {}) {
         // 将 隐藏对象参数 转换为 HideParams
         function 转换参数(参数: 隐藏对象参数): HideParams {
             const 对象参数: HideParams = {
