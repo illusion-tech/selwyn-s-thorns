@@ -1,7 +1,6 @@
-import { 变量 } from '../运行时/易次元';
+import { 变量 } from "../运行时/易次元";
 
 export class 时间管理器类 {
-
     get 现在是上午() {
         return 变量.日期时间[3] < 12;
     }
@@ -52,9 +51,10 @@ export class 时间管理器类 {
      * @备注 返回的示例字符串 '1991-06-05'
      */
     获取当前日期字符串(): 字符串 {
-        return Array.from(变量.日期时间.slice(0, 3))
-            .map((数值) => 数值.toString().padStart(2, "0"))
-            .join("-");
+        const 年 = 变量.日期时间[0].toString().padStart(2, "0");
+        const 月 = 变量.日期时间[1].toString().padStart(2, "0");
+        const 日 = 变量.日期时间[2].toString().padStart(2, "0");
+        return `${年}-${月}-${日}`;
     }
 }
 
