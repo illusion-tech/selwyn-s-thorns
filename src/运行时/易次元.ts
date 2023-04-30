@@ -106,9 +106,7 @@ interface 显示对象淡入效果参数 {
 
 type 显示对象参数 = 显示对象普通效果参数 | 显示对象淡入效果参数;
 
-interface 创建选项参数 extends 对象基础参数 {
-    正常态资源标识: 资源标识;
-    点击态资源标识: 资源标识;
+interface 创建选项基础参数 extends 对象基础参数 {
     选项文字?: 字符串;
     文字样式?: 字符串;
     点击音效?: {
@@ -118,6 +116,17 @@ interface 创建选项参数 extends 对象基础参数 {
     当点触开始时?: () => void;
     当点触结束时?: () => void;
 }
+
+interface 创建选项单态参数 extends 创建选项基础参数 {
+    资源标识: 资源标识;
+}
+
+interface 创建选项多态参数 extends 创建选项基础参数 {
+    正常态资源标识: 资源标识;
+    点击态资源标识: 资源标识;
+}
+
+type 创建选项参数 = 创建选项单态参数 | 创建选项多态参数;
 
 interface 插入用户界面参数 {
     用户界面标识: 字符串;
@@ -344,11 +353,10 @@ export const 接口 = new (class 易次元接口 {
             if (参数.锚点) 基础对象参数.anchor = { x: 参数.锚点.横, y: 参数.锚点.纵 };
             if (参数.是否可见) 基础对象参数.visible = 参数.是否可见 === 是;
 
-            const 选项参数: CreateOptionParams = {
-                ...基础对象参数,
-                nResId: 参数.正常态资源标识,
-                sResId: 参数.点击态资源标识,
-            };
+            // rome-ignore format: 关闭格式化
+            const 选项参数: CreateOptionParams = "资源标识" in 参数 
+                ? { ...基础对象参数, nResId: 参数.资源标识, sResId: 参数.资源标识 }
+                : { ...基础对象参数, nResId: 参数.正常态资源标识, sResId: 参数.点击态资源标识 };
 
             if (参数.点击音效) {
                 选项参数.clickAudio = { resId: 参数.点击音效.资源标识 };
