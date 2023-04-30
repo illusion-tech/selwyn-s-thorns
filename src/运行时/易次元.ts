@@ -94,18 +94,6 @@ interface 播放淡入效果音频参数 extends 播放音频基础参数 {
 
 type 播放音频参数 = 播放普通效果音频参数 | 播放淡入效果音频参数;
 
-interface 显示对象普通效果参数 {
-    效果?: 出现效果.普通;
-}
-
-interface 显示对象淡入效果参数 {
-    效果: 出现效果.淡入;
-    时长: 数值;
-    可跳过?: 是否;
-}
-
-type 显示对象参数 = 显示对象普通效果参数 | 显示对象淡入效果参数;
-
 interface 创建选项基础参数 extends 对象基础参数 {
     选项文字?: 字符串;
     文字样式?: 字符串;
@@ -132,29 +120,15 @@ interface 插入用户界面参数 {
     用户界面标识: 字符串;
 }
 
-interface 隐藏对象普通效果参数 {
-    效果?: 消失效果.普通;
-}
-
-interface 隐藏对象淡出效果参数 {
-    效果: 消失效果.淡出;
+interface 出现对象参数 {
     时长: 数值;
     可跳过?: 是否;
 }
 
-type 隐藏对象参数 = 隐藏对象普通效果参数 | 隐藏对象淡出效果参数;
-
-interface 移除对象普通效果参数 {
-    效果?: 消失效果.普通;
-}
-
-interface 移除对象淡出效果参数 {
-    效果: 消失效果.淡出;
+interface 消失对象参数 {
     时长: 数值;
     可跳过?: 是否;
 }
-
-type 移除对象参数 = 移除对象普通效果参数 | 移除对象淡出效果参数;
 
 enum 缓动渐变类型 {
     线性匀速 = "normal",
@@ -468,67 +442,26 @@ export const 接口 = new (class 易次元接口 {
     async 恢复音频(名称: 字符串) {
         return ac.resumeAudio({ name: 名称 });
     }
-    async 显示对象(名称: 字符串, 参数: 显示对象参数 = {}) {
-        // 将 显示对象参数 转换为 ShowParams
-        function 转换参数(参数: 显示对象参数): ShowParams {
-            const 对象参数: ShowParams = {
-                name: 名称,
-            };
-            if (参数.效果 === 出现效果.普通) return 对象参数;
-            if (参数.效果 === 出现效果.淡入) {
-                return {
-                    ...对象参数,
-                    effect: 出现效果.淡入,
-                    duration: 参数.时长,
-                    canskip: 参数.可跳过 === 是,
-                };
-            }
-
-            return 对象参数;
-        }
-
-        return ac.show(转换参数(参数));
+    async 显示对象(名称: 字符串, 参数: 出现对象参数 = { 时长: 0 }) {
+        return ac.show(
+            参数.时长 > 0
+                ? { name: 名称, effect: 出现效果.淡入, duration: 参数.时长, canskip: 参数.可跳过 === 是 }
+                : { name: 名称 },
+        );
     }
-    async 隐藏对象(名称: 字符串, 参数: 隐藏对象参数 = {}) {
-        // 将 隐藏对象参数 转换为 HideParams
-        function 转换参数(参数: 隐藏对象参数): HideParams {
-            const 对象参数: HideParams = {
-                name: 名称,
-            };
-            if (参数.效果 === 消失效果.普通) return 对象参数;
-            if (参数.效果 === 消失效果.淡出) {
-                return {
-                    ...对象参数,
-                    effect: 消失效果.淡出,
-                    duration: 参数.时长,
-                    canskip: 参数.可跳过 === 是,
-                };
-            }
-
-            return 对象参数;
-        }
-
-        return ac.hide(转换参数(参数));
+    async 隐藏对象(名称: 字符串, 参数: 消失对象参数 = { 时长: 0 }) {
+        return ac.hide(
+            参数.时长 > 0
+                ? { name: 名称, effect: 消失效果.淡出, duration: 参数.时长, canskip: 参数.可跳过 === 是 }
+                : { name: 名称 },
+        );
     }
-    async 移除对象(名称: 字符串, 参数: 移除对象参数 = {}) {
-        // 将 移除对象参数 转换为 RemoveParams
-        function 转换参数(参数: 移除对象参数): RemoveParams {
-            const 对象参数: RemoveParams = {
-                name: 名称,
-            };
-            if (参数.效果 === 消失效果.普通) return 对象参数;
-            if (参数.效果 === 消失效果.淡出) {
-                return {
-                    ...对象参数,
-                    effect: 消失效果.淡出,
-                    duration: 参数.时长,
-                    canskip: 参数.可跳过 === 是,
-                };
-            }
-
-            return 对象参数;
-        }
-        return ac.remove(转换参数(参数));
+    async 移除对象(名称: 字符串, 参数: 消失对象参数 = { 时长: 0 }) {
+        return ac.remove(
+            参数.时长 > 0
+                ? { name: 名称, effect: 消失效果.淡出, duration: 参数.时长, canskip: 参数.可跳过 === 是 }
+                : { name: 名称 },
+        );
     }
     async 对象过渡(对象名称一: 字符串, 对象名称二: 字符串, 参数: 对象过渡参数) {
         const 对象过渡参数: TransParams = {
