@@ -29,18 +29,7 @@ interface BaseObjectParams {
      * 锚点可以在文本框外。（0,0）表示在文本框左下角。
      * （50,50）表示在文本框正中心。
      */
-    anchor?: {
-        /**
-         * 水平方向锚点位置百分比。
-         * @default 0
-         */
-        x?: number;
-        /**
-         * 垂直方向锚点位置百分比。
-         * @default 0
-         */
-        y: number;
-    };
+    anchor?: 坐标对象;
     /**
      * 对象是否可见。
      * @default true
@@ -612,6 +601,13 @@ interface ResumeAudioParams {
     name: string;
 }
 
+interface CreateScrollViewParams extends BaseObjectParams {
+    size: { width: number; height: number };
+    innerSize: { width: number; height: number };
+    horizontalScroll: boolean;
+    verticalScroll: boolean;
+}
+
 interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
@@ -628,6 +624,7 @@ interface AC {
     /** 创建图片     */ createImage(params: CreateImageParams): Promise<void>;
     /** 创建图层     */ createLayer(params: CreateLayerParams): Promise<void>;
     /** 创建选项     */ createOption(params: CreateOptionParams): Promise<void>;
+    /** 创建滚动视图 */ createScrollView(params: CreateScrollViewParams): Promise<void>;
     /** 创建序列动画 */ createSequence(params: CreateSequenceParams): Promise<void>;
     /** 创建文本样式 */ createStyle(params: CreateStyleParams): Promise<void>;
     /** 创建文本     */ createText(params: CreateTextParams): Promise<void>;

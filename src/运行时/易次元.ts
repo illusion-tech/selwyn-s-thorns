@@ -183,7 +183,7 @@ interface 创建文本参数 extends 对象基础参数 {
     /** @默认值 易次元.垂直对齐方式.靠上 */
     垂直对齐方式?: 垂直对齐方式;
     /** @默认值 { 宽: 0, 高: 0 } */
-    文本框大小?: { 宽: 数值; 高: 数值 };
+    文本框大小?: 大小;
     /** @默认值 "" */
     文本样式?: 字符串;
 }
@@ -233,6 +233,13 @@ interface 停止音频参数 {
     效果?: 消失效果;
     /** @默认值 0 */
     时长?: 数值;
+}
+
+interface 创建滚动视图参数 extends 对象基础参数 {
+    视图大小: 大小;
+    内容大小: 大小;
+    是否水平滚动: 是否;
+    是否垂直滚动: 是否;
 }
 
 export const 变量 = new (class 易次元变量 {
@@ -352,9 +359,7 @@ export const 接口 = new (class 易次元接口 {
     async 创建文本(名称: 字符串, 参数: 创建文本参数) {
         // 将 创建文本参数 转换为 CreateTextParams
         function 转换参数(参数: 创建文本参数): CreateTextParams {
-            const 基础对象参数: BaseObjectParams = {
-                name: 名称,
-            };
+            const 基础对象参数: BaseObjectParams = { name: 名称 };
             if (参数.层级索引) 基础对象参数.index = 参数.层级索引;
             if (参数.所属图层) 基础对象参数.inlayer = 参数.所属图层;
             if (参数.位置) 基础对象参数.pos = { x: 参数.位置.横, y: 参数.位置.纵 };
@@ -390,6 +395,27 @@ export const 接口 = new (class 易次元接口 {
         if (参数.可跳过) 创建文本样式参数.canskip = 参数.可跳过 === 是;
 
         return ac.createStyle(创建文本样式参数);
+    }
+    async 创建滚动视图(名称: 字符串, 参数: 创建滚动视图参数) {
+        // 将 创建滚动视图参数 转换为 CreateScrollViewParams
+        function 转换参数(参数: 创建滚动视图参数): CreateScrollViewParams {
+            const 基础对象参数: BaseObjectParams = { name: 名称 };
+            if (参数.层级索引) 基础对象参数.index = 参数.层级索引;
+            if (参数.所属图层) 基础对象参数.inlayer = 参数.所属图层;
+            if (参数.位置) 基础对象参数.pos = { x: 参数.位置.横, y: 参数.位置.纵 };
+            if (参数.锚点) 基础对象参数.anchor = { x: 参数.锚点.横, y: 参数.锚点.纵 };
+            if (参数.是否可见) 基础对象参数.visible = 参数.是否可见 === 是;
+
+            return {
+                ...基础对象参数,
+                size: { width: 参数.视图大小.宽, height: 参数.视图大小.高 },
+                innerSize: { width: 参数.内容大小.宽, height: 参数.内容大小.高 },
+                horizontalScroll: 参数.是否水平滚动 === 是,
+                verticalScroll: 参数.是否垂直滚动 === 是,
+            };
+        }
+
+        return ac.createScrollView(转换参数(参数));
     }
     async 插入用户界面(名称: 字符串, 参数: 插入用户界面参数) {
         return ac.callUI({
