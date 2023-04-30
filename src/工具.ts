@@ -1,11 +1,11 @@
-export function 坐标转坐标对象(坐标: 坐标): 坐标对象 {
+export function 坐标转坐标对象(坐标: 坐标元组): 坐标对象 {
     return {
         x: 坐标[0],
         y: 坐标[1],
     };
 }
 
-export function 中文坐标对象转坐标对象(坐标: 中文坐标对象): 坐标对象 {
+export function 中文坐标对象转坐标对象(坐标: 坐标): 坐标对象 {
     return {
         x: 坐标.横,
         y: 坐标.纵,
@@ -82,4 +82,19 @@ export function 测量字符串(字符串: 字符串, 字体 = "") {
         实际宽度: 结果.actualBoundingBoxLeft + 结果.actualBoundingBoxRight,
         实际高度: 结果.actualBoundingBoxAscent + 结果.actualBoundingBoxDescent,
     };
+}
+
+export function 是否(真假: 真假) {
+    return 真假 ? 是 : 否;
+}
+
+export function 是坐标(坐标: unknown): 坐标 is 坐标 {
+    return (
+        typeof 坐标 === "object" &&
+        坐标 !== null &&
+        "横" in 坐标 &&
+        "纵" in 坐标 &&
+        typeof 坐标.横 === "number" &&
+        typeof 坐标.纵 === "number"
+    );
 }

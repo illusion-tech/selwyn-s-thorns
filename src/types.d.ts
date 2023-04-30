@@ -1,7 +1,7 @@
-type 坐标 = [x: number, y: number];
-type 坐标对象 = { x: number; y: number };
-type 中文坐标对象 = { 横: number; 纵: number };
-type 中文大小对象 = { 宽: number; 高: number };
+type 坐标元组 = [x: 数值, y: 数值];
+type 坐标对象 = { x: 数值; y: 数值 };
+type 坐标 = { 横: 数值; 纵: 数值 };
+type 大小 = { 宽: 数值; 高: 数值 };
 
 interface BaseObjectParams {
     /**

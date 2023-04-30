@@ -10,8 +10,6 @@ const 假 = false;
 const 空白 = "";
 const 未定义 = undefined;
 
-const 是否 = (真假: 真假) => (真假 ? 是 : 否);
-
 type 未定义 = typeof 未定义;
 type 空白 = typeof 空白;
 type 是 = typeof 是;
@@ -46,7 +44,6 @@ type MyGlobalThis = typeof globalThis & {
     否: 否;
     真: 真;
     假: 假;
-    是否: (真假: 真假) => 是否;
     未定义: 未定义;
     项链菜单配置: 项链菜单配置;
 };
@@ -62,6 +59,5 @@ myGlobalThis.是 = myGlobalThis.是 ?? 是;
 myGlobalThis.否 = myGlobalThis.否 ?? 否;
 myGlobalThis.真 = myGlobalThis.真 ?? 真;
 myGlobalThis.假 = myGlobalThis.假 ?? 假;
-myGlobalThis.是否 = myGlobalThis.是否 ?? 是否;
 myGlobalThis.未定义 = myGlobalThis.未定义 ?? 未定义;
 myGlobalThis.空白 = myGlobalThis.空白 ?? 空白;
