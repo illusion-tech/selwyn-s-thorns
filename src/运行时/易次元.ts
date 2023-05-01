@@ -1,3 +1,5 @@
+import { 承诺 } from "./网络/承诺";
+
 interface 对象基础参数 {
     /** @默认值 0 */
     层级索引?: 数值;
@@ -164,18 +166,6 @@ interface 对象过渡参数 {
 enum 文本方向 {
     水平 = "horizontal",
     垂直 = "vertical",
-}
-
-enum 水平对齐方式 {
-    靠左 = "left",
-    居中 = "middle",
-    靠右 = "right",
-}
-
-enum 垂直对齐方式 {
-    靠上 = "top",
-    居中 = "center",
-    靠下 = "bottom",
 }
 
 interface 创建文本参数 extends 对象基础参数 {
@@ -563,5 +553,9 @@ export const 接口 = new (class 易次元接口 {
     }
     async 延迟(毫秒: 数值) {
         return ac.delay({ time: 毫秒 });
+    }
+    async 获取画布大小() {
+        const [宽, 高] = await 承诺.全部([ac.getCanvasWidth(), ac.getCanvasHeight()]);
+        return { 宽, 高 } as 大小;
     }
 })();

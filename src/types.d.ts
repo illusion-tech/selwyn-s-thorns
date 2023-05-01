@@ -646,6 +646,8 @@ interface AC {
     /** 移除对象     */ remove(params: RemoveParams): Promise<void>;
     /** 打开对话框   */ sysDialogOn(params: SysDialogOnParams): Promise<void>;
     /** 关闭对话框   */ sysDialogOff(): Promise<void>;
+    /** 获取画布宽度 */ getCanvasWidth(): Promise<number>;
+    /** 获取画布高度 */ getCanvasHeight(): Promise<number>;
 }
 
 declare const ac: AC;

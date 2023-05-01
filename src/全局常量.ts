@@ -22,6 +22,8 @@ type 真假 = boolean;
 type 数值 = number;
 type 字符串 = string;
 type 资源标识 = `$${数值}`;
+type 最大填充 = typeof 最大填充;
+type 最小填充 = typeof 最小填充;
 type 填充模式 = typeof 最大填充 | typeof 最小填充;
 type 解锁状态 = typeof 解锁 | typeof 未解锁;
 type 被污损 = typeof 被污损;
@@ -33,6 +35,18 @@ type 项链菜单配置 = {
     日记本: 解锁状态;
     钥匙: 解锁状态;
 };
+
+enum 水平对齐方式 {
+    靠左 = "left",
+    居中 = "middle",
+    靠右 = "right",
+}
+
+enum 垂直对齐方式 {
+    靠上 = "top",
+    居中 = "center",
+    靠下 = "bottom",
+}
 
 type MyGlobalThis = typeof globalThis & {
     空白: 空白;
@@ -48,6 +62,8 @@ type MyGlobalThis = typeof globalThis & {
     假: 假;
     未定义: 未定义;
     项链菜单配置: 项链菜单配置;
+    水平对齐方式: 水平对齐方式;
+    垂直对齐方式: 垂直对齐方式;
 };
 
 const myGlobalThis = globalThis as MyGlobalThis;
@@ -64,3 +80,6 @@ myGlobalThis.真 = myGlobalThis.真 ?? 真;
 myGlobalThis.假 = myGlobalThis.假 ?? 假;
 myGlobalThis.未定义 = myGlobalThis.未定义 ?? 未定义;
 myGlobalThis.空白 = myGlobalThis.空白 ?? 空白;
+myGlobalThis.项链菜单配置 = myGlobalThis.项链菜单配置 ?? { 记忆回溯: 未解锁, 日记本: 未解锁, 钥匙: 未解锁 };
+myGlobalThis.水平对齐方式 = myGlobalThis.水平对齐方式 ?? 水平对齐方式;
+myGlobalThis.垂直对齐方式 = myGlobalThis.垂直对齐方式 ?? 垂直对齐方式;
