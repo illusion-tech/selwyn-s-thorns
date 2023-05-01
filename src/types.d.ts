@@ -138,6 +138,7 @@ interface CreateOptionParams extends BaseObjectParams {
     };
     onTouchBegan?: () => void;
     onTouchEnded?: () => void;
+    scale?: number;
 }
 
 declare enum EffectTypes {
