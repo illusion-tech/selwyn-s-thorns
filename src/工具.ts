@@ -1,3 +1,6 @@
+import type { 字符串, 数值, 真假 } from "./全局常量.ts";
+import { 否, 是 } from "./全局常量.ts";
+
 export function 坐标转坐标对象(坐标: 坐标元组): 坐标对象 {
     return {
         x: 坐标[0],
@@ -84,7 +87,7 @@ export function 测量字符串(字符串: 字符串, 字体 = "") {
     };
 }
 
-export function 是否(真假: 真假) {
+export function 是否是(真假: 真假) {
     return 真假 ? 是 : 否;
 }
 

@@ -1,4 +1,5 @@
-import { 变量 } from "../运行时/易次元";
+import type { 字符串, 数值 } from "../全局常量.ts";
+import { 变量 } from "../运行时/易次元.ts";
 
 type 属性探针检测结果 = {
     属性: 字符串;
@@ -79,4 +80,5 @@ class 黛瑞雅类 extends 人物类 {
 
 export class 人物管理器类 {
     黛瑞雅 = new 黛瑞雅类();
+    constructor() {}
 }

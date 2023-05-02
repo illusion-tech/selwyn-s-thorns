@@ -2,12 +2,16 @@
     "compilerOptions": {
         "module": "ESNext",
         "moduleResolution": "Node",
-        "lib": ["ES2022", "DOM"],
+        "lib": [
+            "ES2022",
+            "DOM"
+        ],
         "target": "ES2017",
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
         "strict": true,
-        "checkJs": true
+        "checkJs": true,
+        "allowImportingTsExtensions": true
     },
     "exclude": [
         "node_modules",

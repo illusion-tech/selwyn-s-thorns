@@ -1,7 +1,7 @@
-type 坐标元组 = [x: 数值, y: 数值];
-type 坐标对象 = { x: 数值; y: 数值 };
-type 坐标 = { 横: 数值; 纵: 数值 };
-type 大小 = { 宽: 数值; 高: 数值 };
+type 坐标元组 = [x: number, y: number];
+type 坐标对象 = { x: number; y: number };
+type 坐标 = { 横: number; 纵: number };
+type 大小 = { 宽: number; 高: number };
 
 interface BaseObjectParams {
     /**
@@ -246,6 +246,7 @@ interface FadeoutRemoveParams extends BaseRemoveParams {
 type RemoveParams = NormalRemoveParams | FadeoutRemoveParams;
 
 interface ArrayVariables {
+    内存: number[];
     日记记录: number[];
     对话选项结果: number[];
     黛瑞雅性格属性: [谦逊: number, 傲慢: number, 荣誉: number];

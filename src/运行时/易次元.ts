@@ -1,4 +1,6 @@
-import { 承诺 } from "./网络/承诺";
+import type { 填充模式, 字符串, 数值, 是否, 资源标识 } from "../全局常量.ts";
+import { 假, 否, 垂直对齐方式, 无, 是, 最大填充, 水平对齐方式, 真 } from "../全局常量.ts";
+import { 承诺 } from "./网络/承诺.ts";
 
 interface 对象基础参数 {
     /** @默认值 0 */
@@ -279,6 +281,7 @@ export const 变量 = new (class 易次元变量 {
     黛瑞雅性格属性 = ac.arr.黛瑞雅性格属性 as [谦逊: 数值, 傲慢: 数值, 荣誉: 数值];
     对话选项结果 = ac.arr.对话选项结果 as 数值[];
     日记记录 = ac.arr.日记记录 as 数值[];
+    内存 = ac.arr.内存 as 数值[];
 })();
 
 export const 常量 = new (class 易次元常量 {

@@ -1,4 +1,5 @@
-import { 变量 } from "../运行时/易次元";
+import type { 字符串 } from '../全局常量.ts';
+import { 变量 } from "../运行时/易次元.ts";
 
 export class 时间管理器类 {
     get 现在是上午() {

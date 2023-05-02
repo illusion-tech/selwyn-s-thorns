@@ -1,15 +1,9 @@
-import { 常量, 接口 } from "../运行时/易次元.js";
-import { 事件目标 } from "../运行时/网络/事件目标.js";
-import { 承诺 } from "../运行时/网络/承诺.js";
-import { 日记管理器类 } from "./日记管理器.js";
-
-const myGlobalThis = globalThis as MyGlobalThis;
-
-myGlobalThis.项链菜单配置 = myGlobalThis.项链菜单配置 ?? {
-    记忆回溯: 未解锁,
-    日记本: 未解锁,
-    钥匙: 未解锁,
-};
+import type { 解锁状态, 项链菜单配置 } from "../全局常量.ts";
+import { myGlobalThis, 否, 是, 最大填充, 解锁 } from "../全局常量.ts";
+import { 常量, 接口 } from "../运行时/易次元.ts";
+import { 事件目标 } from "../运行时/网络/事件目标.ts";
+import { 承诺 } from "../运行时/网络/承诺.ts";
+import { 日记管理器类 } from "./日记管理器.ts";
 
 export class 项链菜单类 extends 事件目标 {
     #状态 = "未激活";
