@@ -1,5 +1,8 @@
 {
+    "compilerOptions": {
+        "lib": ["ES2022", "DOM", "deno.window"]
+    },
     "test": {
-        "include": ["src/用户界面/选项管理器.测试.ts"]
+        "include": ["测试/选项管理器.测试.ts"]
     }
 }

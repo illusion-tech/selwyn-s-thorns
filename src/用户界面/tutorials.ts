@@ -1,5 +1,5 @@
-import { 否, 是, 资源标识 } from "../全局常量";
-import { 接口 } from "../运行时/易次元";
+import { 否, 是, 资源标识 } from "../全局常量.ts";
+import { 接口 } from "../运行时/易次元.ts";
 
 interface 教程面板参数 {
     resId: 资源标识;

@@ -1,11 +1,11 @@
-import type { 字符串, 资源标识, 未知, 数值, 是否, 无, 坐标 } from "../全局常量.js";
-import { 空白, 未定义, 被污损, 是, 否, 最大填充, 水平对齐方式 } from "../全局常量.js";
-import { 是否是, 是坐标, 测量字符串 } from "../工具.js";
-import { 变量, 常量, 接口 } from "../运行时/易次元.js";
-import { 事件目标, 自定义事件 } from "../运行时/网络/事件目标.js";
-import { 承诺 } from "../运行时/网络/承诺.js";
-import { 时间管理器类 } from "./时间管理器.js";
-import { 辅助阅读器类 } from "./辅助阅读器.js";
+import type { 字符串, 资源标识, 未知, 数值, 是否, 无, 坐标 } from "../全局常量.ts";
+import { 空白, 未定义, 被污损, 是, 否, 最大填充, 水平对齐方式 } from "../全局常量.ts";
+import { 是否是, 是坐标, 测量字符串 } from "../工具.ts";
+import { 变量, 常量, 接口 } from "../运行时/易次元.ts";
+import { 事件目标, 自定义事件 } from "../运行时/网络/事件目标.ts";
+import { 承诺 } from "../运行时/网络/承诺.ts";
+import { 时间管理器类 } from "./时间管理器.ts";
+import { 辅助阅读器类 } from "./辅助阅读器.ts";
 
 type 静态段落 = {
     自动书写: 是否;
@@ -409,7 +409,7 @@ export class 日记管理器类 extends 事件目标 {
     }
 
     async 书写日记() {
-        let 履行承诺 = (值: 未知) => {};
+        let 履行承诺 = (_: 未知) => {};
 
         const 日期 = this.#时间管理器.获取当前日期字符串();
         const 日记配置 = this.#日记配置集.get(日期);
@@ -629,7 +629,6 @@ export class 日记管理器类 extends 事件目标 {
             },
         });
 
-        const 当前日期 = this.#时间管理器.获取当前日期字符串();
 
         let 日记页: 日记页类 | 空白 = this.#获取截至今日记录的日记页();
 

@@ -624,7 +624,7 @@ interface CreateScrollViewParams extends BaseObjectParams {
     verticalScroll: boolean;
 }
 
-interface AC {
+export interface AC {
     /** 数组变量     */ arr: ArrayVariables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
     /** 特效类型     */ EFFECT_TYPES: typeof EffectTypes;
