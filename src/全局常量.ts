@@ -64,6 +64,7 @@ type MyGlobalThis = typeof globalThis & {
     项链菜单配置: 项链菜单配置;
     水平对齐方式: 水平对齐方式;
     垂直对齐方式: 垂直对齐方式;
+    是否弹框错误信息: 是否;
 };
 
 const myGlobalThis = globalThis as MyGlobalThis;
@@ -83,3 +84,4 @@ myGlobalThis.空白 = myGlobalThis.空白 ?? 空白;
 myGlobalThis.项链菜单配置 = myGlobalThis.项链菜单配置 ?? { 记忆回溯: 未解锁, 日记本: 未解锁, 钥匙: 未解锁 };
 myGlobalThis.水平对齐方式 = myGlobalThis.水平对齐方式 ?? 水平对齐方式;
 myGlobalThis.垂直对齐方式 = myGlobalThis.垂直对齐方式 ?? 垂直对齐方式;
+myGlobalThis.是否弹框错误信息 = 是;
