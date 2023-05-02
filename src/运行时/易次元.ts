@@ -236,6 +236,44 @@ interface 创建滚动视图参数 extends 对象基础参数 {
     是否垂直滚动: 是否;
 }
 
+enum 切换效果 {
+    淡出 = "crossfade",
+    淡出后淡入 = "fade",
+    右上到左下马赛克切换 = "fade-bl",
+    左下到右上马赛克切换 = "fade-tr",
+    从上到下百叶窗切换 = "fade-down",
+    从下到上百叶窗切换 = "fade-up",
+    白色闪光切换 = "fade-white",
+    缩小跳跃向左退出后从右跳跃进入放大 = "jumpzoom",
+    从下到上移入 = "movein-b",
+    从左到右移入 = "movein-l",
+    从右到左移入 = "movein-r",
+    从上到下移入 = "movein-t",
+    直接切换 = "normal",
+    翻回上一页 = "page-backward",
+    翻向下一页 = "page-forward",
+    从左到右扫描 = "progress-horizontal",
+    从上到下扫描 = "progress-vertical",
+    中心矩形向外扫描 = "progress-inout",
+    四周矩形向内扫描 = "progress-outin",
+    逆时针扫描 = "radial-ccw",
+    顺时针扫描 = "radial-cw",
+    顺时针缩小退出后逆时针放大进入 = "rotozoom",
+    缩小退出同时放大进入 = "shrinkgrow",
+    从下到上推入 = "slidein-b",
+    从左到右推入 = "slidein-l",
+    从右到左推入 = "slidein-r",
+    从上到下推入 = "slidein-t",
+    三列分割交叉切换 = "splitcols",
+    三行分割交叉切换 = "splitrows",
+    随机马赛克切换 = "turnofftiles",
+}
+
+interface 切换剧情参数 {
+    切换效果: 切换效果;
+    时长: 数值;
+}
+
 export const 变量 = new (class 易次元变量 {
     日期时间 = ac.arr.日期时间 as [年: 数值, 月: 数值, 日: 数值, 时: 数值, 分: 数值];
     黛瑞雅性格属性 = ac.arr.黛瑞雅性格属性 as [谦逊: 数值, 傲慢: 数值, 荣誉: 数值];
@@ -248,6 +286,7 @@ export const 常量 = new (class 易次元常量 {
     音频效果 = 音频效果;
     出现效果 = 出现效果;
     消失效果 = 消失效果;
+    切换效果 = 切换效果;
     事件类型 = 事件类型;
     滤镜类型 = 滤镜类型;
     文本方向 = 文本方向;
@@ -557,5 +596,13 @@ export const 接口 = new (class 易次元接口 {
     async 获取画布大小() {
         const [宽, 高] = await 承诺.全部([ac.getCanvasWidth(), ac.getCanvasHeight()]);
         return { 宽, 高 } as 大小;
+    }
+    async 跳转剧情(剧情标识: 数值, 参数?: 切换剧情参数) {
+        if (参数) return ac.jump({ plotId: 剧情标识, transition: 参数.切换效果, duration: 参数.时长 });
+        return ac.jump({ plotId: 剧情标识 });
+    }
+    async 插播剧情(剧情标识: 数值, 参数?: 切换剧情参数) {
+        if (参数) return ac.display({ plotId: 剧情标识, transition: 参数.切换效果, duration: 参数.时长 });
+        return ac.display({ plotId: 剧情标识 });
     }
 })();

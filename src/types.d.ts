@@ -192,7 +192,22 @@ interface DisplayParams {
     /**
      * 切换效果。
      */
-    transition: SceneTransitionTypes;
+    transition?: string;
+    /**
+     * 效果时长。
+     */
+    duration?: number;
+}
+
+interface JumpParams {
+    /**
+     * 剧情唯一标识。
+     */
+    plotId: number;
+    /**
+     * 切换效果。
+     */
+    transition?: string;
     /**
      * 效果时长。
      */
@@ -630,6 +645,7 @@ interface AC {
     /** 创建文本样式 */ createStyle(params: CreateStyleParams): Promise<void>;
     /** 创建文本     */ createText(params: CreateTextParams): Promise<void>;
     /** 延迟         */ delay(params: DelayParams): Promise<void>;
+    /** 跳转剧情     */ jump(params: JumpParams): Promise<void>;
     /** 插播剧情     */ display(params: DisplayParams): Promise<void>;
     /** 滤镜效果     */ filter(params: FilterParams): Promise<void>;
     /** 透明化       */ fadeTo(params: FadeToParams): Promise<void>;
