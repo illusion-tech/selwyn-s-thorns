@@ -1,4 +1,4 @@
-import { 未解锁, 解锁 } from '../全局常量.ts';
+import { 未解锁, 解锁 } from '../运行时/全局常量.ts';
 import { 日记管理器类 } from "./日记管理器.ts";
 import { 时间管理器类 } from "./时间管理器.ts";
 import { 项链菜单类 } from "./项链菜单.ts";

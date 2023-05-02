@@ -1,5 +1,5 @@
-import type { 坐标, 资源标识 } from "../全局常量.ts";
-import { myGlobalThis, 是 } from "../全局常量.ts";
+import type { 坐标, 资源标识 } from "../运行时/全局常量.ts";
+import { myGlobalThis, 是 } from "../运行时/全局常量.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
 export class Card extends EventTarget {
     static async Create(opts: { name: string; resId: 资源标识; content: string }) {

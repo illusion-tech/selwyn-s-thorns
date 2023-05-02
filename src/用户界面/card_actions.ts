@@ -1,4 +1,4 @@
-import { 否 } from "../全局常量.ts";
+import { 否 } from "../运行时/全局常量.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
 import { Card } from "./card.ts";
 

@@ -1,5 +1,5 @@
-import type { 解锁状态, 项链菜单配置 } from "../全局常量.ts";
-import { myGlobalThis, 否, 是, 最大填充, 解锁 } from "../全局常量.ts";
+import type { 解锁状态, 项链菜单配置 } from "../运行时/全局常量.ts";
+import { myGlobalThis, 否, 是, 最大填充, 解锁 } from "../运行时/全局常量.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
 import { 事件目标 } from "../运行时/网络/事件目标.ts";
 import { 承诺 } from "../运行时/网络/承诺.ts";

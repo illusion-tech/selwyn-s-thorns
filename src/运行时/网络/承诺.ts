@@ -1,5 +1,5 @@
-import type { 无, 未知, 永不 } from "../../全局常量.ts";
-import { 未定义 } from "../../全局常量.ts";
+import type { 无, 未知, 永不 } from "../全局常量.ts";
+import { 未定义 } from "../全局常量.ts";
 
 type 等待<类型> = Awaited<类型>;
 type 类承诺<类型> = PromiseLike<类型>;

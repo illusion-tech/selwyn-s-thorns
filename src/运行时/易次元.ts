@@ -1,5 +1,5 @@
-import type { 坐标, 大小, 字符串, 数值, 是否, 资源标识 } from "../全局常量.ts";
-import { 假, 否, 垂直对齐方式, 无, 是, 水平对齐方式, 真 } from "../全局常量.ts";
+import type { 坐标, 大小, 字符串, 数值, 是否, 资源标识 } from "./全局常量.ts";
+import { 假, 否, 垂直对齐方式, 无, 是, 水平对齐方式, 真 } from "./全局常量.ts";
 import { 承诺 } from "./网络/承诺.ts";
 
 interface BaseObjectParams {

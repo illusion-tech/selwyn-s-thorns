@@ -1,5 +1,5 @@
-import type { 坐标元组, 字符串, 数值, 资源标识 } from "../全局常量.ts";
-import { 是, 未定义 } from "../全局常量.ts";
+import type { 坐标元组, 字符串, 数值, 资源标识 } from "../运行时/全局常量.ts";
+import { 是, 未定义 } from "../运行时/全局常量.ts";
 import { 变量, 接口 } from "../运行时/易次元.ts";
 import { 承诺 } from "../运行时/网络/承诺.ts";
 import { 人物管理器类 } from "./人物管理器.ts";

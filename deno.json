@@ -2,6 +2,13 @@
     "compilerOptions": {
         "lib": ["ES2022", "DOM", "deno.window"]
     },
+    "fmt": {
+        "indentWidth": 4,
+        "lineWidth": 120,
+        "semiColons": true,
+        "useTabs": false,
+        "singleQuote": false
+    },
     "test": {
         "include": ["测试/选项管理器.测试.ts"]
     }

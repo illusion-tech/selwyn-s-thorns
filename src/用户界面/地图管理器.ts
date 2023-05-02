@@ -1,5 +1,5 @@
-import type { 坐标, 坐标元组, 大小, 字符串, 数值, 真假 } from "../全局常量.ts";
-import { 否, 是 } from "../全局常量.ts";
+import type { 坐标, 坐标元组, 大小, 字符串, 数值, 真假 } from "../运行时/全局常量.ts";
+import { 否, 是 } from "../运行时/全局常量.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
 import { 事件目标, 自定义事件 } from "../运行时/网络/事件目标.ts";
 import { 承诺 } from "../运行时/网络/承诺.ts";
