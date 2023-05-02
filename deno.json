@@ -11,6 +11,6 @@
         "singleQuote": false
     },
     "test": {
-        "include": ["测试/选项管理器.测试.ts"]
+        "include": ["测试/选项记录器.测试.ts"]
     }
 }
