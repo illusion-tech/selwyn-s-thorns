@@ -1,5 +1,5 @@
 import { 垂直对齐方式, 是, 最大填充, 水平对齐方式 } from '../运行时/全局常量.ts';
-import { 祛缩进 } from "../工具.ts";
+import { 祛缩进 } from "../运行时/工具.ts";
 import { 辅助阅读器类 } from "./辅助阅读器.ts";
 
 /**

@@ -1,5 +1,5 @@
 import "./运行时/全局常量.ts";
-import { 祛缩进 } from "./工具.ts";
+import { 祛缩进 } from "./运行时/工具.ts";
 import { Card } from "./用户界面/card.ts";
 import { CardActions } from "./用户界面/card_actions.ts";
 import { 人物管理器类 } from "./用户界面/人物管理器.ts";

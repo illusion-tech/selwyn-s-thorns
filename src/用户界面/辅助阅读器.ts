@@ -1,6 +1,6 @@
 import type { 字符串, 数值, 是否, 资源标识 } from "../运行时/全局常量.ts";
 import { 否, 垂直对齐方式, 是, 最大填充, 水平对齐方式 } from "../运行时/全局常量.ts";
-import { 测量字符串 } from "../工具.ts";
+import { 测量字符串 } from "../运行时/工具.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
 import { 承诺 } from "../运行时/网络/承诺.ts";
 

@@ -1,5 +1,5 @@
 import { 否, 是, 未定义, 空白, 被污损 } from "../运行时/全局常量.ts";
-import { 祛缩进 } from "../工具.ts";
+import { 祛缩进 } from "../运行时/工具.ts";
 import { 人物管理器类 } from "./人物管理器.ts";
 import { 对话选项管理器类 } from "./对话选项管理器.ts";
 import { 日记管理器类 } from "./日记管理器.ts";
