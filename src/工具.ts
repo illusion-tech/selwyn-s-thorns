@@ -32,7 +32,7 @@ export function 祛缩进(模板字符串: TemplateStringsArray | string, ...模
             return 结果数组.concat(匹配组.map((匹配) => 匹配.match(/[\t ]/g)?.length ?? 0));
         }
         return 结果数组;
-    }, <数值[]>[]);
+    }, <数值[]> []);
 
     // 3. 移除所有字符串的公共缩进。
     if (各缩进长度.length) {
@@ -100,4 +100,19 @@ export function 是坐标(坐标: unknown): 坐标 is 坐标 {
         typeof 坐标.横 === "number" &&
         typeof 坐标.纵 === "number"
     );
+}
+
+/**
+ * 创建一个分组元素的数组，
+ * 数组的第一个元素包含所有给定数组的第一个元素，
+ * 数组的第二个元素包含所有给定数组的第二个元素。
+ * ```
+ * [a, b, c]
+ *           -> [[a, 1], [b, 2], [c, 3]]
+ * [1, 2, 3]
+ * ```
+ */
+export function 打包<类型1, 类型2>(数组1: 类型1[], 数组2: 类型2[]): [类型1, 类型2][] {
+    const 长度 = Math.min(数组1.length, 数组2.length);
+    return Array.from({ length: 长度 }, (_, 索引) => [数组1[索引], 数组2[索引]]);
 }
