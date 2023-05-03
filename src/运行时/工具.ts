@@ -68,7 +68,12 @@ export function 祛缩进(模板字符串: TemplateStringsArray | string, ...模
     return 字符串;
 }
 
-const 环境 = new OffscreenCanvas(1, 1).getContext("2d") ?? globalThis.document.createElement("canvas").getContext("2d");
+const 环境 = globalThis.OffscreenCanvas
+    ? new globalThis.OffscreenCanvas(1, 1).getContext("2d")
+    : null ?? globalThis.document
+    ? globalThis.document.createElement("canvas").getContext("2d")
+    : null;
+
 export function 测量字符串(字符串: 字符串, 字体 = "") {
     if (!环境) throw alert("无法创建字符串测量环境");
     环境.font = 字体;
