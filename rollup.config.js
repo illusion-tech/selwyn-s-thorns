@@ -1,11 +1,13 @@
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import { swc } from "rollup-plugin-swc3";
+// import { nodeResolve } from "@rollup/plugin-node-resolve";
+// import typescript from "@rollup/plugin-typescript";
+import { swc as typescript } from "rollup-plugin-swc3";
+
 /**
  * @type {import('rollup').RollupOptions}
  */
 const config = {
     input: "src/main.ts",
-    plugins: [swc(), nodeResolve()],
+    plugins: [typescript() /* nodeResolve() */],
     output: {
         file: "dist/bundle.rollup.js",
     },

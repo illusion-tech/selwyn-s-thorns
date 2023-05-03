@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "ESNext",
-        "moduleResolution": "Node",
+        "moduleResolution": "Node16",
         "lib": [
             "ES2022",
             "DOM"
@@ -9,13 +9,13 @@
         "target": "ES2017",
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
-        "strict": true,
-        "checkJs": true,
-        "allowImportingTsExtensions": true
+        "allowImportingTsExtensions": true,
+        "strict": true
     },
     "exclude": [
         "node_modules",
         "dist",
+        "测试",
         "**/node_modules/*",
         "src/**/*.spec.{ts|js}",
         "src/**/*.测试.{ts|js}"
