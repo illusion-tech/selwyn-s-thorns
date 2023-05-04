@@ -39,7 +39,7 @@ export class CardActions {
 
         await 接口.延迟(1000);
 
-        // rome-ignore format: 特定布局数组不需要格式化
+        // deno-fmt-ignore: 特定布局数组不需要格式化
         const spacing_rules =
         [
             [[   1, 360, [              640               ]]],
