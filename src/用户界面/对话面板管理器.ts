@@ -40,7 +40,7 @@ class 对话选项 {
     结果执行函数?: 执行器;
 }
 
-export class 对话选项管理器类 {
+export class 对话面板管理器类 {
     // deno-fmt-ignore: 特定布局数组不需要格式化
     #预定义对话选项布局: 坐标元组[][] = [
         [ 
