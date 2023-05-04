@@ -2,7 +2,7 @@ import type { 字符串, 数值, 永不, 空白 } from "../运行时/全局常�
 import { 未定义 } from "../运行时/全局常量.ts";
 import { 获取, 获取端点 } from "../运行时/工具.ts";
 
-type 对象属性检测结果 = {
+export type 对象属性检测结果 = {
     属性: 字符串;
     变化: 数值;
     旧值: 数值;
