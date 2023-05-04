@@ -4,7 +4,7 @@ import { 变量 } from "../运行时/易次元.ts";
 import { 错误 } from "../运行时/网络/错误.ts";
 
 type 任意 = any;
-type 执行器 = (变量对象: 任意) => 任意;
+export type 执行器 = (变量对象: 任意) => 任意;
 
 export class 变量容器类 {
     #映射 = new Map<字符串, 数值>();

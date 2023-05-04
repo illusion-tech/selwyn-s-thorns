@@ -1,15 +1,15 @@
 import { 否, 是, 未定义, 空白, 被污损 } from "../运行时/全局常量.ts";
 import { 祛缩进 } from "../运行时/工具.ts";
-import { 人物管理器类 } from "./人物管理器.ts";
 import { 对话选项管理器类 } from "./对话选项管理器.ts";
 import { 日记管理器类 } from "./日记管理器.ts";
 import { 时间管理器类 } from "./时间管理器.ts";
+import { 选项记录器类 } from "./选项记录器.ts";
 
 const 时间管理器 = new 时间管理器类();
 const 日记管理器 = new 日记管理器类(时间管理器);
 
-const 人物管理器 = new 人物管理器类();
-const 对话选项管理器 = new 对话选项管理器类(人物管理器);
+const 选项记录器 = new 选项记录器类();
+const 对话选项管理器 = new 对话选项管理器类(选项记录器);
 
 日记管理器.配置日记(
     {
