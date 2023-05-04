@@ -1,4 +1,4 @@
-import type { 坐标, 坐标元组, 坐标对象, 字符串, 数值, 真假 } from "./全局常量.ts";
+import type { 坐标, 坐标元组, 坐标对象, 字符串, 数值, 未知, 永不, 真假, 空白 } from "./全局常量.ts";
 import { 否, 是 } from "./全局常量.ts";
 
 export function 坐标转坐标对象(坐标: 坐标元组): 坐标对象 {
@@ -120,4 +120,92 @@ export function 是坐标(坐标: unknown): 坐标 is 坐标 {
 export function 打包<类型1, 类型2>(数组1: 类型1[], 数组2: 类型2[]): [类型1, 类型2][] {
     const 长度 = Math.min(数组1.length, 数组2.length);
     return Array.from({ length: 长度 }, (_, 索引) => [数组1[索引], 数组2[索引]]);
+}
+
+type 对象 = object;
+type 键 = 字符串 | 数值;
+type 拼接<上层属性 extends 键, 下层属性 extends 键> = `${上层属性}${空白 extends 下层属性 ? 空白 : "."}${下层属性}`;
+type 联结<上层属性, 下层属性> = 上层属性 extends 键 ? 下层属性 extends 键 ? 拼接<上层属性, 下层属性> : 永不 : 永不;
+type 降低 = [永不, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...0[]];
+// FIXME: 属性为数组时, 返回的类型比实际长度多一个
+type 路径<嵌套对象, 最大深度 extends 数值 = 3> = [最大深度] extends [永不] ? 永不
+    : 嵌套对象 extends 对象 ? {
+            [属性 in keyof 嵌套对象]-?: 属性 extends 键 ? `${属性}` | 联结<属性, 路径<嵌套对象[属性], 降低[最大深度]>>
+                : 永不;
+        }[keyof 嵌套对象]
+    : 空白;
+
+type 端点<嵌套对象, 最大深度 extends 数值 = 3> = [最大深度] extends [永不] ? 永不
+    : 嵌套对象 extends 对象
+        ? { [属性 in keyof 嵌套对象]-?: 联结<属性, 端点<嵌套对象[属性], 降低[最大深度]>> }[keyof 嵌套对象]
+    : 空白;
+
+/**
+ * 根据给定的对象, 返回包含该对象所有属性路径字符串的数组,
+ * 嵌套的深层路径使用"."连接
+ * @example
+ * ```ts
+ * const obj = {
+ *     a: 1;
+ *     b: { c: 2; d: { e: 3 } };
+ *     c: [1, { f: 2 }, 3];
+ * };
+ *
+ * 获取路径(obj) // ["a" ,"b" ,"c" ,"b.c" ,"b.d" ,"b.d.e" ,"c.0" ,"c.1" ,"c.2" ,"c.1.f"]
+ * ```
+ */
+export function 获取路径<类型 extends 对象>(对象: 类型): 路径<类型>[] {
+    const 结果: 路径<类型>[] = [];
+    const 栈 = [[对象, ""]] as any;
+    while (栈.length) {
+        const [对象, 路径] = 栈.pop();
+        for (const 属性 in 对象) {
+            const 值 = 对象[属性];
+            if (值 !== null && typeof 值 === "object") {
+                栈.push([值, 路径 + 属性 + "."]);
+            }
+            结果.push((路径 + 属性) as 路径<类型>);
+        }
+    }
+    return 结果;
+}
+
+/**
+ * 根据给定的对象, 返回包含该对象所有端点属性路径字符串的数组,
+ * 嵌套的深层路径使用"."连接
+ * @example
+ * ```ts
+ * const obj = {
+ *     a: 1;
+ *     b: { c: 2; d: { e: 3 } };
+ *     c: [1, { f: 2 }, 3];
+ * };
+ *
+ * 获取端点(obj) // ["a", "b.c", "b.d.e", "c.0", "c.2", "c.1.f"]
+ * ```
+ */
+export function 获取端点<类型 extends 对象>(对象: 类型): 端点<类型>[] {
+    const 结果: 端点<类型>[] = [];
+    const 栈 = [[对象, ""]] as any;
+    while (栈.length) {
+        const [对象, 路径] = 栈.pop()!;
+        for (const 属性 in 对象) {
+            const 值 = 对象[属性];
+            if (值 !== null && typeof 值 === "object") {
+                栈.push([值, 路径 + 属性 + "."]);
+            } else {
+                结果.push((路径 + 属性) as 端点<类型>);
+            }
+        }
+    }
+    return 结果;
+}
+
+type 任意 = any;
+
+/**
+ * 使用路径字符串获取嵌套对象的属性值
+ */
+export function 获取(对象: 未知, 属性路径: 字符串): 未知 {
+    return 属性路径.split(".").reduce((嵌套对象, 属性) => (嵌套对象 as 任意)[属性], 对象);
 }
