@@ -1,42 +1,8 @@
-import type { 字符串, 数值 } from "../运行时/全局常量.ts";
+import { 对象属性探针类 } from "../应用/对象属性探针.ts";
 import { 变量 } from "../运行时/易次元.ts";
 
-type 属性探针检测结果 = {
-    属性: 字符串;
-    变化: 数值;
-    旧值: 数值;
-    新值: 数值;
-};
-
-class 属性探针类 {
-    #检测对象;
-    #旧值对象: { [属性: 字符串]: 数值 };
-    constructor(检测对象: { [属性: 字符串]: 数值 }, 属性集: 字符串[]) {
-        this.#检测对象 = 检测对象;
-        this.#旧值对象 = {};
-        for (const 属性 of 属性集) {
-            this.#旧值对象[属性] = 检测对象[属性];
-        }
-    }
-
-    检测(): 属性探针检测结果[] {
-        const 属性探测结果 = [];
-
-        for (const 属性 in this.#旧值对象) {
-            const 旧值 = this.#旧值对象[属性];
-            const 新值 = this.#检测对象[属性];
-            const 变化 = 新值 - 旧值;
-            if (变化) {
-                属性探测结果.push({ 属性, 变化, 旧值, 新值 } as const);
-            }
-        }
-        console.log({ 属性探测结果 });
-        return 属性探测结果;
-    }
-}
-
 abstract class 人物类 {
-    abstract 获取属性探针(): 属性探针类;
+    abstract 获取属性探针(): 对象属性探针类;
 }
 
 class 黛瑞雅类 extends 人物类 {
@@ -73,12 +39,11 @@ class 黛瑞雅类 extends 人物类 {
     get 没有强性格偏向() {
         return Math.abs(this.傲慢 - this.谦逊) < 10;
     }
-    获取属性探针(): 属性探针类 {
-        return new 属性探针类(this as {}, ["谦逊", "傲慢", "荣誉"]);
+    获取属性探针(): 对象属性探针类 {
+        return new 对象属性探针类(this as {}, ["谦逊", "傲慢", "荣誉"]);
     }
 }
 
 export class 人物管理器类 {
     黛瑞雅 = new 黛瑞雅类();
-    constructor() {}
 }
