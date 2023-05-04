@@ -11,6 +11,9 @@
         "singleQuote": false
     },
     "test": {
-        "include": ["测试/选项记录器.测试.ts"]
+        "include": ["测试/选项记录器.测试.ts", "测试/应用/对象属性探针.测试.ts"]
+    },
+    "imports": {
+        "塞尔温荆棘://": "./"
     }
 }
