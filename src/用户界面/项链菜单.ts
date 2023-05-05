@@ -1,13 +1,15 @@
 import type { 解锁状态, 项链菜单配置 } from "../运行时/全局常量.ts";
-import { myGlobalThis, 否, 是, 最大填充, 解锁 } from "../运行时/全局常量.ts";
+import { myGlobalThis, 否, 是, 解锁 } from "../运行时/全局常量.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
 import { 事件目标 } from "../运行时/网络/事件目标.ts";
 import { 承诺 } from "../运行时/网络/承诺.ts";
-import { 日记管理器类 } from "./日记管理器.ts";
+import type { 日记管理器类 } from "./日记管理器.ts";
+import type { 选项记录器类 } from "./选项记录器.ts";
 
 export class 项链菜单类 extends 事件目标 {
     #状态 = "未激活";
     #日记管理器: 日记管理器类;
+    #选项记录器: 选项记录器类;
 
     async #显示日记本选项(解锁状态: 解锁状态) {
         if (解锁状态 === 解锁) {
@@ -65,9 +67,10 @@ export class 项链菜单类 extends 事件目标 {
         }
     }
 
-    constructor(日记管理器: 日记管理器类) {
+    constructor(日记管理器: 日记管理器类, 选项记录器: 选项记录器类) {
         super();
         this.#日记管理器 = 日记管理器;
+        this.#选项记录器 = 选项记录器;
     }
 
     async 关闭菜单() {
