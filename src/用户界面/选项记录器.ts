@@ -7,7 +7,7 @@ type 任意 = any;
 export type 执行器 = (变量对象: 任意) => 任意;
 
 export class 变量容器类 {
-    #映射 = new Map<字符串, 数值>();
+    #映射 = new Map<字符串, 数值 | 字符串>();
     #选项记录器: 选项记录器类;
 
     constructor(选项记录器: 选项记录器类) {

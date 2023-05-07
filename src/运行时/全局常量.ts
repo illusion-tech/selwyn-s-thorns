@@ -26,7 +26,6 @@ export type 资源标识 = `$${数值}`;
 export type 最大填充 = typeof 最大填充;
 export type 最小填充 = typeof 最小填充;
 export type 填充模式 = typeof 最大填充 | typeof 最小填充;
-export type 解锁状态 = typeof 解锁 | typeof 未解锁;
 export type 选择状态 = typeof 已选择 | typeof 未选择;
 export type 无 = void;
 export type 未知 = unknown;

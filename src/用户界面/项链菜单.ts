@@ -1,9 +1,11 @@
-import { 否, 已选择, 是, 解锁, 项链菜单配置 } from "../运行时/全局常量.ts";
-import { 常量, 接口 } from "../运行时/易次元.ts";
+import { 否, 已选择, 是, 未解锁, 解锁 } from "../运行时/全局常量.ts";
+import { 变量, 常量, 接口 } from "../运行时/易次元.ts";
 import { 事件目标 } from "../运行时/网络/事件目标.ts";
 import { 承诺 } from "../运行时/网络/承诺.ts";
 import type { 日记管理器类 } from "./日记管理器.ts";
 import type { 选项记录器类 } from "./选项记录器.ts";
+
+type 解锁状态 = typeof 解锁 | typeof 未解锁;
 
 export class 项链菜单类 extends 事件目标 {
     #状态 = "未激活";
@@ -172,7 +174,7 @@ export class 项链菜单类 extends 事件目标 {
         return 接口.移除对象("项链菜单_图层", { 时长: 500 });
     }
 
-    async 创建项链(配置: 项链菜单配置) {
+    async 创建项链(配置: { 记忆回溯: 解锁状态; 日记本: 解锁状态; 钥匙: 解锁状态 }) {
         this.#记录.重置();
         if (配置.记忆回溯 === 解锁) this.#记录.记录选择(0);
         if (配置.日记本 === 解锁) this.#记录.记录选择(1);

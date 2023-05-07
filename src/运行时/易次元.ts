@@ -202,7 +202,7 @@ interface JumpParams {
     /**
      * 剧情唯一标识。
      */
-    plotId: number;
+    plotID: number;
     /**
      * 切换效果。
      */
@@ -250,6 +250,9 @@ interface ArrayVariables {
     对话选项结果: number[];
     黛瑞雅性格属性: [谦逊: number, 傲慢: number, 荣誉: number];
     日期时间: [年: number, 月: number, 日: number, 时: number, 分: number];
+}
+
+interface Variables {
 }
 
 interface DelayParams {
@@ -626,6 +629,7 @@ interface CreateScrollViewParams extends BaseObjectParams {
 
 export interface AC {
     /** 数组变量     */ arr: ArrayVariables;
+    /** 变量         */ var: Variables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
     /** 特效类型     */ EFFECT_TYPES: typeof EffectTypes;
     /** 事件类型     */ EVENT_TYPES: typeof EventTypes;
@@ -771,9 +775,9 @@ interface 创建选项基础参数 extends 对象基础参数 {
     文字样式?: 字符串;
     点击音效?:
         | {
-              资源标识: 资源标识;
-              音量?: 数值;
-          }
+            资源标识: 资源标识;
+            音量?: 数值;
+        }
         | typeof 无;
     缩放百分比?: 数值;
     当点触开始时?: () => void;
@@ -1020,10 +1024,9 @@ export const 接口 = new (class 易次元接口 {
                 所属图层: 名称,
                 资源标识: "$50834758", // resId: "$50834758"
                 缩放百分比: 3000,
-                位置:
-                    参数.裁剪模式 === 是
-                        ? { 横: 参数.裁剪区域.宽 / 2, 纵: 参数.裁剪区域.高 / 2 }
-                        : { 横: 640, 纵: 320 },
+                位置: 参数.裁剪模式 === 是
+                    ? { 横: 参数.裁剪区域.宽 / 2, 纵: 参数.裁剪区域.高 / 2 }
+                    : { 横: 640, 纵: 320 },
                 锚点: { 横: 50, 纵: 50 },
                 点击音效: 无,
             });
@@ -1313,8 +1316,8 @@ export const 接口 = new (class 易次元接口 {
         return { 横, 纵 };
     }
     async 跳转剧情(剧情标识: 数值, 参数?: 切换剧情参数) {
-        if (参数) return ac.jump({ plotId: 剧情标识, transition: 参数.切换效果, duration: 参数.时长 });
-        return ac.jump({ plotId: 剧情标识 });
+        if (参数) return ac.jump({ plotID: 剧情标识, transition: 参数.切换效果, duration: 参数.时长 });
+        return ac.jump({ plotID: 剧情标识 });
     }
     async 插播剧情(剧情标识: 数值, 参数?: 切换剧情参数) {
         if (参数) return ac.display({ plotId: 剧情标识, transition: 参数.切换效果, duration: 参数.时长 });
