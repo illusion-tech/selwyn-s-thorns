@@ -1,12 +1,13 @@
 import "./运行时/全局常量.ts";
 
+import { 变量容器类 } from './应用/变量容器.ts';
 import { Card } from "./用户界面/card.ts";
 import { CardActions } from "./用户界面/card_actions.ts";
 import { 地图管理器类 } from "./用户界面/地图管理器.ts";
 import { 对话面板管理器类 } from "./用户界面/对话面板管理器.ts";
 import { 日记管理器类 } from "./用户界面/日记管理器.ts";
 import { 设置当前日期 as 内部设置当前日期, 时间管理器类, type 日期字符串 } from "./用户界面/时间管理器.ts";
-import { 变量容器类, 选项记录器类 } from "./用户界面/选项记录器.ts";
+import { 选项记录器类 } from "./用户界面/选项记录器.ts";
 import { 项链菜单类 } from "./用户界面/项链菜单.ts";
 import { 祛缩进 } from "./运行时/工具.ts";
 
