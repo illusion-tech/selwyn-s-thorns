@@ -246,9 +246,6 @@ type RemoveParams = NormalRemoveParams | FadeoutRemoveParams;
 
 interface ArrayVariables {
     内存: number[];
-    日记记录: number[];
-    对话选项结果: number[];
-    黛瑞雅性格属性: [谦逊: number, 傲慢: number, 荣誉: number];
     日期时间: [年: number, 月: number, 日: number, 时: number, 分: number];
 }
 
@@ -969,9 +966,6 @@ enum 动态缩放模式 {
 
 export const 变量 = new (class 易次元变量 {
     日期时间 = ac.arr.日期时间 as [年: 数值, 月: 数值, 日: 数值, 时: 数值, 分: 数值];
-    黛瑞雅性格属性 = ac.arr.黛瑞雅性格属性 as [谦逊: 数值, 傲慢: 数值, 荣誉: 数值];
-    对话选项结果 = ac.arr.对话选项结果 as 数值[];
-    日记记录 = ac.arr.日记记录 as 数值[];
     内存 = ac.arr.内存 as 数值[];
 })();
 
