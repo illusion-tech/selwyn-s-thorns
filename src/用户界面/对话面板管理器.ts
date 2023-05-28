@@ -1,12 +1,10 @@
-import type { 对象属性检测结果 } from "../应用/对象属性探针.ts";
-import { 对象属性探针类 } from "../应用/对象属性探针.ts";
+import type { 变量容器类 } from '../应用/变量容器.ts';
 import type { 坐标元组, 字符串, 数值, 无, 资源标识 } from "../运行时/全局常量.ts";
 import { 已选择, 是, 未定义 } from "../运行时/全局常量.ts";
 import { 接口 } from "../运行时/易次元.ts";
 import { 承诺 } from "../运行时/网络/承诺.ts";
 import { 错误 } from "../运行时/网络/错误.ts";
-import type { 变量容器类, 执行器 } from "./选项记录器.ts";
-import type { 选项记录器类 } from "./选项记录器.ts";
+import type { 执行器, 选项记录器类 } from "./选项记录器.ts";
 
 type 显示面板参数 = {
     编号: 数值;
