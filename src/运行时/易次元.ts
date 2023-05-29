@@ -244,6 +244,11 @@ interface FadeoutRemoveParams extends BaseRemoveParams {
 
 type RemoveParams = NormalRemoveParams | FadeoutRemoveParams;
 
+interface PermanentArrayVariables {
+    内存0: number[];
+    内存1: number[];
+}
+
 interface ArrayVariables {
     内存: number[];
     日期时间: [年: number, 月: number, 日: number, 时: number, 分: number];
@@ -625,6 +630,7 @@ interface CreateScrollViewParams extends BaseObjectParams {
 }
 
 export interface AC {
+    /** 永久数组变量 */ cArr: PermanentArrayVariables;
     /** 数组变量     */ arr: ArrayVariables;
     /** 变量         */ var: Variables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
@@ -966,7 +972,12 @@ enum 动态缩放模式 {
 
 export const 变量 = new (class 易次元变量 {
     日期时间 = ac.arr.日期时间 as [年: 数值, 月: 数值, 日: 数值, 时: 数值, 分: 数值];
-    内存 = ac.arr.内存 as 数值[];
+    #内存 = ac.arr.内存 as 数值[];
+    #内存0 = ac.cArr.内存0 as 数值[];
+    #内存1 = ac.cArr.内存1 as 数值[];
+    get 内存() {
+        return this.#内存0;
+    }
 })();
 
 export const 常量 = new (class 易次元常量 {
