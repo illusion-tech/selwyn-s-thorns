@@ -15,6 +15,9 @@ if ((globalThis as any).ac === undefined) {
             日记记录: [],
             内存: [],
         },
+        cArr: {
+            内存0: [],
+        }
     } as unknown as AC;
 }
 myGlobalThis.是否弹框错误信息 = 否;
