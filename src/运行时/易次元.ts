@@ -1082,7 +1082,7 @@ export const 接口 = new (class 易次元接口 {
             if (参数.锚点) 基础对象参数.anchor = { x: 参数.锚点.横, y: 参数.锚点.纵 };
             if (参数.是否可见) 基础对象参数.visible = 参数.是否可见 === 是;
 
-            // deno-fmt-ignore: 关闭格式化
+            // rome-ignore format: 关闭格式化
             const 选项参数: CreateOptionParams = "资源标识" in 参数 
                 ? { ...基础对象参数, nResId: 参数.资源标识, sResId: 参数.资源标识 }
                 : { ...基础对象参数, nResId: 参数.正常态资源标识, sResId: 参数.点击态资源标识 };
