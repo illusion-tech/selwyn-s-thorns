@@ -7,7 +7,7 @@ import { swc as typescript } from "rollup-plugin-swc3";
  */
 const config = {
     input: "src/main.ts",
-    plugins: [typescript() /* nodeResolve() */],
+    plugins: [typescript() /*, nodeResolve() */],
     output: {
         file: "dist/bundle.rollup.js",
     },
