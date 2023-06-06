@@ -1,7 +1,7 @@
 import type { 坐标, 资源标识 } from "../运行时/全局常量.ts";
 import { myGlobalThis, 是 } from "../运行时/全局常量.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
-export class Card extends EventTarget {
+export class Card extends  myGlobalThis.EventTarget {
     static async Create(opts: { name: string; resId: 资源标识; content: string }) {
         const card = new Card(opts);
         await card.create();

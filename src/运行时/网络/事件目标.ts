@@ -1,4 +1,6 @@
-export class 事件目标 extends EventTarget {
+import { myGlobalThis } from '../全局常量';
+
+export class 事件目标 extends myGlobalThis.EventTarget {
     添加事件侦听器(类型: string, 侦听器: (事件: Event) => void) {
         this.addEventListener(类型, 侦听器);
     }
@@ -12,7 +14,7 @@ export class 事件目标 extends EventTarget {
     }
 }
 
-export  class 自定义事件<T> extends CustomEvent<T> {
+export  class 自定义事件<T> extends myGlobalThis.CustomEvent<T> {
     细节?: T;
     constructor(类型: string, 事件参数: CustomEventInit<T> & { 细节?: T } = {}) {
         事件参数.detail = 事件参数.细节;

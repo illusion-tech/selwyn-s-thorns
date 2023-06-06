@@ -1,5 +1,5 @@
 import type { 坐标, 坐标元组, 坐标对象, 字符串, 数值, 未知, 永不, 真假, 空白 } from "./全局常量.ts";
-import { 否, 是 } from "./全局常量.ts";
+import { myGlobalThis, 否, 是 } from "./全局常量.ts";
 
 export function 坐标转坐标对象(坐标: 坐标元组): 坐标对象 {
     return {
@@ -68,10 +68,10 @@ export function 祛缩进(模板字符串: TemplateStringsArray | string, ...模
     return 字符串;
 }
 
-const 环境 = globalThis.OffscreenCanvas
-    ? new globalThis.OffscreenCanvas(1, 1).getContext("2d")
-    : null ?? globalThis.document
-    ? globalThis.document.createElement("canvas").getContext("2d")
+const 环境 = myGlobalThis.OffscreenCanvas
+    ? new myGlobalThis.OffscreenCanvas(1, 1).getContext("2d")
+    : null ?? myGlobalThis.document
+    ? myGlobalThis.document.createElement("canvas").getContext("2d")
     : null;
 
 export function 测量字符串(字符串: 字符串, 字体 = "") {
