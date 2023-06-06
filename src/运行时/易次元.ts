@@ -1,6 +1,5 @@
 import type { 坐标, 大小, 字符串, 数值, 是否, 资源标识 } from "./全局常量.ts";
 import { 假, 否, 垂直对齐方式, 无, 是, 水平对齐方式, 真 } from "./全局常量.ts";
-import { 承诺 } from "./网络/承诺.ts";
 
 interface BaseObjectParams {
     /**
@@ -1312,7 +1311,7 @@ export const 接口 = new (class 易次元接口 {
         return ac.delay({ time: 毫秒 });
     }
     async 获取画布大小() {
-        const [宽, 高] = await 承诺.全部([ac.getCanvasWidth(), ac.getCanvasHeight()]);
+        const [宽, 高] = await Promise.all([ac.getCanvasWidth(), ac.getCanvasHeight()]);
         return { 宽, 高 } as 大小;
     }
     async 获取实体位置(名称: 字符串) {

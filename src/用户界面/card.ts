@@ -1,7 +1,8 @@
 import type { 坐标, 资源标识 } from "../运行时/全局常量.ts";
-import { myGlobalThis, 是 } from "../运行时/全局常量.ts";
+import { 是 } from "../运行时/全局常量.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
-export class Card extends  myGlobalThis.EventTarget {
+import { 事件目标, 自定义事件 } from "../运行时/网络/事件目标.ts";
+export class Card extends 事件目标 {
     static async Create(opts: { name: string; resId: 资源标识; content: string }) {
         const card = new Card(opts);
         await card.create();
@@ -58,18 +59,18 @@ export class Card extends  myGlobalThis.EventTarget {
             裁剪区域: { 宽: 240, 高: 200 },
         });
 
-        let touched_times = 1;
+        let 点触次数 = 1;
 
         接口.添加事件侦听器(this.#names.layer, 常量.事件类型.点触开始, () => {
             接口.播放音频("playAudio5", { 资源标识: "$51624", 音量: 80 });
-            const event = new CustomEvent("touchstart", { detail: { touched_times } });
-            this.dispatchEvent(event);
+            const 事件 = new 自定义事件("touchstart", { 细节: { 点触次数 } });
+            this.触发事件(事件);
         });
 
         接口.添加事件侦听器(this.#names.layer, 常量.事件类型.点触结束, () => {
-            const event = new CustomEvent("touchend", { detail: { touched_times } });
-            this.dispatchEvent(event);
-            touched_times++;
+            const 事件 = new 自定义事件("touchend", { 细节: { 点触次数 } });
+            this.触发事件(事件);
+            点触次数++;
         });
 
         // 创建卡片框
@@ -98,51 +99,6 @@ export class Card extends  myGlobalThis.EventTarget {
         });
 
         await Promise.all([p1, p2, p3]);
-
-        // HACK: 获取到 cc 游戏实例，截取画布的 mousemove 事件，
-        //       通过判断鼠标在层上的移入移出事件，实现悬浮状态的判断。
-        const canvas: HTMLCanvasElement = myGlobalThis.cc.game.canvas;
-        const rect = canvas.getBoundingClientRect();
-        canvas.addEventListener("mousemove", (event) => {
-            const x1 = event.clientX - rect.left;
-            const y1 = rect.height + rect.top - event.clientY;
-            const x = (1280 / rect.width) * x1;
-            const y = (720 / rect.height) * y1;
-
-            const left = this.#pos.横 - (this.#size.宽 * this.#anchor.横) / 100;
-            const right = left + this.#size.宽;
-            const top = this.#pos.纵 + (this.#size.高 * this.#anchor.纵) / 100;
-            const bottom = top - this.#size.高;
-
-            const mouse_over = y > bottom && y < top && x > left && x < right;
-            const is_hover_state = this.#state === 1;
-            if (!is_hover_state && mouse_over) {
-                this.dispatchEvent(new Event("mouseover"));
-                this.#state = 1;
-            }
-
-            if (is_hover_state && !mouse_over) {
-                this.dispatchEvent(new Event("mouseout"));
-                this.#state = 0;
-            }
-        });
-
-        // 鼠标悬浮的动画效果
-        this.addEventListener("mouseover", () => {
-            this.moveBy({
-                位置: { 横: 0, 纵: 10 },
-                duration: 100,
-                update_pos: false,
-            });
-        });
-        // 鼠标移出时恢复
-        this.addEventListener("mouseout", () => {
-            this.moveTo({
-                位置: this.#pos,
-                duration: 100,
-                update_pos: false,
-            });
-        });
     }
 
     async hide() {

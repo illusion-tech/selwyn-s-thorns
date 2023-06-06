@@ -2,7 +2,6 @@ import type { 数值, 未知, 资源标识 } from "../运行时/全局常量.ts"
 import { 否, 是 } from "../运行时/全局常量.ts";
 import { 主题 } from "../运行时/响应式/主题.ts";
 import { 接口 } from "../运行时/易次元.ts";
-import { 承诺 } from "../运行时/网络/承诺.ts";
 
 interface 教程面板参数 {
     资源标识: 资源标识;
@@ -121,7 +120,7 @@ export class 简单教程类 {
 
         当前页$.下一个(当前页);
 
-        return new 承诺((履行) => (履行承诺 = 履行));
+        return new Promise((履行) => (履行承诺 = 履行));
     }
 }
 

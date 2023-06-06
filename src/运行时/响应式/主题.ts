@@ -1,4 +1,4 @@
-import type { 无, 未知 } from "../全局常量";
+import type { 无, 未知 } from "../全局常量.ts";
 
 export interface 观察者<类型> {
     下一个(值: 类型): 无;

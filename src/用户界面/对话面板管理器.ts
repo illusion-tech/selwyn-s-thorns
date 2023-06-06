@@ -2,7 +2,6 @@ import type { 变量容器类 } from '../应用/变量容器.ts';
 import type { 坐标元组, 字符串, 数值, 无, 资源标识 } from "../运行时/全局常量.ts";
 import { 已选择, 是, 未定义 } from "../运行时/全局常量.ts";
 import { 接口 } from "../运行时/易次元.ts";
-import { 承诺 } from "../运行时/网络/承诺.ts";
 import { 错误 } from "../运行时/网络/错误.ts";
 import type { 执行器, 选项记录器类 } from "./选项记录器.ts";
 
@@ -131,7 +130,7 @@ export class 对话面板管理器类 {
 
         const 选项布局 = this.#获取预定义对话选项布局(记录.可选项.length);
 
-        await new 承诺<无>((履行) => {
+        await new Promise<无>((履行) => {
             for (const 选项 of 记录.可选项) {
                 const 坐标 = 选项布局.shift();
                 if (!坐标) throw alert(`对话选项面板<${参数.编号}>的选项布局不足！`);
