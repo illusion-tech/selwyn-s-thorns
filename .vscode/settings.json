@@ -40,4 +40,5 @@
     "typescript.inlayHints.parameterNames.enabled": "literals",
     "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
     "typescript.inlayHints.enumMemberValues.enabled": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
 }
