@@ -68,28 +68,15 @@ export function 祛缩进(模板字符串: TemplateStringsArray | string, ...模
     return 字符串;
 }
 
-const 环境 = myGlobalThis.OffscreenCanvas
-    ? new myGlobalThis.OffscreenCanvas(1, 1).getContext("2d")
-    : null ?? myGlobalThis.document
-    ? myGlobalThis.document.createElement("canvas").getContext("2d")
-    : null;
 
-export function 测量字符串(字符串: 字符串, 字体 = "") {
-    if (!环境) throw alert("无法创建字符串测量环境");
-    环境.font = 字体;
-    const 结果 = 环境.measureText(字符串);
-    return {
-        宽度: 结果.width,
-        字体高度: 结果.fontBoundingBoxAscent + 结果.fontBoundingBoxDescent,
-        字体边界盒上沿到基线距离: 结果.fontBoundingBoxAscent,
-        字体边界盒下沿到基线距离: 结果.fontBoundingBoxDescent,
-        实际边界盒上沿到基线距离: 结果.actualBoundingBoxAscent,
-        实际边界盒下沿到基线距离: 结果.actualBoundingBoxDescent,
-        实际边界盒左沿到对齐点距离: 结果.actualBoundingBoxLeft,
-        实际边界盒右沿到对齐点距离: 结果.actualBoundingBoxRight,
-        实际宽度: 结果.actualBoundingBoxLeft + 结果.actualBoundingBoxRight,
-        实际高度: 结果.actualBoundingBoxAscent + 结果.actualBoundingBoxDescent,
-    };
+export function 测量字符串(字符串: 字符串, 字号: 数值) {
+    const 半角字符 = Array.from(字符串.matchAll(/[ -~]/g));
+    const 全角字符 = Array.from(字符串.matchAll(/[\u3000-\u303F\uFF00-\uFFEF\u4E00-\u9FFF]/g));
+
+    const 高度 = 字号;
+    const 宽度 = 半角字符.length * 字号 * 0.5 + 全角字符.length * 字号;
+
+    return { 高度, 宽度 };
 }
 
 export function 是否是(真假: 真假) {

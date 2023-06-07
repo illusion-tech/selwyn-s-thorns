@@ -112,7 +112,7 @@ export class 辅助阅读器类 {
         const 行高 = this.#文本行高;
 
         const 内容高度 = this.#文本内容.split("\n").reduce((高, 行) => {
-            const 测量结果 = 测量字符串(行, `${this.#文本字体.字号}px ${this.#文本字体.名称}`);
+            const 测量结果 = 测量字符串(行, this.#文本字体.字号);
 
             const 行数 = Math.ceil(
                 测量结果.宽度 <= 行宽 - this.#文本字体.字号 ? 1 : 测量结果.宽度 / (行宽 - this.#文本字体.字号),
