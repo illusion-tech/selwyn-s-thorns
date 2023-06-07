@@ -20,4 +20,3 @@ if ((globalThis as any).ac === undefined) {
         }
     } as unknown as AC;
 }
-myGlobalThis.是否弹框错误信息 = 否;
