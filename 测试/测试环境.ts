@@ -1,5 +1,4 @@
 // deno-lint-ignore-file no-explicit-any
-import { myGlobalThis, 否 } from "../src/运行时/全局常量.ts";
 import { AC } from "../src/运行时/易次元.ts";
 
 declare global {
