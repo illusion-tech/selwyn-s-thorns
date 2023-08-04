@@ -2,7 +2,6 @@ import type { 变量容器类 } from '../应用/变量容器.ts';
 import type { 坐标元组, 字符串, 数值, 无, 资源标识 } from "../运行时/全局常量.ts";
 import { 已选择, 是, 未定义 } from "../运行时/全局常量.ts";
 import { 接口 } from "../运行时/易次元.ts";
-import { 错误 } from "../运行时/网络/错误.ts";
 import type { 执行器, 选项记录器类 } from "./选项记录器.ts";
 
 type 显示面板参数 = {
@@ -74,10 +73,10 @@ export class 对话面板管理器类 {
     }
 
     创建对话选项面板(参数: 创建对话选项面板参数) {
-        if (!Number.isSafeInteger(参数.编号)) throw new 错误("对话选项面板必须有编号！");
-        if (!参数.描述) throw new 错误("对话选项面板必须有描述！");
-        if (参数.日期 === 未定义) throw new 错误(`对话选项面板<编号 ${参数.编号}>必须有日期！`);
-        if (参数.可选项.length < 2 || 参数.可选项.length > 7) throw new 错误("对话选项面板必须有2到6个选项！");
+        if (!Number.isSafeInteger(参数.编号)) throw "对话选项面板必须有编号！";
+        if (!参数.描述) throw "对话选项面板必须有描述！";
+        if (参数.日期 === 未定义) throw `对话选项面板<编号 ${参数.编号}>必须有日期！`;
+        if (参数.可选项.length < 2 || 参数.可选项.length > 7) throw "对话选项面板必须有2到6个选项！";
 
         this.#选项记录器.定义新记录({
             编号: 参数.编号,
