@@ -1,3 +1,6 @@
+import { 日记本类 } from '../应用/日记/日记本.ts';
+import { 日记册类 } from '../应用/日记/日记册.ts';
+import { 日记页类 } from '../应用/日记/日记页.ts';
 import type { 坐标, 大小, 字符串, 数值, 无, 是否, 未知, 真假, 资源标识 } from "../运行时/全局常量.ts";
 import { 否, 已选择, 是, 最大填充, 未定义, 水平对齐方式, 空白 } from "../运行时/全局常量.ts";
 import { 是否是, 是坐标, 测量字符串 } from "../运行时/工具.ts";
@@ -455,6 +458,7 @@ export class 日记管理器类 extends 事件目标 {
         super();
         this.#时间管理器 = 时间管理器;
         this.#选项记录器 = 选项记录器;
+        this.#默认日记本 = new 日记本类(this.#选项记录器)
     }
 
     // 配置日记<T extends unknown[]>(...参数: { [I in keyof T]: 日记配置<[unknown, unknown, number, unknown, string]> }) {}
@@ -762,5 +766,15 @@ export class 日记管理器类 extends 事件目标 {
 
         this.触发事件(new 自定义事件("打开日记本"));
         await 接口.显示对象("项链菜单_日记本_图层", { 时长: 300 });
+    }
+
+    #默认日记本: 日记本类
+
+    获取日记本() {
+        return this.#默认日记本;
+    }
+
+    创建日记册(): 日记册类 {
+
     }
 }
