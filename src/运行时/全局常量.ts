@@ -30,6 +30,7 @@ export type 选择状态 = typeof 已选择 | typeof 未选择;
 export type 无 = void;
 export type 未知 = unknown;
 export type 永不 = never;
+export type 任意 = any;
 export type 坐标元组 = [x: number, y: number];
 export type 坐标对象 = { x: number; y: number };
 export type 坐标 = { 横: number; 纵: number };
