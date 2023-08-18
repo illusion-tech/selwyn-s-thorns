@@ -58,7 +58,7 @@ export class 时间管理器类 {
      * @备注 返回的示例字符串 '1991-06-05'
      */
     获取当前日期字符串(): 字符串 {
-        const 年 = 变量.日期时间[0].toString().padStart(2, "0");
+        const 年 = 变量.日期时间[0].toString().padStart(4, "0");
         const 月 = 变量.日期时间[1].toString().padStart(2, "0");
         const 日 = 变量.日期时间[2].toString().padStart(2, "0");
         return `${年}-${月}-${日}`;
