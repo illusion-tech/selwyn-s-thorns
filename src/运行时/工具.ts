@@ -76,6 +76,7 @@ export function 测量字符串(字符串: 字符串, 字号: 数值) {
     const 高度 = 字号;
     const 宽度 = 半角字符.length * 字号 * 0.5 + 全角字符.length * 字号;
 
+
     return { 高度, 宽度 };
 }
 
