@@ -18,6 +18,22 @@ export class 日记页类 {
         return this.#配置.日期;
     }
 
+    get 资源标识() {
+        return this.#配置.资源标识();
+    }
+
+    get 额外图片() {
+        return (this.#配置.额外图片?.() ?? []) as { 资源标识: 资源标识; 位置: 坐标 }[];
+    }
+
+    get 辅助阅读内容() {
+        return this.#配置.辅助阅读内容();
+    }
+
+    get 回溯至() {
+        return this.#配置.回溯至;
+    }
+
     constructor(配置: 日记页配置) {
         if (!配置.日期) throw "日记页配置缺少日期！";
         this.#配置 = 配置;
