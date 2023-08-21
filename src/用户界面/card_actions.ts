@@ -16,7 +16,7 @@ export class CardActions {
         const count = this.#cards.length;
 
         if (count < 1) return;
-        if (count > 3) return alert("暂不支持超过 3 张选项卡的布局");
+        if (count > 3) throw "暂不支持超过 3 张选项卡的布局";
 
         await 接口.创建图片("card_actions_bg_black_mask", {
             资源标识: "$51398051", // resId: "$51398051"
