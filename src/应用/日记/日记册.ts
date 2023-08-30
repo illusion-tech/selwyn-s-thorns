@@ -37,16 +37,12 @@ export class 日记册类 {
         return this.#资源标识;
     }
 
-    *获取贴纸配置() {
-        for (const 贴纸配置 of this.#贴纸配置) {
-            yield 贴纸配置;
-        }
+    获取贴纸配置() {
+        return this.#贴纸配置;
     }
 
-    *获取日记页() {
-        for (const 日记页 of this.#日记页集) {
-            yield 日记页;
-        }
+    获取日记页() {
+        return this.#日记页集;
     }
 
     constructor(成册配置: 成册配置, ...页集: 日记页类[]) {
