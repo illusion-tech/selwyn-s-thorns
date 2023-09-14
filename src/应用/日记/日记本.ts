@@ -26,7 +26,7 @@ export class 日记本类 {
         return this.#日记册集;
     }
 
-    装订成本(...册集: 日记册类[]) {
+    装订成本(册集: 日记册类[]) {
         this.#日记册集 = 册集;
         for (const 当前册 of 册集) {
             const 当前册索引 = 册集.indexOf(当前册);

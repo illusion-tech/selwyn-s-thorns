@@ -45,7 +45,7 @@ export class 日记册类 {
         return this.#日记页集;
     }
 
-    constructor(成册配置: 成册配置, ...页集: 日记页类[]) {
+    constructor(成册配置: 成册配置, 页集: 日记页类[]) {
         this.#对应年月 = 成册配置.对应年月;
         this.#资源标识 = 成册配置.资源标识;
         this.#贴纸配置 = 成册配置.贴纸配置;
