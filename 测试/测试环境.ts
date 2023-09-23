@@ -16,6 +16,9 @@ if ((globalThis as any).ac === undefined) {
         },
         cArr: {
             内存0: [],
-        }
+        },
+        async createLayer() {},
+        async createOption() {},
+        async createImage() {},
     } as unknown as AC;
 }
