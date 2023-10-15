@@ -22,7 +22,7 @@ interface 选项 {
     readonly 选择状态: 选择状态;
 }
 
-class 记录类 {
+export class 记录类 {
     #编号: 数值;
     #日期: 字符串;
     #描述?: 字符串;
