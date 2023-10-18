@@ -210,6 +210,7 @@ export class 选项记录器类 {
     }
 
     调试() {
+        const 输出行: 字符串[] = [];
         for (const 记录 of this.获取记录()) {
             const 编号 = `#${记录.编号}`.padStart(4, " ");
             const 日期 = `[${记录.日期}]`;
@@ -217,7 +218,10 @@ export class 选项记录器类 {
             const 状态 = `[${记录.选项选择状态.map((状态) => (状态 === 已选择 ? "+" : "-")).join("")}]`;
             const 描述 = 记录.描述;
 
-            console.log([编号, 日期, 模式, 状态, 描述].join(" - "));
+            const 行内容 = [编号, 日期, 模式, 状态, 描述].join(" - ");
+            输出行.push(行内容);
+            console.log(行内容);
         }
+        return 输出行;
     }
 }
