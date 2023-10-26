@@ -253,8 +253,11 @@ interface ArrayVariables {
     日期时间: [年: number, 月: number, 日: number, 时: number, 分: number];
 }
 
-interface Variables {
+interface PermanentVariables {
+    内存索引: number;
 }
+
+interface Variables {}
 
 interface DelayParams {
     /**
@@ -630,6 +633,7 @@ interface CreateScrollViewParams extends BaseObjectParams {
 
 export interface AC {
     /** 永久数组变量 */ cArr: PermanentArrayVariables;
+    /** 永久变量     */ cVar: PermanentVariables;
     /** 数组变量     */ arr: ArrayVariables;
     /** 变量         */ var: Variables;
     /** 缓动渐变类型 */ EASE_TYPES: typeof EaseTypes;
@@ -775,12 +779,7 @@ type 播放音频参数 = 播放普通效果音频参数 | 播放淡入效果音
 interface 创建选项基础参数 extends 对象基础参数 {
     选项文字?: 字符串;
     文字样式?: 字符串;
-    点击音效?:
-        | {
-            资源标识: 资源标识;
-            音量?: 数值;
-        }
-        | typeof 无;
+    点击音效?: { 资源标识: 资源标识; 音量?: 数值 } | typeof 无;
     缩放百分比?: 数值;
     当点触开始时?: () => void;
     当点触结束时?: () => void;
@@ -971,11 +970,18 @@ enum 动态缩放模式 {
 
 export const 变量 = new (class 易次元变量 {
     日期时间 = ac.arr.日期时间 as [年: 数值, 月: 数值, 日: 数值, 时: 数值, 分: 数值];
-    #内存 = ac.arr.内存 as 数值[];
-    #内存0 = ac.cArr.内存0 as 数值[];
-    #内存1 = ac.cArr.内存1 as 数值[];
+    #内存 = [ac.cArr.内存0, ac.cArr.内存1];
+    get 内存索引() {
+        const 索引值 = ac.cVar.内存索引;
+        if (索引值 !== 0 && 索引值 !== 1) throw new Error("错误的内存索引值");
+        return 索引值;
+    }
+    set 内存索引(索引值: 0 | 1) {
+        if (索引值 !== 0 && 索引值 !== 1) throw new Error("错误的内存索引值");
+        ac.cVar.内存索引 = 索引值;
+    }
     get 内存() {
-        return this.#内存0;
+        return this.#内存[this.内存索引];
     }
 })();
 
@@ -997,10 +1003,10 @@ export const 常量 = new (class 易次元常量 {
 export const 接口 = new (class 易次元接口 {
     /**
      * 在当前画布上创建一个新的图层。
-     * 
+     *
      * 创建图层时，可以选择该图层是否阻挡事件的穿透。
-     * 
-     * 需要创建一个在画面中剧中放置的元素时，可以使用下面的代码示例: 
+     *
+     * 需要创建一个在画面中剧中放置的元素时，可以使用下面的代码示例:
      * ```ts
      * await 接口.创建图层("居中图层", {
      *   位置: { 横: 640, 纵: 360 },
@@ -1009,7 +1015,7 @@ export const 接口 = new (class 易次元接口 {
      *   裁剪区域: { 宽: 1280, 高: 720 },
      *   事件阻挡: 是,
      * });
-     * 
+     *
      * await 接口.创建图片("居中图片", {
      *   资源标识: "图片资源",
      *   所属图层: "居中图层",
@@ -1017,7 +1023,7 @@ export const 接口 = new (class 易次元接口 {
      *   锚点: { 横: 50, 纵: 50 },
      * });
      * ```
-     * 
+     *
      * @param 名称 创建图层的名称
      * @param 参数 创建图层的参数
      */
@@ -1055,6 +1061,7 @@ export const 接口 = new (class 易次元接口 {
                 资源标识: "$50834758", // resId: "$50834758"
                 层级索引: -1,
                 缩放百分比: 3000,
+                // biome-ignore format: 关闭格式化
                 位置: 参数.裁剪模式 === 是
                     ? { 横: 参数.裁剪区域.宽 / 2, 纵: 参数.裁剪区域.高 / 2 }
                     : { 横: 640, 纵: 320 },
