@@ -248,10 +248,7 @@ interface PermanentArrayVariables {
     内存1: number[];
 }
 
-interface ArrayVariables {
-    内存: number[];
-    日期时间: [年: number, 月: number, 日: number, 时: number, 分: number];
-}
+interface ArrayVariables {}
 
 interface PermanentVariables {
     内存索引: number;
@@ -969,7 +966,6 @@ enum 动态缩放模式 {
 }
 
 export const 变量 = new (class 易次元变量 {
-    日期时间 = ac.arr.日期时间 as [年: 数值, 月: 数值, 日: 数值, 时: 数值, 分: 数值];
     #内存 = [ac.cArr.内存0, ac.cArr.内存1];
     get 内存索引() {
         const 索引值 = ac.cVar.内存索引;

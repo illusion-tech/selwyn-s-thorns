@@ -12,13 +12,19 @@ if ((globalThis as any).ac === undefined) {
             黛瑞雅性格属性: [0, 0, 0],
             对话选项结果: [],
             日记记录: [],
-            内存: [],
+        },
+        cVar: {
+            内存索引: 0,
         },
         cArr: {
-            内存0: [],
+            内存0: new Array(1000).fill(0),
+            内存1: new Array(1000).fill(0),
         },
         async createLayer() {},
         async createOption() {},
         async createImage() {},
     } as unknown as AC;
+
+    ac.cArr.内存0[999] = 1_1991_0605_1200;
+    ac.cArr.内存1[999] = 1_1991_0605_1200;
 }
