@@ -2,7 +2,7 @@ import type { 坐标, 坐标元组, 大小, 字符串, 数值, 是否, 真假 } 
 import { 否, 是 } from "../运行时/全局常量.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
 import { 事件目标, 自定义事件 } from "../运行时/网络/事件目标.ts";
-import { 时间管理器类 } from "./时间管理器.ts";
+import { 时间管理器类 } from "../应用/时间管理器.ts";
 
 enum 地图资源类型 {
     日间主图 = "日间主图",

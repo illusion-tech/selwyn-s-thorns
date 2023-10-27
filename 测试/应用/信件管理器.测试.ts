@@ -1,6 +1,6 @@
 import "塞尔温荆棘://测试/测试环境.ts";
 
-import { assertExists } from "https://deno.land/std@0.202.0/assert/mod.ts";
+import { assertExists } from "https://deno.land/std@0.204.0/assert/mod.ts";
 
 import { 信件管理器类 } from "塞尔温荆棘://src/应用/信件管理器.ts";
 

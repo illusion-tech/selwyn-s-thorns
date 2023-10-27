@@ -1,12 +1,14 @@
 import { 成册配置, 日记册类 } from "../应用/日记/日记册.ts";
 import { 日记本类 } from "../应用/日记/日记本.ts";
 import { 日记页类, type 日记页配置 } from "../应用/日记/日记页.ts";
+import { 时间管理器类 } from "../应用/时间管理器.ts";
+
 import type { 坐标, 大小, 字符串, 数值, 无, 是否, 未知, 资源标识 } from "../运行时/全局常量.ts";
 import { 否, 已选择, 是, 最大填充, 未定义, 水平对齐方式 } from "../运行时/全局常量.ts";
 import { 测量字符串 } from "../运行时/工具.ts";
 import { 常量, 接口 } from "../运行时/易次元.ts";
 import { 事件目标, 自定义事件 } from "../运行时/网络/事件目标.ts";
-import { 时间管理器类 } from "./时间管理器.ts";
+
 import { 辅助阅读器类 } from "./辅助阅读器.ts";
 import type { 记录类, 选项记录器类 } from "./选项记录器.ts";
 

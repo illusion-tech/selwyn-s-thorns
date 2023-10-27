@@ -3,7 +3,7 @@ import { 否, 已选择, type 数值, 是, 未解锁, 解锁, 最大填充, 水�
 import { 常量, 接口 } from "../运行时/易次元.ts";
 import { 事件目标 } from "../运行时/网络/事件目标.ts";
 import type { 日记管理器类 } from "./日记管理器.ts";
-import type { 时间管理器类 } from "./时间管理器.ts";
+import type { 时间管理器类 } from "../应用/时间管理器.ts";
 import { 简单确认弹框类 } from "./简单确认弹框.ts";
 import { 辅助阅读器类 } from "./辅助阅读器.ts";
 import type { 选项记录器类 } from "./选项记录器.ts";

@@ -1,5 +1,5 @@
-import type { 月份 } from "../../用户界面/时间管理器.ts";
 import type { 坐标, 数值, 资源标识 } from "../../运行时/全局常量.ts";
+import type { 月份 } from "../时间管理器.ts";
 import type { 日记页类 } from "./日记页.ts";
 
 interface 贴纸配置 {

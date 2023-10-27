@@ -32,7 +32,7 @@
     "deno.inlayHints.parameterNames.enabled": "literals",
     "deno.inlayHints.functionLikeReturnTypes.enabled": true,
     "deno.inlayHints.enumMemberValues.enabled": true,
-    "typescript.tsserver.experimental.enableProjectDiagnostics": false, // deno 无法抑制该全局特性
+    "typescript.tsserver.experimental.enableProjectDiagnostics": false,
     "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName": true,
     "typescript.inlayHints.variableTypes.enabled": true,
     "typescript.inlayHints.propertyDeclarationTypes.enabled": true,

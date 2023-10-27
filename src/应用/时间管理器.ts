@@ -1,4 +1,4 @@
-import type { 字符串, 数值 } from "../运行时/全局常量.ts";
+import type { 数值 } from "../运行时/全局常量.ts";
 import { 变量 } from "../运行时/易次元.ts";
 
 export type 月份 = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;

@@ -1,6 +1,6 @@
-import { type 月份 } from "../../用户界面/时间管理器.ts";
 import { 选项记录器类 } from "../../用户界面/选项记录器.ts";
 import { type 数值 } from "../../运行时/全局常量.ts";
+import { type 月份 } from "../时间管理器.ts";
 import { type 日记册类 } from "./日记册.ts";
 
 export class 日记本类 {

@@ -3,7 +3,7 @@ import { 否, 已选择, 数值, 是, 未定义, 空白 } from "../运行时/全
 import { 祛缩进 } from "../运行时/工具.ts";
 import { 对话面板管理器类 } from "./对话面板管理器.ts";
 import { 日记管理器类 } from "./日记管理器.ts";
-import { 时间管理器类 } from "./时间管理器.ts";
+import { 时间管理器类 } from "../应用/时间管理器.ts";
 import { 选项记录器类 } from "./选项记录器.ts";
 
 const 选项记录器 = new 选项记录器类();
