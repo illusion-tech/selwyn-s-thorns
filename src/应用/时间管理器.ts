@@ -47,14 +47,39 @@ export class 时间管理器类 {
     }
 
     设置日期(年: 数值, 月: 数值, 日: 数值) {
-        变量.日期时间[0] = 年;
-        变量.日期时间[1] = 月;
-        变量.日期时间[2] = 日;
+        if (年 < 1) throw new Error(`年份 ${年} 过小不是一个有效的年份`);
+        if (年 > 9999) throw new Error(`年份 ${年} 过大不是一个有效的年份`);
+        if (月 < 1) throw new Error(`月份 ${月} 过小不是一个有效的月份`);
+        if (月 > 12) throw new Error(`月份 ${月} 过大不是一个有效的月份`);
+        if (日 < 1) throw new Error(`日期 ${日} 过小不是一个有效的日期`);
+        if (日 > 31) throw new Error(`日期 ${日} 过大不是一个有效的日期`);
+
+        const 年字符串 = 年.toString().padStart(4, "0");
+        const 月字符串 = 月.toString().padStart(2, "0");
+        const 日字符串 = 日.toString().padStart(2, "0");
+        const 时字符串 = this.#日期时间[3].toString().padStart(2, "0");
+        const 分字符串 = this.#日期时间[4].toString().padStart(2, "0");
+
+        const 日期字符串 = `1${年字符串}${月字符串}${日字符串}${时字符串}${分字符串}`;
+
+        变量.内存[999] = parseInt(日期字符串);
     }
 
     设置时间(时: 数值, 分: 数值) {
-        变量.日期时间[3] = 时;
-        变量.日期时间[4] = 分;
+        if (时 < 0) throw new Error(`时 ${时} 过小不是一个有效的时`);
+        if (时 > 23) throw new Error(`时 ${时} 过大不是一个有效的时`);
+        if (分 < 0) throw new Error(`分 ${分} 过小不是一个有效的分`);
+        if (分 > 59) throw new Error(`分 ${分} 过大不是一个有效的分`);
+
+        const 年字符串 = this.#日期时间[0].toString().padStart(4, "0");
+        const 月字符串 = this.#日期时间[1].toString().padStart(2, "0");
+        const 日字符串 = this.#日期时间[2].toString().padStart(2, "0");
+        const 时字符串 = 时.toString().padStart(2, "0");
+        const 分字符串 = 分.toString().padStart(2, "0");
+
+        const 日期字符串 = `1${年字符串}${月字符串}${日字符串}${时字符串}${分字符串}`;
+
+        变量.内存[999] = parseInt(日期字符串);
     }
 
     获取当前时间() {
