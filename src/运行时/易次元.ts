@@ -966,7 +966,7 @@ enum 动态缩放模式 {
 }
 
 export const 变量 = new (class 易次元变量 {
-    #内存 = [ac.cArr.内存0, ac.cArr.内存1];
+    #内存池 = [ac.cArr.内存0, ac.cArr.内存1];
     get 内存索引() {
         const 索引值 = ac.cVar.内存索引;
         if (索引值 !== 0 && 索引值 !== 1) throw new Error("错误的内存索引值");
@@ -977,7 +977,7 @@ export const 变量 = new (class 易次元变量 {
         ac.cVar.内存索引 = 索引值;
     }
     get 内存() {
-        return this.#内存[this.内存索引];
+        return this.#内存池[this.内存索引];
     }
 })();
 
