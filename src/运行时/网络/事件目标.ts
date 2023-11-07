@@ -1,5 +1,4 @@
 import type { 字符串 } from "../全局常量";
-import { myGlobalThis } from "../全局常量";
 
 export class 事件目标 {
     #侦听器: { [类型: string]: ((事件: 事件) => void)[] } = {};
@@ -30,11 +29,11 @@ export class 事件目标 {
 
 export class 事件 {
     类型: 字符串;
-    目标: 事件目标 | typeof globalThis;
+    目标: 事件目标 | null;
 
     constructor(类型: 字符串, 事件参数: { 目标?: 事件目标 } = {}) {
         this.类型 = 类型;
-        this.目标 = 事件参数.目标 ?? myGlobalThis;
+        this.目标 = 事件参数.目标 ?? null;
     }
 }
 
