@@ -59,8 +59,10 @@ export class CardActions {
 
         let idx = 0;
         for (const card of this.#cards) {
-            const x = rule[0][2][idx];
-            const y = rule[0][1];
+            const row = rule.length === 1 ? 0 : Math.floor(idx / 2);
+            const col = idx % rule[row][2].length;
+            const x = rule[row][2][col];
+            const y = rule[row][1];
 
             接口.播放音频(`play_audio_${card.name}`, { 资源标识: "$51413" }); // resId: "$51413"
             await card.moveTo({ 位置: { 横: x, 纵: y }, duration: 250 });
