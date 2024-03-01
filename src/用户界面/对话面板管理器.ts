@@ -33,7 +33,7 @@ class 对话选项 {
 }
 
 export class 对话面板管理器类 {
-    // rome-ignore format: 特定布局数组不需要格式化
+    // biome-ignore format: 特定布局数组不需要格式化
     #预定义对话选项布局: 坐标元组[][] = [
         [ 
             [376, 120], [924, 120]

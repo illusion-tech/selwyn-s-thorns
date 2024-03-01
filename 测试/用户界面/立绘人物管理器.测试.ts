@@ -1,6 +1,6 @@
 import "塞尔温荆棘://测试/测试环境.ts";
 
-import { assertEquals, assertExists, assertThrows } from "https://deno.land/std@0.210.0/assert/mod.ts";
+import { assertEquals, assertExists, assertThrows } from "https://deno.land/std@0.217.0/assert/mod.ts";
 
 import { 立绘人物管理器类 } from "塞尔温荆棘://src/用户界面/立绘人物管理器.ts";
 import { type 数值 } from "塞尔温荆棘://src/运行时/全局常量.ts";
