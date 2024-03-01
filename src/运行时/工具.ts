@@ -1,5 +1,5 @@
 import type { 坐标, 坐标元组, 坐标对象, 字符串, 数值, 未知, 永不, 真假, 空白 } from "./全局常量.ts";
-import { myGlobalThis, 否, 是 } from "./全局常量.ts";
+import { 否, 是 } from "./全局常量.ts";
 
 export function 坐标转坐标对象(坐标: 坐标元组): 坐标对象 {
     return {
