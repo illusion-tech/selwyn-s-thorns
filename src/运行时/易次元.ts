@@ -353,6 +353,11 @@ interface CreateTextParams extends BaseObjectParams {
      */
     size?: { width: number; height: number };
     /**
+     * 行距。
+     * @default 1
+     */
+    spacing?: number;
+    /**
      * 文字样式。
      * @default ""
      * @remarks 填入创建好的 style 唯一标识
@@ -560,7 +565,7 @@ interface CreateStyleParams {
     canskip?: boolean;
 }
 
-interface CallUIParams {
+interface UIParams {
     name: string;
     uiId: string;
 }
@@ -642,11 +647,13 @@ export interface AC {
     /** 水平对齐类型 */ HALIGN_TYPES: typeof HAlignTypes;
     /** 垂直对齐类型 */ VALIGN_TYPES: typeof VAlignTypes;
     /** 添加事件侦听 */ addEventListener(params: AddEventListenerParams): Promise<void>;
-    /** 插入 UI      */ callUI(params: CallUIParams): Promise<void>;
+    /** 插入 UI      */ callUI(params: UIParams): Promise<void>;
+    /** 替换 UI      */ replaceUI(params: UIParams): Promise<void>;
     /** 关闭当前 UI  */ removeCurrentUI(): Promise<void>;
     /** 创建图片     */ createImage(params: CreateImageParams): Promise<void>;
     /** 创建图层     */ createLayer(params: CreateLayerParams): Promise<void>;
     /** 创建选项     */ createOption(params: CreateOptionParams): Promise<void>;
+    /** 创建退出选项 */ createExitOption(params: CreateOptionParams): Promise<void>;
     /** 创建滚动视图 */ createScrollView(params: CreateScrollViewParams): Promise<void>;
     /** 创建序列动画 */ createSequence(params: CreateSequenceParams): Promise<void>;
     /** 创建文本样式 */ createStyle(params: CreateStyleParams): Promise<void>;
@@ -856,12 +863,14 @@ interface 创建文本参数 extends 对象基础参数 {
     水平对齐方式?: 水平对齐方式;
     /** @默认值 易次元.垂直对齐方式.靠上 */
     垂直对齐方式?: 垂直对齐方式;
+    /** @默认值 1 */
+    行距?: 数值;
     文本框大小: 大小;
     /** @默认值 "" */
     文本样式?: 字符串;
 }
 
-enum 滤镜类型 {
+export enum 滤镜类型 {
     高斯模糊 = "gaussianblur",
     灰度变化 = "gray",
     明度变化 = "brightness",
@@ -1152,6 +1161,7 @@ export const 接口 = new (class 易次元接口 {
             if (参数.水平对齐方式) 文本参数.halign = 参数.水平对齐方式;
             if (参数.垂直对齐方式) 文本参数.valign = 参数.垂直对齐方式;
             if (参数.文本样式) 文本参数.style = 参数.文本样式;
+            if (参数.行距) 文本参数.spacing = 参数.行距;
 
             文本参数.size = { width: 参数.文本框大小.宽, height: 参数.文本框大小.高 };
 
@@ -1218,6 +1228,12 @@ export const 接口 = new (class 易次元接口 {
     }
     async 插入用户界面(名称: 字符串, 参数: 插入用户界面参数) {
         return ac.callUI({
+            name: 名称,
+            uiId: 参数.用户界面标识,
+        });
+    }
+    async 替换用户界面(名称: 字符串, 参数: 插入用户界面参数) {
+        return ac.replaceUI({
             name: 名称,
             uiId: 参数.用户界面标识,
         });
