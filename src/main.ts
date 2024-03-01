@@ -31,7 +31,7 @@ const 设置当前日期 = (日期: 日期字符串) => 内部设置当前日期
 const 创建项链 = 项链菜单.创建项链.bind(项链菜单);
 const 收起项链 = 项链菜单.收起项链.bind(项链菜单);
 
-const 书房菜单 = new 书房菜单类();
+const 书房菜单 = new 书房菜单类(日记管理器);
 
 console.log({
     CardActions,
