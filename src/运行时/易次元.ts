@@ -924,7 +924,7 @@ interface 创建滚动视图参数 extends 对象基础参数 {
     是否垂直滚动: 是否;
 }
 
-enum 切换效果 {
+export enum 切换效果 {
     淡出 = "crossfade",
     淡出后淡入 = "fade",
     右上到左下马赛克切换 = "fade-bl",
