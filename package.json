@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "type": "commonjs",
-    "packageManager": "pnpm@8.15.4",
+    "packageManager": "pnpm@9.1.1",
     "scripts": {
         "build": "swc -d dist src ",
         "bundle": "pnpm run bundle:rollup",
@@ -15,11 +15,11 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@biomejs/biome": "^1.6.1",
+        "@biomejs/biome": "^1.7.3",
         "@rollup/plugin-node-resolve": "^15.2.3",
         "@rollup/plugin-typescript": "^11.1.6",
-        "rollup": "^4.13.0",
-        "typescript": "^5.4.2"
+        "rollup": "^4.17.2",
+        "typescript": "^5.4.5"
     },
     "dependencies": {
         "rxjs": "^7.8.1"
