@@ -1,8 +1,9 @@
-import "塞尔温荆棘://测试/测试环境.ts";
+import "../测试环境.ts";
 
-import { assertEquals, assertExists, assertThrows } from "https://deno.land/std@0.217.0/assert/mod.ts";
-import { 选项记录器类 } from "塞尔温荆棘://src/用户界面/选项记录器.ts";
-import { 变量容器类 } from "塞尔温荆棘://src/应用/变量容器.ts";
+import { assertEquals, assertExists, assertThrows } from "jsr:@std/assert";
+
+import { 选项记录器类 } from "../../src/用户界面/选项记录器.ts";
+import { 变量容器类 } from "../../src/应用/变量容器.ts";
 
 Deno.test("变量容器", () => {
     const 选项记录器 = new 选项记录器类();

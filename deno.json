@@ -1,22 +1,22 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "lib": ["ES2022", "DOM", "deno.window"]
-  },
-  "fmt": {
-    "indentWidth": 4,
-    "lineWidth": 120,
-    "semiColons": true,
-    "useTabs": false,
-    "singleQuote": false
-  },
-  "test": {
-    "include": [
-      "测试/选项记录器.测试.ts",
-      "测试/应用/对象属性探针.测试.ts",
-      "测试/应用/变量容器.测试.ts",
-      "测试/应用/信件管理器.测试.ts"
-    ]
-  },
-  "imports": {}
+    "compilerOptions": {
+        "strict": true,
+        "lib": ["ES2022", "DOM", "deno.window"]
+    },
+    "fmt": {
+        "indentWidth": 4,
+        "lineWidth": 120,
+        "semiColons": true,
+        "useTabs": false,
+        "singleQuote": false
+    },
+    "test": {
+        "include": [
+            "测试/选项记录器.测试.ts",
+            "测试/应用/对象属性探针.测试.ts",
+            "测试/应用/变量容器.测试.ts",
+            "测试/应用/信件管理器.测试.ts"
+        ]
+    },
+    "imports": { "@std/assert": "jsr:@std/assert@^0.225.3" }
 }

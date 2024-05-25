@@ -1,9 +1,9 @@
-import "塞尔温荆棘://测试/测试环境.ts";
+import "../测试环境.ts";
 
-import { assertEquals, assertExists, assertThrows } from "https://deno.land/std@0.217.0/assert/mod.ts";
+import { assertExists } from "jsr:@std/assert";
 
-import { 书房菜单类 } from "塞尔温荆棘://src/用户界面/书房菜单.ts";
-import { 是,未解锁 } from "塞尔温荆棘://src/运行时/全局常量.ts";
+import { 书房菜单类 } from "../../src/用户界面/书房菜单.ts";
+import { 是, 未解锁 } from "../../src/运行时/全局常量.ts";
 
 Deno.test("书房菜单", () => {
     const 菜单 = new 书房菜单类();

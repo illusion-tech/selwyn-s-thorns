@@ -1,9 +1,10 @@
-import "塞尔温荆棘://测试/测试环境.ts";
+import "./测试环境.ts";
 
-import { assertEquals, assertExists, assertThrows } from "https://deno.land/std@0.217.0/assert/mod.ts";
-import { 选项记录器类, type 定义新记录参数 } from "塞尔温荆棘://src/用户界面/选项记录器.ts";
-import { 已选择, 未选择 } from "塞尔温荆棘://src/运行时/全局常量.ts";
-import { 变量 } from "塞尔温荆棘://src/运行时/易次元.ts";
+import { assertEquals, assertExists, assertThrows } from "jsr:@std/assert";
+
+import { type 定义新记录参数, 选项记录器类 } from "../src/用户界面/选项记录器.ts";
+import { 已选择, 未选择 } from "../src/运行时/全局常量.ts";
+import { 变量 } from "../src/运行时/易次元.ts";
 
 Deno.test("选项记录器", () => {
     const 选项记录器 = new 选项记录器类();

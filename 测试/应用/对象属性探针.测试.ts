@@ -1,7 +1,8 @@
-import "塞尔温荆棘://测试/测试环境.ts";
-import { 对象属性探针类 } from "塞尔温荆棘://src/应用/对象属性探针.ts";
+import "../测试环境.ts";
 
-import { assertEquals, assertExists, assertThrows } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals, assertExists } from "jsr:@std/assert";
+
+import { 对象属性探针类 } from "../../src/应用/对象属性探针.ts";
 
 Deno.test("对象属性探针 - 构造", () => {
     const 对象属性探针 = new 对象属性探针类({});
