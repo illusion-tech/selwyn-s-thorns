@@ -1,7 +1,7 @@
 import "./运行时/全局常量.ts";
 
 import { 变量容器类 } from "./应用/变量容器.ts";
-import { type 日期字符串, 时间管理器类, 设置当前日期 as 内部设置当前日期 } from "./应用/时间管理器.ts";
+import { type 日期年月日字符串, 时间管理器类, 设置当前日期 as 内部设置当前日期 } from "./应用/时间管理器.ts";
 import { Card } from "./用户界面/card.ts";
 import { CardActions } from "./用户界面/card_actions.ts";
 import { 地图管理器类 } from "./用户界面/地图管理器.ts";
@@ -27,7 +27,7 @@ const 项链菜单 = new 项链菜单类(日记管理器, 选项记录器, 变�
 
 const 立绘人物管理器 = new 立绘人物管理器类();
 
-const 设置当前日期 = (日期: 日期字符串) => 内部设置当前日期(日期, 时间管理器);
+const 设置当前日期 = (日期: 日期年月日字符串) => 内部设置当前日期(日期, 时间管理器);
 const 创建项链 = 项链菜单.创建项链.bind(项链菜单);
 const 收起项链 = 项链菜单.收起项链.bind(项链菜单);
 

@@ -1,4 +1,4 @@
-import type { 数值 } from "../运行时/全局常量.ts";
+import type { 字符串, 数值 } from "../运行时/全局常量.ts";
 import { 变量 } from "../运行时/易次元.ts";
 
 export type 月份 = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -98,9 +98,9 @@ export class 时间管理器类 {
     }
 
     /**
-     * @备注 返回的示例字符串 '1991-06-05'
+     * @备注 返回的示例 ISO 8601 字符串 '1991-06-05'
      */
-    获取当前日期字符串() {
+    获取当前日期标准字符串() {
         const 年 = this.#日期时间[0].toString().padStart(4, "0");
         const 月 = this.#日期时间[1].toString().padStart(2, "0");
         const 日 = this.#日期时间[2].toString().padStart(2, "0");
@@ -108,9 +108,23 @@ export class 时间管理器类 {
     }
 }
 
-export type 日期字符串 = `${数值}年${数值}月${数值}日`;
+export type 日期年月日字符串 = `${数值}年${数值}月${数值}日`;
 
-export function 设置当前日期(日期字符串: 日期字符串, 时间管理器: 时间管理器类) {
+export function 格式化为日期年月日字符串(日期字符串: 字符串) {
+    const 日期对象 = new Date(日期字符串);
+    const 格式化器 = new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "long", day: "numeric" });
+    const 格式化日期 = 格式化器.format(日期对象);
+    return 格式化日期 as 日期年月日字符串;
+}
+
+export function 格式化为日期标准字符串(日期字符串: 字符串) {
+    const 日期对象 = new Date(日期字符串);
+    const 格式化器 = new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" });
+    const 格式化日期 = 格式化器.format(日期对象);
+    return 格式化日期 as `${数值}-${数值}-${数值}`;
+}
+
+export function 设置当前日期(日期字符串: 日期年月日字符串, 时间管理器: 时间管理器类) {
     const 正则模式 = /(\d{4})年(\d{1,2})月(\d{1,2})日/g;
     const 匹配结果 = 正则模式.exec(日期字符串);
     if (匹配结果) {

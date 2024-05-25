@@ -1,7 +1,6 @@
 import type { 字符串, 数值, 选择状态 } from "../运行时/全局常量.ts";
 import { 已选择, 未定义, 未选择 } from "../运行时/全局常量.ts";
 import { 变量 } from "../运行时/易次元.ts";
-
 type 任意 = any;
 export type 执行器 = (变量对象: 任意) => 任意;
 
@@ -63,6 +62,10 @@ export class 记录类 {
 
     get 日期() {
         return this.#日期;
+    }
+
+    get 日期对象() {
+        return new Date(this.#日期);
     }
 
     get 描述() {

@@ -19,6 +19,11 @@ export class 日记页类 {
     get 日期() {
         return this.#配置.日期;
     }
+
+    get 日期对象() {
+        return new Date(this.#配置.日期);
+    }
+
     get 资源标识() {
         return this.#配置.资源标识();
     }
