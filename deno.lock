@@ -140,12 +140,13 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@biomejs/biome@^1.5.3",
+        "npm:@biomejs/biome@^1.7.3",
         "npm:@rollup/plugin-node-resolve@^15.2.3",
         "npm:@rollup/plugin-typescript@^11.1.6",
-        "npm:rollup@^4.12.0",
+        "npm:rollup@^4.18.0",
         "npm:rxjs@^7.8.1",
-        "npm:typescript@^5.3.3"
+        "npm:temporal-polyfill@^0.2.4",
+        "npm:typescript@^5.4.5"
       ]
     }
   }
