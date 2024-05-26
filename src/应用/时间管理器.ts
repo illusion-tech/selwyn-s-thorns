@@ -112,16 +112,10 @@ export type 日期年月日字符串 = `${数值}年${数值}月${数值}日`;
 
 export function 格式化为日期年月日字符串(日期字符串: 字符串) {
     const 日期对象 = new Date(日期字符串);
-    const 格式化器 = new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "long", day: "numeric" });
-    const 格式化日期 = 格式化器.format(日期对象);
-    return 格式化日期 as 日期年月日字符串;
-}
-
-export function 格式化为日期标准字符串(日期字符串: 字符串) {
-    const 日期对象 = new Date(日期字符串);
-    const 格式化器 = new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" });
-    const 格式化日期 = 格式化器.format(日期对象);
-    return 格式化日期 as `${数值}-${数值}-${数值}`;
+    const 年 = 日期对象.getFullYear();
+    const 月 = 日期对象.getMonth() + 1; // 月份从0开始，需要加1
+    const 日 = 日期对象.getDate();
+    return `${年}年${月}月${日}日` as 日期年月日字符串;
 }
 
 export function 设置当前日期(日期字符串: 日期年月日字符串, 时间管理器: 时间管理器类) {
